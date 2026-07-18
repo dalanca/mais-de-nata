@@ -1,0 +1,818 @@
+/* =========================================================
+   MAIS DE NATA — HOMEPAGE
+   Import this file AFTER App.css
+========================================================= */
+
+:root {
+  --home-bg: #faf8f4;
+  --home-text: #222222;
+  --home-muted: #555555;
+  --home-gold: #b98526;
+  --home-gold-light: #ecd7aa;
+  --home-line: #e2d8ca;
+  --home-dark: #221c1b;
+  --home-white: #ffffff;
+}
+
+/* ---------- Hero ---------- */
+
+.tramHero {
+  width: 100%;
+  min-height: 92vh;
+  margin: 0;
+  padding: 0 48px 80px;
+  color: var(--home-white);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.homeNavbar.heroNavbar {
+  position: relative;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 0;
+}
+
+.homeLogo.heroLogo {
+  color: var(--home-white);
+  text-decoration: none;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.homeLogo.heroLogo span {
+  display: block;
+  margin-top: 7px;
+  color: rgba(255, 255, 255, 0.76);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.homeNavLinks.heroNavLinks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 42px;
+
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.homeNavLinks.heroNavLinks a {
+  display: inline-flex;
+  align-items: center;
+
+  white-space: nowrap;
+
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.homeNavLinks.heroNavLinks a:hover {
+  opacity: 0.75;
+}
+
+.languageToggle {
+  min-width: 48px;
+  padding: 10px 14px;
+  color: var(--home-white);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.languageToggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mobileMenuButton {
+  display: none;
+}
+
+.tramHeroContent {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 110px;
+}
+
+.tramHeroContent h1 {
+  max-width: 900px;
+  margin: 0 0 28px;
+  color: var(--home-white);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(58px, 8vw, 110px);
+  line-height: 0.92;
+}
+
+.tramHeroContent p {
+  max-width: 760px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 23px;
+  line-height: 1.6;
+}
+
+/* ---------- Nata story ---------- */
+
+.nataStorySection {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(360px, 1.15fr) minmax(300px, 0.95fr);
+  gap: 34px;
+  align-items: center;
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 54px 48px 42px;
+  overflow: hidden;
+}
+
+.nataStoryIntro {
+  min-width: 0;
+}
+
+.nataStoryIntro .sectionLabel {
+  display: none;
+}
+
+.nataStoryIntro h2 {
+  margin: 0 0 24px;
+  color: var(--home-text);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(42px, 4vw, 60px);
+  line-height: 1;
+}
+
+.nataStoryIntro p {
+  max-width: 390px;
+  margin: 0;
+  color: #333333;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.nataStoryVisual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 310px;
+}
+
+.goldDotCircle {
+  position: absolute;
+  z-index: 1;
+  width: 430px;
+  height: 430px;
+  border-radius: 50%;
+  background-image: radial-gradient(#d8ab53 4px, transparent 4px);
+  background-size: 30px 30px;
+  opacity: 0.38;
+}
+
+.nataStoryImage {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 520px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  filter: contrast(1.03);
+}
+
+.nataStoryCard {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.storyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #f5ecdc;
+  font-size: 32px;
+}
+
+.nataStoryCard .goldLabel {
+  margin: 0 0 14px;
+  color: var(--home-gold);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.nataStoryCard p {
+  max-width: 350px;
+  margin: 0;
+  color: var(--home-text);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* ---------- Homepage Why Mais de Nata ---------- */
+
+.homeWhySection {
+  width: 100%;
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 38px 48px 72px;
+}
+
+.homeWhySection > h2 {
+  max-width: 100%;
+  margin: 0 0 42px;
+  color: #222;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(36px, 3.5vw, 52px);
+  line-height: 1.08;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+  text-align: center;
+}
+
+.homeWhyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+}
+
+.homeWhyCard {
+  min-width: 0;
+  padding: 0 20px;
+  text-align: center;
+  border-right: 1px solid #e2d8ca;
+}
+
+.homeWhyCard:last-child {
+  border-right: none;
+}
+
+.homeWhyIconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #ecd7aa 1.5px, transparent 1.6px)
+      0 0 / 8px 8px,
+    #fbf6ea;
+}
+
+.homeWhyIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  color: #c58a21;
+  font-size: 38px;
+  line-height: 1;
+}
+
+.homeWhyIcon-flag::before {
+  content: "⚑";
+}
+
+.homeWhyIcon-flame::before {
+  content: "♨";
+}
+
+.homeWhyIcon-check::before {
+  content: "✓";
+}
+
+.homeWhyIcon-star::before {
+  content: "☆";
+}
+
+.homeWhyCopy h3 {
+  margin: 0 0 14px;
+  color: #222;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.homeWhyCopy p {
+  max-width: 240px;
+  margin: 0 auto;
+  color: #222;
+  font-size: 17px;
+  line-height: 1.45;
+}
+@media (max-width: 1000px) {
+  .homeWhySection {
+    padding: 48px 24px 62px;
+  }
+
+  .homeWhySection > h2 {
+    max-width: 760px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+  }
+
+  .homeWhyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .homeWhyCard {
+    padding: 30px 22px;
+    border-right: 1px solid #e2d8ca;
+    border-bottom: 1px solid #e2d8ca;
+  }
+
+  .homeWhyCard:nth-child(2n) {
+    border-right: none;
+  }
+
+  .homeWhyCard:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .homeWhySection {
+    padding: 46px 22px 54px;
+  }
+
+  .homeWhySection > h2 {
+    max-width: 700px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+  .homeWhyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .homeWhyCard {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+
+    width: 100%;
+    padding: 24px 0;
+
+    text-align: left;
+    border-right: none;
+    border-bottom: 1px solid #e2d8ca;
+  }
+
+  .homeWhyCard:nth-last-child(-n + 2) {
+    border-bottom: 1px solid #e2d8ca;
+  }
+
+  .homeWhyCard:last-child {
+    border-bottom: none;
+  }
+
+  .homeWhyIconWrap {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+  }
+
+  .homeWhyIcon {
+    width: 34px;
+    height: 34px;
+    font-size: 32px;
+  }
+
+  .homeWhyCopy {
+    min-width: 0;
+  }
+
+  .homeWhyCopy h3 {
+    margin: 0 0 7px;
+    font-size: 22px;
+    text-align: left;
+  }
+
+  .homeWhyCopy p {
+    max-width: none;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: left;
+  }
+}
+/* ---------- Footer ---------- */
+
+.siteFooter {
+  margin-top: 0;
+  padding: 42px 24px 22px;
+  color: var(--home-white);
+  background: var(--home-dark);
+}
+
+.footerInner {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footerBrand {
+  text-align: center;
+}
+
+.footerBrand h3 {
+  margin: 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 32px;
+}
+
+.footerBrand > p:first-of-type {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 17px;
+}
+
+.footerTagline {
+  max-width: 520px;
+  margin: 10px auto 42px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px 60px;
+  margin-bottom: 32px;
+}
+
+.footerLinks a {
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.footerLinks a:hover {
+  color: #d8ab53;
+}
+
+.footerBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  color: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 14px;
+}
+
+.footerBottom a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+/* ---------- Tablet ---------- */
+
+@media (max-width: 1000px) {
+  .tramHero {
+    min-height: 86vh;
+    padding: 0 24px 64px;
+  }
+
+  .homeNavbar.heroNavbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    padding: 22px 0;
+  }
+
+  .homeLogo.heroLogo {
+    font-size: 27px;
+  }
+.heroLogoImage {
+  display: block;
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+}
+  .mobileMenuButton {
+    position: relative;
+    z-index: 30;
+    display: block;
+    width: 46px;
+    height: 46px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .mobileMenuButton span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    margin: 5px auto;
+    background: var(--home-white);
+    border-radius: 999px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  .mobileMenuButton.isOpen span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .mobileMenuButton.isOpen span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobileMenuButton.isOpen span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .homeNavLinks.heroNavLinks {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+    padding: 16px 18px 18px;
+    background: rgba(34, 28, 27, 0.98);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  }
+
+  .homeNavLinks.heroNavLinks.mobileMenuOpen {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .homeNavLinks.heroNavLinks a {
+    width: 100%;
+    padding: 14px 10px;
+    text-align: center;
+    white-space: normal;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .homeNavLinks.heroNavLinks a:last-of-type {
+    border-bottom: 0;
+  }
+
+  .homeNavLinks.heroNavLinks .languageToggle {
+    align-self: center;
+    margin-top: 14px;
+  }
+
+  .tramHeroContent {
+    padding-top: 74px;
+    text-align: center;
+  }
+
+  .tramHeroContent h1,
+  .tramHeroContent p {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .tramHeroContent p {
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .nataStorySection {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 54px 24px 42px;
+    text-align: center;
+  }
+
+  .nataStoryIntro,
+  .nataStoryCard {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .nataStoryIntro p,
+  .nataStoryCard p {
+    max-width: 620px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .nataStoryVisual {
+    min-height: 280px;
+  }
+
+  .nataStoryImage {
+    width: min(500px, 100%);
+  }
+
+  .goldDotCircle {
+    width: 360px;
+    height: 360px;
+  }
+
+  .nataStoryCard {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+  
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+  .tramHero {
+    min-height: 82vh;
+    padding: 0 20px 54px;
+  }
+
+  .homeNavbar.heroNavbar {
+    padding: 20px 0;
+  }
+
+  .homeLogo.heroLogo {
+    font-size: 25px;
+  }
+.heroLogoImage {
+  width: 58px;
+  height: 58px;
+}
+  .homeLogo.heroLogo span {
+    max-width: 245px;
+    font-size: 9px;
+    letter-spacing: 1.4px;
+  }
+
+  .tramHeroContent {
+    padding-top: 56px;
+  }
+
+  .tramHeroContent h1 {
+    font-size: clamp(46px, 13vw, 64px);
+    line-height: 0.95;
+  }
+
+  .tramHeroContent p {
+    max-width: 100%;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .nataStorySection {
+    padding: 46px 22px 38px;
+  }
+
+  .nataStoryIntro h2 {
+    font-size: clamp(38px, 10vw, 48px);
+    line-height: 1.04;
+    hyphens: none;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+  .nataStoryIntro p {
+    font-size: 17px;
+  }
+
+  .nataStoryVisual {
+    min-height: 245px;
+  }
+
+  .goldDotCircle {
+    width: 310px;
+    height: 310px;
+    max-width: 88vw;
+    max-height: 88vw;
+  }
+
+  .nataStoryCard p {
+    font-size: 16px;
+  }
+
+  
+  .siteFooter {
+    padding: 48px 22px 28px;
+  }
+
+  .footerLinks {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    gap: 13px;
+    text-align: center;
+  }
+}
+/* =====================================================
+   FORCE DESKTOP NAVIGATION ONTO ONE LINE
+===================================================== */
+
+@media (min-width: 600px) {
+  .homeNavbar.heroNavbar {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  
+
+  .homeNavLinks.heroNavLinks {
+    position: static !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+    gap: 36px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    white-space: nowrap !important;
+  }
+  .homeNavControls {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    margin-left: auto;
+  }
+  .homeNavLinks.heroNavLinks a {
+    display: inline-flex !important;
+    width: auto !important;
+    padding: 0 !important;
+    border: none !important;
+    white-space: nowrap !important;
+  }
+
+  .homeNavLinks.heroNavLinks .languageToggle {
+    align-self: center !important;
+    margin: 0 !important;
+  }
+
+  .mobileMenuButton {
+    display: none !important;
+  }
+}

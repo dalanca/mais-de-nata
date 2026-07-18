@@ -1,0 +1,595 @@
+.wholesalePage {
+  max-width: 1450px;
+  margin: 0 auto;
+  padding: 26px 40px 70px;
+}
+
+.wholesaleBack {
+  display: inline-flex;
+  margin-bottom: 18px;
+  color: #221c1b;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.wholesaleHero{
+  background:#2a1710;
+  color:white;
+
+  border-radius:28px;
+
+  padding: 30px 52px;
+
+  margin-bottom:10px;
+
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.wholesaleEyebrow{
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:13px;
+  font-weight:800;
+
+  color:rgba(255,255,255,.65);
+
+  margin:0 0 14px;
+}
+
+.wholesaleHero h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(42px,5vw,68px);
+  line-height:.95;
+  margin:0 0 12px;
+}
+
+.wholesaleHero p{
+  font-size:19px;
+  color:rgba(255,255,255,.88);
+
+  max-width:620px;
+
+  margin: 0 0 16px;
+  line-height: 1.4;
+}
+
+.wholesaleHeroBadges{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+
+  margin-top:26px;
+}
+
+.wholesaleHeroBadges span{
+  padding:10px 18px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.10);
+
+  border:1px solid rgba(255,255,255,.20);
+
+  font-weight:600;
+  font-size:15px;
+}
+
+.wholesaleHeroSteps h3{
+  margin:0 0 22px;
+
+  color:white;
+
+  font-family:"Playfair Display",serif;
+
+  font-size:30px;
+}
+
+.wholesaleHeroStep{
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  margin-bottom:18px;
+
+  color:white;
+
+  font-size:17px;
+}
+
+.wholesaleHeroStep span{
+  width:34px;
+  height:34px;
+
+  border-radius:50%;
+
+  background:white;
+  color:#2a1710;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  font-weight:700;
+}
+
+.wholesaleFormBox {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  margin-top: 0px;
+}
+
+.wholesaleFormTitle {
+  text-align: center;
+  font-family: "Playfair Display", serif;
+  font-size: 48px;
+  line-height: 1.05;
+  margin: 0 0 32px;
+}
+
+.wholesaleForm {
+  width: 100%;
+}
+
+.wholesaleCheckout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.wholesaleLeft,
+.wholesaleDetails {
+  background: #f7f1ea;
+  border-radius: 28px;
+  padding: 20px;
+}
+
+.wholesaleInfoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+
+.wholesaleCard {
+  background: #fff;
+  border-radius: 22px;
+  padding: 28px 32px;
+}
+
+.wholesaleCard h4 {
+  margin: 0 0 14px;
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  line-height: 1.1;
+}
+
+.wholesaleCard p,
+.wholesaleSummaryRows p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 7px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.wholesaleCard p span,
+.wholesaleSummaryRows p span {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.wholesaleSummaryRows span{
+  font-size:18px;
+  color:#555;
+}
+
+.wholesaleSummaryRows strong{
+  font-size:22px;
+  font-weight:700;
+  color:#241b18;
+}
+
+.wholesaleSummaryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.wholesaleSummaryHeader h4 {
+  margin: 0;
+}
+
+.wholesaleSummaryHeader select {
+  width: 150px;
+  height: 50px;
+  border-radius: 16px;
+  border: 1px solid #ddd4cb;
+  background: #fff;
+  padding: 0 18px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #241b18;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.wholesaleSummaryHeader select:hover {
+  border-color: #c59a47;
+}
+
+.wholesaleSummaryHeader select:focus {
+  outline: none;
+  border-color: #c59a47;
+  box-shadow: 0 0 0 3px rgba(197,154,71,.15);
+}
+
+.wholesaleTotal {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #ddd;
+  margin-top: 14px;
+  padding-top: 14px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.wholesaleNotes {
+  margin-top: 14px;
+}
+
+.wholesaleNotes p {
+  margin: 5px 0;
+  font-size: 15px;
+  line-height: 1.35;
+  color: #444;
+}
+
+.wholesaleSubmitButton {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px 22px;
+  border-radius: 999px;
+  border: none;
+  background: #221c1b;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.wholesaleDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+.wholesaleDetails input,
+.wholesaleDetails textarea {
+  width: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-size: 16px;
+}
+
+.wholesaleSteps {
+  display: grid;
+  gap: 10px;
+  margin-top: -6px;
+}
+
+.wholesaleStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+
+.wholesaleStep span {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #3b2216;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.wholesaleStep p {
+  margin: 0;
+  color: #3b2216;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.wholesaleSummaryHeader {
+  margin-bottom: 10px;
+}
+
+.wholesaleSummaryRows p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 7px;
+  font-size: 16px;
+  line-height: 1.35;
+  color: #221c1b;
+}
+
+.wholesaleTotal {
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.wholesaleNotes {
+  margin-top: 10px;
+}
+
+.wholesaleNotes p {
+  margin: 3px 0;
+}
+
+.wholesaleSubmitButton {
+  margin-top: 16px;
+  padding: 14px 22px;
+}
+
+.wholesaleCheckout {
+  align-items: stretch;
+}
+
+.wholesaleDetails {
+  height: 100%;
+}
+
+.wholesaleLeft,
+.wholesaleDetails {
+  height: auto;
+  min-height: 0;
+}
+
+.wholesaleDetails textarea[name="deliveryAddress"] {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.wholesaleDetails textarea[name="notes"] {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.wholesaleSummaryRows {
+  max-width: none;
+  margin:24px 0;
+}
+
+.wholesaleSummaryRows p{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:10px 0;
+}
+
+.wholesaleSummaryRows {
+  width: 100%;
+  max-width: none;
+  margin: 18px 0 14px;
+}
+
+.wholesaleSummaryRows p {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 8px;
+}
+
+.wholesaleSummaryRows span {
+  text-align: left;
+}
+
+.wholesaleSummaryRows strong {
+  text-align: right;
+}
+
+.wholesaleCardTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+
+  font-size: clamp(30px, 2.2vw, 36px);
+  margin: 0 0 28px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.wholesaleCardIcon {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #f6e7c8;
+  color: #c88b1a;
+
+  font-size: 24px;
+}
+
+.wholesaleInfoGrid .wholesaleCard p {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0ebe6;
+  margin: 0;
+}
+
+.wholesaleInfoGrid .wholesaleCard p:last-of-type {
+  border-bottom: none;
+}
+
+.wholesaleInfoGrid .wholesaleCard p strong {
+  font-size: 16px;
+  color: #241b18;
+}
+
+.wholesaleInfoGrid .wholesaleCard p span {
+  font-size: 15px;
+  color: #6b625e;
+}
+
+.wholesaleInfoGrid .wholesaleCard p strong {
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.wholesaleInfoGrid .wholesaleCard p span {
+  font-size: 17px;
+  font-weight: 700;
+  color: #2a1710;
+}
+
+.wholesaleNotes {
+  background: #f7f1ea;
+  border-radius: 18px;
+  padding: 16px 18px;
+  margin-top: 18px;
+}
+
+.wholesaleNotes p {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: #4f4642;
+}
+
+.wholesaleNotes p:last-child {
+  margin-bottom: 0;
+}
+
+.wholesaleInfoGrid .wholesaleCard {
+  display: flex;
+  flex-direction: column;
+}
+
+.wholesaleInfoGrid .wholesaleCard .wholesaleCardTitle {
+  min-height: 58px;
+  margin-bottom: 46px;
+}
+
+.wholesaleCardTitle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 24px;
+  line-height: 1;
+}
+
+.wholesaleCardTitle span {
+  white-space: nowrap;
+}
+
+.wholesaleCard p strong,
+.wholesaleCard p span {
+  white-space: nowrap;
+}
+
+.wholesaleInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wholesaleInfoGrid > .wholesaleCard {
+  display: flex;
+  flex-direction: column;
+ }
+
+.wholesaleInfoGrid > .wholesaleCard .wholesaleCardTitle {
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.wholesaleInfoGrid > .wholesaleCard p {
+  width: 100%;
+}
+
+.wholesaleInfoGrid > .wholesaleCard {
+  min-height: 0;
+  display: block;
+}
+
+.wholesaleInfoGrid > .wholesaleCard .wholesaleCardTitle {
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.wholesaleCard {
+  padding: 26px 30px;
+}
+
+.wholesaleLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wholesaleSummaryCard {
+  margin-top: 0;
+  padding: 12px 30px 12px;
+}
+
+.wholesaleCheckout {
+  align-items: stretch;
+}
+
+.wholesaleLeft,
+.wholesaleDetails {
+  min-height: 100%;
+}
+
+.wholesaleDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.wholesaleDetails textarea[name="notes"] {
+  flex: 1;
+  min-height: 110px;
+}
+@media (max-width: 900px) {
+  .wholesalePage {
+    padding: 22px 20px 55px;
+  }
+
+  .wholesaleCheckout,
+  .wholesaleInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .wholesaleFormBox {
+    padding: 26px;
+  }
+}
+
