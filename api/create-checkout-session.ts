@@ -1,5 +1,5 @@
 import Stripe from 'stripe';
-import type { CheckoutRequest } from '../shared/checkout-types';
+import type { CheckoutRequest } from '../shared/checkout-types.js';
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
 if (!stripeSecretKey) {
