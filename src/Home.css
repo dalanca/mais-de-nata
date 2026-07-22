@@ -39,7 +39,14 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 28px 0;
+  padding: 22px 0;
+}
+.heroLogoImage {
+  display: block;
+  width: 92px;
+  height: 92px;
+  margin: 0;
+  object-fit: contain;
 }
 
 .homeLogo.heroLogo {
@@ -67,9 +74,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
   gap: 42px;
-
   flex-wrap: nowrap;
   white-space: nowrap;
 }
@@ -77,30 +82,18 @@
 .homeNavLinks.heroNavLinks a {
   display: inline-flex;
   align-items: center;
-
-  white-space: nowrap;
-
+  width: auto;
+  padding: 0;
   color: white;
+  text-align: left;
   text-decoration: none;
+  white-space: nowrap;
   font-size: 15px;
   font-weight: 700;
+  border: 0;
 }
-
 .homeNavLinks.heroNavLinks a:hover {
   opacity: 0.75;
-}
-
-.languageToggle {
-  min-width: 48px;
-  padding: 10px 14px;
-  color: var(--home-white);
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  border-radius: 999px;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .languageToggle:hover {
@@ -119,16 +112,16 @@
 }
 
 .tramHeroContent h1 {
-  max-width: 900px;
+  max-width: 680px;
   margin: 0 0 28px;
   color: var(--home-white);
   font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(58px, 8vw, 110px);
-  line-height: 0.92;
+  font-size: clamp(52px, 8vw, 76px);
+  line-height: 0.94;
 }
 
 .tramHeroContent p {
-  max-width: 760px;
+  max-width: 680px;
   margin: 0;
   color: rgba(255, 255, 255, 0.92);
   font-size: 23px;
@@ -509,7 +502,9 @@
   text-decoration: none;
 }
 
-/* ---------- Tablet ---------- */
+/* =========================================================
+   TABLET
+========================================================= */
 
 @media (max-width: 1000px) {
   .tramHero {
@@ -518,33 +513,48 @@
   }
 
   .homeNavbar.heroNavbar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     padding: 22px 0;
   }
 
   .homeLogo.heroLogo {
-    font-size: 27px;
+    display: block;
+    flex: 0 0 auto;
+    margin: 0;
   }
-.heroLogoImage {
-  display: block;
-  width: 78px;
-  height: 78px;
-  object-fit: contain;
+
+  .heroLogoImage {
+    display: block;
+    width: 74px;
+    height: 74px;
+    margin: 0;
+    object-fit: contain;
+  }
+
+.homeNavControls {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-left: auto;
 }
-  .mobileMenuButton {
+.mobileMenuButton {
     position: relative;
     z-index: 30;
     display: block;
     width: 46px;
     height: 46px;
     padding: 10px;
-    background: rgba(0, 0, 0, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.55);
-    border-radius: 50%;
+    background: transparent;
+    border: none;
     cursor: pointer;
-  }
+}
 
   .mobileMenuButton span {
     display: block;
@@ -553,7 +563,9 @@
     margin: 5px auto;
     background: var(--home-white);
     border-radius: 999px;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transition:
+      transform 0.25s ease,
+      opacity 0.25s ease;
   }
 
   .mobileMenuButton.isOpen span:nth-child(1) {
@@ -568,29 +580,27 @@
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  .homeNavLinks.heroNavLinks {
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    left: 0;
-    z-index: 25;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    gap: 0;
-    padding: 16px 18px 18px;
-    background: rgba(34, 28, 27, 0.98);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    border-radius: 18px;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(-8px);
-    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-  }
+.homeNavLinks.heroNavLinks a {
+  display: block;
+  width: 100%;
+  padding: 9px 8px;
+  color: white;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
+.homeNavLinks.heroNavLinks a:last-of-type {
+  border-bottom: 0;
+}
+
+.homeNavLinks.heroNavLinks a:last-of-type {
+  border-bottom: 0;
+}
   .homeNavLinks.heroNavLinks.mobileMenuOpen {
     opacity: 1;
     visibility: visible;
@@ -598,23 +608,36 @@
     transform: translateY(0);
   }
 
-  .homeNavLinks.heroNavLinks a {
-    width: 100%;
-    padding: 14px 10px;
-    text-align: center;
-    white-space: normal;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  }
+.homeNavLinks.heroNavLinks {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  left: auto;
+  z-index: 25;
 
-  .homeNavLinks.heroNavLinks a:last-of-type {
-    border-bottom: 0;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
-  .homeNavLinks.heroNavLinks .languageToggle {
-    align-self: center;
-    margin-top: 14px;
-  }
+  width: 300px;
+  gap: 0;
+  padding: 6px 12px;
 
+  background: rgba(34, 28, 27, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-6px);
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease;
+}
   .tramHeroContent {
     padding-top: 74px;
     text-align: center;
@@ -670,9 +693,39 @@
     grid-template-columns: 1fr;
     justify-items: center;
   }
+
+  .homeWhySection {
+    padding: 48px 24px 62px;
+  }
+
+  .homeWhySection > h2 {
+    max-width: 760px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .homeWhyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .homeWhyCard {
+    padding: 30px 22px;
+    border-right: 1px solid #e2d8ca;
+    border-bottom: 1px solid #e2d8ca;
+  }
+
+  .homeWhyCard:nth-child(2n) {
+    border-right: none;
+  }
+
+  .homeWhyCard:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
 }
-  
-/* ---------- Mobile ---------- */
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width: 600px) {
   .tramHero {
@@ -681,20 +734,16 @@
   }
 
   .homeNavbar.heroNavbar {
-    padding: 20px 0;
+    padding: 22px 0;
   }
 
-  .homeLogo.heroLogo {
-    font-size: 25px;
+  .heroLogoImage {
+    width: 64px;
+    height: 64px;
   }
-.heroLogoImage {
-  width: 58px;
-  height: 58px;
-}
-  .homeLogo.heroLogo span {
-    max-width: 245px;
-    font-size: 9px;
-    letter-spacing: 1.4px;
+
+  .homeNavControls {
+    gap: 10px;
   }
 
   .tramHeroContent {
@@ -743,7 +792,71 @@
     font-size: 16px;
   }
 
-  
+  .homeWhySection {
+    padding: 46px 22px 54px;
+  }
+
+  .homeWhySection > h2 {
+    max-width: 700px;
+    margin: 0 auto 32px;
+  }
+
+  .homeWhyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .homeWhyCard {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+
+    width: 100%;
+    padding: 24px 0;
+
+    text-align: left;
+    border-right: none;
+    border-bottom: 1px solid #e2d8ca;
+  }
+
+  .homeWhyCard:nth-last-child(-n + 2) {
+    border-bottom: 1px solid #e2d8ca;
+  }
+
+  .homeWhyCard:last-child {
+    border-bottom: none;
+  }
+
+  .homeWhyIconWrap {
+    width: 72px;
+    height: 72px;
+    margin: 0;
+  }
+
+  .homeWhyIcon {
+    width: 34px;
+    height: 34px;
+    font-size: 32px;
+  }
+
+  .homeWhyCopy {
+    min-width: 0;
+  }
+
+  .homeWhyCopy h3 {
+    margin: 0 0 7px;
+    font-size: 22px;
+    text-align: left;
+  }
+
+  .homeWhyCopy p {
+    max-width: none;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
   .siteFooter {
     padding: 48px 22px 28px;
   }
@@ -760,59 +873,349 @@
     text-align: center;
   }
 }
-/* =====================================================
-   FORCE DESKTOP NAVIGATION ONTO ONE LINE
-===================================================== */
+/* =========================================================
+   FINAL RESPONSIVE NAVIGATION
+========================================================= */
 
-@media (min-width: 600px) {
+@media (max-width: 1000px) {
+  .homeNavbar.heroNavbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .homeLogo.heroLogo {
+    display: block;
+    flex: 0 0 auto;
+    width: 110px;
+    height: 110px;
+    margin: 0;
+  }
+
+  .heroLogoImage {
+    display: block;
+    width: 110px;
+    height: 110px;
+    margin: 0;
+    object-fit: contain;
+  }
+
+  .homeNavControls {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 16px;
+    width: auto;
+    margin-left: auto;
+  }
+
+  .homeNavLinks.heroNavLinks {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 16px;
+
+    width: auto;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  .homeNavLinks.heroNavLinks a,
+  .languageToggle {
+    display: inline-flex;
+    align-items: baseline;
+
+    width: auto;
+    margin: 0;
+    padding: 0;
+
+    color: white;
+    background: transparent;
+    border: 0;
+
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .mobileMenuButton {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .tramHero {
+    padding: 0 18px 54px;
+  }
+
+}
+  .homeNavbar.heroNavbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+  }
+.languageToggle {
+  position: relative !important;
+  top: 0px !important;
+}
+  .homeLogo.heroLogo {
+    width: 82px;
+    height: 82px;
+    flex: 0 0 82px;
+  }
+
+  .heroLogoImage {
+    width: 82px;
+    height: 82px;
+  }
+
+  .homeNavControls {
+    width: 100%;
+    margin: 0;
+    gap: 50px;
+    justify-content: center;
+  }
+
+  .homeNavLinks.heroNavLinks {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .homeNavLinks.heroNavLinks a,
+  .languageToggle {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .tramHeroContent {
+    padding-top: 30px;
+  }
+
+  .tramHeroContent h1 {
+    max-width: 100%;
+    font-size: clamp(40px, 12vw, 52px);
+    line-height: 0.96;
+  }
+
+  .tramHeroContent p {
+    max-width: 100%;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+/* Tablet: keep logo and navigation on one row */
+@media (min-width: 601px) and (max-width: 1000px) {
   .homeNavbar.heroNavbar {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
     justify-content: space-between !important;
+    gap: 24px !important;
+    padding: 22px 0 !important;
   }
-  
+
+  .homeLogo.heroLogo {
+    display: block !important;
+    width: 140px !important;
+    height: 140px !important;
+    flex: 0 0 140px !important;
+    margin: 0 !important;
+  }
+
+  .heroLogoImage {
+    display: block !important;
+    width: 140px !important;
+    height: 140px !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+  }
+
+  .homeNavControls {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    justify-content: flex-end !important;
+    gap: 24px !important;
+    width: auto !important;
+    margin: 0 0 0 auto !important;
+  }
 
   .homeNavLinks.heroNavLinks {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: baseline !important;
+    justify-content: flex-end !important;
+    gap: 18px !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .homeNavLinks.heroNavLinks a,
+  .languageToggle {
+    font-size: 13px !important;
+    white-space: nowrap !important;
+  }
+
+  .languageToggle {
+    margin-left: 10px !important;
+  }
+}
+/* =========================================================
+   FINAL DESKTOP + TABLET NAVBAR
+   Applies above mobile width
+========================================================= */
+
+@media (min-width: 601px) {
+  .homeNavbar.heroNavbar {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    width: 100% !important;
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    padding: 22px 0 !important;
+  }
+
+  .homeNavbar.heroNavbar > .homeLogo.heroLogo {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+
+    width: 140px !important;
+    height: 140px !important;
+    flex: 0 0 140px !important;
+
+    margin: 0 !important;
+    transform: none !important;
+  }
+@media (min-width: 1001px) and (max-width: 1200px) {
+  .nataStorySection {
+    grid-template-columns: minmax(260px, 0.9fr) minmax(340px, 1.1fr);
+    grid-template-areas:
+      "intro visual"
+      "card card";
+
+    gap: 30px;
+    padding: 54px 40px 42px;
+  }
+
+  .nataStoryIntro {
+    grid-area: intro;
+  }
+
+  .nataStoryVisual {
+    grid-area: visual;
+  }
+
+  .nataStoryCard {
+    grid-area: card;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nataStoryCard p {
+    max-width: 560px;
+  }
+}
+  .homeNavbar.heroNavbar > .homeLogo.heroLogo > .heroLogoImage {
+    display: block !important;
+    width: 140px !important;
+    height: 140px !important;
+    max-width: none !important;
+    margin: 0 !important;
+    object-fit: contain !important;
+  }
+
+  .homeNavbar.heroNavbar > .homeNavControls {
     position: static !important;
     display: flex !important;
     flex-direction: row !important;
-    align-items: center !important;
+    flex-wrap: nowrap !important;
+    align-items: baseline !important;
     justify-content: flex-end !important;
+
     width: auto !important;
-    max-width: none !important;
+    margin: 0 0 0 auto !important;
+    gap: 26px !important;
+    transform: none !important;
+  }
+
+  .homeNavLinks.heroNavLinks {
+    position: static !important;
+    inset: auto !important;
+
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: baseline !important;
+    justify-content: flex-end !important;
+
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
     padding: 0 !important;
-    gap: 36px !important;
+    gap: 22px !important;
+
     background: transparent !important;
-    border: none !important;
+    border: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
     transform: none !important;
-    white-space: nowrap !important;
   }
-  .homeNavControls {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    margin-left: auto;
-  }
-  .homeNavLinks.heroNavLinks a {
+
+  .homeNavLinks.heroNavLinks a,
+  .languageToggle {
+    position: static !important;
     display: inline-flex !important;
+    align-items: baseline !important;
+
     width: auto !important;
-    padding: 0 !important;
-    border: none !important;
-    white-space: nowrap !important;
-  }
-
-  .homeNavLinks.heroNavLinks .languageToggle {
-    align-self: center !important;
+    height: auto !important;
     margin: 0 !important;
+    padding: 0 !important;
+
+    color: white !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+
+    transform: none !important;
+    top: auto !important;
   }
 
-  .mobileMenuButton {
-    display: none !important;
+  .languageToggle {
+    margin-left: 6px !important;
+    cursor: pointer !important;
   }
 }

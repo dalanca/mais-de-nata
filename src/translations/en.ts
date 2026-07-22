@@ -1,6 +1,6 @@
 const en = {
   // Navigation
-  navProductInfo: "Product Information",
+  navProductInfo: "Product",
   navWholesaleOrder: "Wholesale",
   navContact: "Contact",
 
@@ -16,8 +16,8 @@ productInfoBackHome: "← Home",
 productInfoTitle: "Pastéis de Nata for Wholesale",
 productInfoIntro:
   "Authentic Portuguese Pastéis de Nata, handmade in Portugal using a traditional recipe perfected over 80 years. Deliver your customers the same premium nata experience they remember from Lisbon.",
-productInfoFactBox: "72 units per box",
-productInfoFactTime: "Ready in 12–15 minutes",
+productInfoFactBox: "📦 72 pcs per box",
+productInfoFactTime: "🔥 Ready in 12–15 minutes",
 productInfoImageAlt: "Freshly baked Pastéis de Nata",
 
 productOverviewTitle: "Product Overview",
@@ -98,8 +98,105 @@ businessTypes: [
   "Online Retailers",
   "Catering Operators",
 ],
+  /* ==========================
+     OUR PASTÉIS (B2C)
+  ========================== */
 
-// Product Information
+  ourPasteisBackHome: "← Home",
+  ourPasteisEyebrow: "Authentic Pastéis de Nata",
+  ourPasteisTitle: "The Taste of Lisbon, Freshly Baked in Prague.",
+  ourPasteisIntro:
+    "Authentic Portuguese Pastéis de Nata, handmade in Portugal and baked fresh for you in Prague.",
+  ourPasteisOrderButton: "Order Fresh",
+  /* ==========================
+     Why mais de nata (B2C)
+  ========================== */
+  ourPasteisWhyEyebrow: "Why Mais de Nata",
+ourPasteisWhyTitle: "Authentic Portuguese craft, baked fresh for Prague.",
+ourPasteisWhyIntro:
+  "From traditional Portuguese production to the moment they come out of the oven, every detail is focused on delivering an exceptional Pastel de Nata.",
+
+ourPasteisWhyPortugalTitle: "Handmade in Portugal",
+ourPasteisWhyPortugalText:
+  "Produced in Portugal using traditional methods and a recipe perfected over generations.",
+
+ourPasteisWhyFreshTitle: "Freshly Baked",
+ourPasteisWhyFreshText:
+  "Baked fresh in Prague for a crisp, flaky pastry and a warm, creamy custard centre.",
+
+ourPasteisWhyLisbonTitle: "The Taste of Lisbon",
+ourPasteisWhyLisbonText:
+  "An authentic Portuguese experience that brings the flavour and atmosphere of Lisbon closer to home.",
+
+  /* ==========================
+     Choose Your Box (B2C)
+  ========================== */
+ourPasteisBoxesEyebrow: "Choose Your Box",
+ourPasteisBoxesTitle: "Freshly baked and ready to enjoy.",
+ourPasteisBoxesIntro:
+  "Choose the box that suits the moment, from a coffee break for two to a generous taste of Lisbon for family, friends and celebrations.",
+
+ourPasteisBoxFourTitle: "4 Pastéis",
+ourPasteisBoxFourText: "Perfect for sharing over coffee.",
+ourPasteisBoxFourButton: "Order Fresh →",
+
+ourPasteisBoxSixTitle: "6 Pastéis",
+ourPasteisBoxSixText: "Our most popular choice for sharing.",
+ourPasteisBoxSixButton: "Order Fresh →",
+ourPasteisBoxSixBadge: "Most Popular",
+
+ourPasteisBoxTwelveTitle: "12 Pastéis",
+ourPasteisBoxTwelveText: "Ideal for family, friends, brunch or the office.",
+ourPasteisBoxTwelveButton: "Order Fresh →",
+
+ourPasteisBoxEighteenTitle: "18 Pastéis",
+ourPasteisBoxEighteenText: "Perfect for celebrations, gatherings and generous gifting.",
+ourPasteisBoxEighteenButton: "Order Fresh →",
+
+  /* ==========================
+     Order Fresh (B2C)
+  ========================== */
+  orderFreshBackHome: "← Home",
+orderFreshEyebrow: "Order Fresh",
+orderFreshTitle: "Freshly Baked Pastéis de Nata",
+orderFreshIntro:
+  "Choose your box, delivery method and preferred time. Your Pastéis will be baked fresh for your order.",
+
+orderFreshChooseBox: "Choose Your Box",
+orderFreshMostPopular: "Most Popular",
+
+orderFreshBoxFour: "4 Pastéis",
+orderFreshBoxSix: "6 Pastéis",
+orderFreshBoxTwelve: "12 Pastéis",
+orderFreshBoxEighteen: "18 Pastéis",
+
+orderFreshFulfilmentTitle: 'Delivery method',
+orderFreshDelivery: "Delivery",
+
+orderFreshDateLabel: "Preferred Date",
+orderFreshTimeLabel: "Preferred Time",
+orderFreshTimeAsap: "As soon as possible",
+orderFreshTimeMorning: "Morning — 10:00–12:00",
+orderFreshTimeAfternoon: "Afternoon — 12:00–17:00",
+orderFreshTimeEvening: "Evening — 17:00–20:00",
+
+orderFreshSummaryTitle: "Order Summary",
+orderFreshSummaryProduct: "Freshly Baked Pastéis de Nata",
+orderFreshSummaryBox: "Box",
+orderFreshSummaryMethod: "Method",
+orderFreshSummaryDate: "Date",
+orderFreshSummaryTime: "Time",
+orderFreshSummarySubtotal: "Subtotal",
+orderFreshSummaryDelivery: "Delivery",
+orderFreshSummaryTotal: "Total",
+
+orderFreshDeliveryCalculated: "Calculated at checkout",
+orderFreshAddToCart: "Add to Cart",
+orderFreshContinueCheckout: "Continue to Checkout",
+
+orderFreshDeliveryText: 'Freshly baked and delivered to your address',
+
+  // Product Information
 
 technicalInfoTitle: "Product Information",
 
@@ -180,5 +277,7 @@ footerTagline:
 
 footerBackToTop: "↑ Back to top",
 }
+//B2C Why Mais de Nata
+
 
 export default en

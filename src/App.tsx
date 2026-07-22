@@ -1,64 +1,63 @@
-import { useState } from "react"
-import "./App.css"
-import "./Home.css"
-import tramBg from "./assets/images/lisbon-tram.png"
-import nataTransparent from "./assets/images/nata-transparent.png"
-import { useLanguage } from "./LanguageContext"
-import logo from "./assets/images/mais-de-nata-logo.png"
+import "./App.css";
+import "./Home.css";
+
+import tramBg from "./assets/images/lisbon-tram.png";
+import nataTransparent from "./assets/images/nata-transparent.png";
+import logo from "./assets/images/mais-de-nata-logo.png";
+
+import { useLanguage } from "./LanguageContext";
 
 function App() {
-  const { language, setLanguage, t } = useLanguage()
-  const [menuOpen, setMenuOpen] = useState(false)
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <main>
       <section
         className="homeHero tramHero"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,.45), rgba(0,0,0,.45)), url(${tramBg})`,
+          backgroundImage: `linear-gradient(
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.45)
+          ), url(${tramBg})`,
         }}
       >
         <nav className="homeNavbar heroNavbar">
-<a href="/" className="homeLogo heroLogo">
-  <img
-    src={logo}
-    alt="Mais de Nata"
-    className="heroLogoImage"
-  />
-</a>
+          <a href="/" className="homeLogo heroLogo">
+            <img
+              src={logo}
+              alt="Mais de Nata"
+              className="heroLogoImage"
+            />
+          </a>
 
           <div className="homeNavControls">
-  <div
-    id="homepage-navigation"
-    className={`homeNavLinks heroNavLinks ${
-      menuOpen ? "mobileMenuOpen" : ""
-    }`}
-  >
-    <a href="/product-information" onClick={() => setMenuOpen(false)}>
-      {t.navProductInfo}
-    </a>
+            <div
+              id="homepage-navigation"
+              className="homeNavLinks heroNavLinks"
+            >
+              <a href="/product-information">
+                {t.navProductInfo}
+              </a>
 
-    <a href="/wholesale-order" onClick={() => setMenuOpen(false)}>
-      {t.navWholesaleOrder}
-    </a>
+              <a href="/wholesale-order">
+                {t.navWholesaleOrder}
+              </a>
 
-    <a href="/register" onClick={() => setMenuOpen(false)}>
-      {t.navContact}
-    </a>
-  </div>
+              <a href="/register">
+                {t.navContact}
+              </a>
+            </div>
 
-  <button
-    type="button"
-    className="languageToggle"
-    onClick={() => {
-      setLanguage(language === "cs" ? "en" : "cs")
-      setMenuOpen(false)
-    }}
-  >
-    {language === "cs" ? "EN" : "CZ"}
-  </button>
-</div>
-
+<span
+  className="languageToggle"
+  onClick={() =>
+    setLanguage(language === "cs" ? "en" : "cs")
+  }
+  role="button"
+  tabIndex={0}
+>
+  {language === "cs" ? "EN" : "CZ"}
+</span>          </div>
         </nav>
 
         <div className="tramHeroContent">
@@ -106,54 +105,52 @@ function App() {
       </section>
 
       <section id="why-us" className="homeWhySection">
-  <h2>{t.whyUsHeading}</h2>
+        <h2>{t.whyUsHeading}</h2>
 
-  <div className="homeWhyGrid">
-    {[
-  ["flag", t.authentic, t.authenticText],
-  ["flame", t.flexible, t.flexibleText],
-  ["check", t.consistent, t.consistentText],
-  ["star", t.premium, t.premiumText],
-].map(([icon, title, text]) => (
-      <div className="homeWhyCard" key={title}>
-        <div className="homeWhyIconWrap">
-          <span className={`homeWhyIcon homeWhyIcon-${icon}`} />
-        </div>
+        <div className="homeWhyGrid">
+          {[
+            ["flag", t.authentic, t.authenticText],
+            ["flame", t.flexible, t.flexibleText],
+            ["check", t.consistent, t.consistentText],
+            ["star", t.premium, t.premiumText],
+          ].map(([icon, title, text]) => (
+            <div className="homeWhyCard" key={title}>
+              <div className="homeWhyIconWrap">
+                <span
+                  className={`homeWhyIcon homeWhyIcon-${icon}`}
+                />
+              </div>
 
-        <div className="homeWhyCopy">
-          <h3>{title}</h3>
-          <p>{text}</p>
+              <div className="homeWhyCopy">
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    ))}
-  </div>
-</section>
+      </section>
+
       <footer className="siteFooter">
         <div className="footerInner">
           <div className="footerBrand">
             <h3>MAIS DE NATA</h3>
             <p>{t.footerBrand}</p>
-
             <p className="footerTagline">{t.footerTagline}</p>
           </div>
 
           <div className="footerLinks">
-            <a href="/product-information">{t.navProductInfo}</a>
-            <a href="/wholesale-order">{t.navWholesaleOrder}</a>
-            <a href="/register">{t.navContact}</a>
+            <a href="/product-information">
+              {t.navProductInfo}
+            </a>
+
+            <a href="/wholesale-order">
+              {t.navWholesaleOrder}
+            </a>
+
+            <a href="/register">
+              {t.navContact}
+            </a>
           </div>
-          <button
-            type="button"
-            className={`mobileMenuButton ${menuOpen ? "isOpen" : ""}`}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            aria-controls="homepage-navigation"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
 
           <div className="footerBottom">
             <span>© 2026 Mais de Nata</span>
@@ -162,7 +159,7 @@ function App() {
         </div>
       </footer>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,7 +1,9 @@
+import '../App.css'
+import './Contact.css'
 function Register() {
   return (
 <main>
-  <section className="registerPage">
+  <section className="contactPage">
 
     <a href="/" className="pageBack">
     ← Home

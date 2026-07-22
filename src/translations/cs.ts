@@ -1,7 +1,7 @@
 const cs = {
   // Navigation
-  navProductInfo: "Informace o produktu",
-  navWholesaleOrder: "Velkoobchodní objednávka",
+  navProductInfo: "Produkt",
+  navWholesaleOrder: "Velkoobchod",
   navContact: "Kontakt",
 
   // Hero
@@ -10,14 +10,69 @@ const cs = {
 
   heroText:
     "Ručně vyráběné v Portugalsku podle tradiční receptury. Dodáváno zmrazené, abyste mohli péct čerstvé a podávat teplé kdykoliv během dne.",
+  /* ==========================
+     OUR PASTÉIS (B2C)
+  ========================== */
+  ourPasteisBackHome: "← Domů",
+ourPasteisEyebrow: "Autentické Pastéis de Nata",
+ourPasteisTitle: "Chuť Lisabonu, čerstvě upečená v Praze.",
+ourPasteisIntro:
+  "Autentické portugalské Pastéis de Nata, ručně vyráběné v Portugalsku a čerstvě pečené pro vás v Praze.",
+ourPasteisOrderButton: "Objednat čerstvé",
+  /* ==========================
+     Why mais de nata (B2C)
+  ========================== */
+  ourPasteisWhyEyebrow: "Proč Mais de Nata",
+ourPasteisWhyTitle: "Autentické portugalské řemeslo, čerstvě upečené pro Prahu.",
+ourPasteisWhyIntro:
+  "Od tradiční portugalské výroby až po okamžik, kdy jsou vytaženy z trouby, je každý detail zaměřen na výjimečný zážitek z Pastel de Nata.",
+
+ourPasteisWhyPortugalTitle: "Ručně vyráběné v Portugalsku",
+ourPasteisWhyPortugalText:
+  "Vyráběné v Portugalsku tradičními metodami podle receptury zdokonalované po generace.",
+
+ourPasteisWhyFreshTitle: "Čerstvě upečené",
+ourPasteisWhyFreshText:
+  "Čerstvě pečené v Praze pro dokonale křupavé listové těsto a teplý krémový střed.",
+
+ourPasteisWhyLisbonTitle: "Chuť Lisabonu",
+ourPasteisWhyLisbonText:
+  "Autentický portugalský zážitek, který přináší chuť a atmosféru Lisabonu blíže k vám.",
+    /* ==========================
+     Choose Your Box (B2C)
+  ========================== */
+
+ourPasteisBoxesEyebrow: "Vyberte si své balení",
+ourPasteisBoxesTitle: "Čerstvě upečené a připravené k vychutnání.",
+ourPasteisBoxesIntro:
+  "Vyberte si balení podle příležitosti — od společné chvíle u kávy až po štědrou chuť Lisabonu pro rodinu, přátele a oslavy.",
+
+ourPasteisBoxFourTitle: "4 Pastéis",
+ourPasteisBoxFourText: "Ideální ke sdílení u kávy.",
+ourPasteisBoxFourButton: "Objednat čerstvé →",
+
+ourPasteisBoxSixTitle: "6 Pastéis",
+ourPasteisBoxSixText: "Naše nejoblíbenější balení ke sdílení.",
+ourPasteisBoxSixButton: "Objednat čerstvé →",
+ourPasteisBoxSixBadge: "Nejoblíbenější",
+
+ourPasteisBoxTwelveTitle: "12 Pastéis",
+ourPasteisBoxTwelveText:
+  "Ideální pro rodinu, přátele, brunch nebo do kanceláře.",
+ourPasteisBoxTwelveButton: "Objednat čerstvé →",
+
+ourPasteisBoxEighteenTitle: "18 Pastéis",
+ourPasteisBoxEighteenText:
+  "Perfektní na oslavy, setkání a jako štědrý dárek.",
+ourPasteisBoxEighteenButton: "Objednat čerstvé →",
 
    // Product Information
 productInfoBackHome: "← Domů",
 productInfoTitle: "Pastéis de Nata pro velkoobchod",
 productInfoIntro:
   "Autentické portugalské Pastéis de Nata, ručně vyráběné v Portugalsku podle tradiční receptury zdokonalované více než 80 let. Nabídněte svým zákazníkům stejný prémiový zážitek, jaký znají z Lisabonu.",
-productInfoFactBox: "72 ks v balení",
-productInfoFactTime: "Hotové za 12–15 minut",
+productInfoFactBox: "📦 72 ks v kartonu",
+productInfoFactTime: "🔥 Hotové za 12–15 minut",
 productInfoImageAlt: "Čerstvě upečené Pastéis de Nata", 
 
 productOverviewTitle: "Přehled produktu",
@@ -28,6 +83,47 @@ productOverviewItems: [
   "Tradiční receptura zdokonalovaná více než 80 let",
   "Trvanlivost až 360 dní při zmrazení",
 ],
+    /* ==========================
+     Order Fresh (B2C)
+  ========================== */
+orderFreshBackHome: "← Domů",
+orderFreshEyebrow: "Objednat čerstvé",
+orderFreshTitle: "Čerstvě upečené Pastéis de Nata",
+orderFreshIntro:
+  "Vyberte si balení, způsob převzetí a preferovaný čas. Vaše Pastéis budou čerstvě upečené pro vaši objednávku.",
+
+orderFreshChooseBox: "Vyberte si balení",
+orderFreshMostPopular: "Nejoblíbenější",
+
+orderFreshBoxFour: "4 Pastéis",
+orderFreshBoxSix: "6 Pastéis",
+orderFreshBoxTwelve: "12 Pastéis",
+orderFreshBoxEighteen: "18 Pastéis",
+
+orderFreshDelivery: "Doručení",
+
+orderFreshDateLabel: "Preferované datum",
+orderFreshTimeLabel: "Preferovaný čas",
+orderFreshTimeAsap: "Co nejdříve",
+orderFreshTimeMorning: "Dopoledne — 10:00–12:00",
+orderFreshTimeAfternoon: "Odpoledne — 12:00–17:00",
+orderFreshTimeEvening: "Večer — 17:00–20:00",
+orderFreshFulfilmentTitle: 'Způsob doručení',
+orderFreshSummaryTitle: "Shrnutí objednávky",
+orderFreshSummaryProduct: "Čerstvě upečené Pastéis de Nata",
+orderFreshSummaryBox: "Balení",
+orderFreshSummaryMethod: "Způsob převzetí",
+orderFreshSummaryDate: "Datum",
+orderFreshSummaryTime: "Čas",
+orderFreshSummarySubtotal: "Mezisoučet",
+orderFreshSummaryDelivery: "Doručení",
+orderFreshSummaryTotal: "Celkem",
+orderFreshDeliveryText: 'Čerstvě upečené a doručené na vaši adresu',
+orderFreshDeliveryCalculated: "Vypočítá se při placení",
+orderFreshAddToCart: "Přidat do košíku",
+orderFreshContinueCheckout: "Pokračovat k objednávce",
+
+
 
   // Why Pastel de Nata
   whyTitle: "Proč Pastel de Nata",

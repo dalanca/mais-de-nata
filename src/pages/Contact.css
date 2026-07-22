@@ -1,0 +1,314 @@
+/* =====================================
+   CONTACT PAGE
+===================================== */
+
+.contactPage {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 30px 24px 80px;
+  box-sizing: border-box;
+}
+
+.contactPage .sampleBack {
+  display: block;
+  width: fit-content;
+  margin: 0 0 48px;
+  color: #222;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* Hero */
+
+.contactHero {
+  max-width: 850px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.contactHero h1 {
+  max-width: 950px;
+  margin: 0 auto 18px;
+  font-size: clamp(40px, 4.8vw, 64px);
+  line-height: 0.95;
+  text-align: center;
+}
+
+.contactHero p,
+.contactHeroText {
+  max-width: 920px;
+  margin: 0 auto;
+  color: #555;
+  font-size: 18px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+/* Main layout */
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  align-items: stretch;
+}
+
+.contactSteps,
+.contactFormBox {
+  min-width: 0;
+  min-height: 520px;
+  padding: 48px;
+  background: white;
+  border-radius: 28px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+.contactSteps {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactFormBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.contactSteps h2,
+.contactFormBox h2 {
+  margin: 0 0 34px;
+  color: #222;
+  font-family: "Playfair Display", serif;
+  font-size: 44px;
+  line-height: 1.05;
+}
+
+.stepsIntro {
+  margin: -10px 0 30px;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Steps */
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(34, 34, 34, 0.08);
+}
+
+.stepItem:last-child {
+  border-bottom: none;
+}
+
+.stepIcon {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f7f2ea;
+  font-size: 30px;
+}
+
+.stepNumber {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #f4efe6;
+  color: #555;
+  font-weight: 700;
+}
+
+.stepItem span {
+  color: #222;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Form */
+
+.contactForm {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contactForm input,
+.contactForm select,
+.contactForm textarea {
+  width: 100%;
+  padding: 15px 16px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.contactForm textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contactForm button {
+  padding: 18px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #1f1f1f 0%,
+    #242424 100%
+  );
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contactForm button:hover {
+  opacity: 0.9;
+}
+
+.formResponseNote {
+  margin: 14px 0 0;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Tablet */
+
+@media (max-width: 900px) {
+  .contactPage {
+    padding: 24px 20px 60px;
+  }
+
+  .contactPage .sampleBack {
+    margin-bottom: 30px;
+  }
+
+  .contactHero {
+    margin-bottom: 36px;
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .contactSteps,
+  .contactFormBox {
+    min-height: 0;
+    padding: 34px 30px;
+  }
+
+  .contactSteps h2,
+  .contactFormBox h2 {
+    font-size: 36px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+  .contactPage {
+    width: 100%;
+    padding: 18px 16px 50px;
+    overflow-x: hidden;
+  }
+
+  .contactPage .sampleBack {
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .contactHero {
+    width: 100%;
+    margin-bottom: 28px;
+  }
+
+  .contactHero h1 {
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .contactHero p,
+  .contactHeroText {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .contactGrid {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .contactSteps,
+  .contactFormBox {
+    width: 100%;
+    min-width: 0;
+    padding: 24px 20px;
+    border-radius: 20px;
+  }
+
+  .contactSteps h2,
+  .contactFormBox h2 {
+    margin-bottom: 24px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .stepsIntro {
+    margin: -6px 0 20px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .stepItem {
+    gap: 14px;
+    padding: 15px 0;
+  }
+
+  .stepIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 23px;
+  }
+
+  .stepNumber {
+    width: 32px;
+    height: 32px;
+  }
+
+  .stepItem span {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .contactForm input,
+  .contactForm select,
+  .contactForm textarea {
+    padding: 13px 14px;
+    font-size: 15px;
+  }
+
+  .contactForm button {
+    padding: 15px;
+    font-size: 16px;
+  }
+}

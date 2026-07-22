@@ -1,4 +1,5 @@
 import '../App.css'
+import './ProductInformation.css'
 import heroNata from '../assets/images/hero-nata.jpg'
 import { useLanguage } from "../LanguageContext"
 function ProductInformation() {
