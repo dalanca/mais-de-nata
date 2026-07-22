@@ -1,4 +1,4 @@
-import type { OrderSalesChannel } from './order-channel'
+import type { OrderSalesChannel } from './order-channel.js'
 
 /**
  * Represents the financial state of an order.

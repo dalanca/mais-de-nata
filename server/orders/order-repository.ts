@@ -1,8 +1,8 @@
-import { supabaseAdmin } from '../database/supabase'
+import { supabaseAdmin } from '../database/supabase.js'
 import type {
   CreateOrderInput,
   CreatedOrder,
-} from './order-types'
+} from './order-types.js'
 
 type OrderRecord = {
   id: string

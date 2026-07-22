@@ -1,15 +1,15 @@
-import type { ChannelOrder } from './channel-order'
-import { generateOrderNumber } from './order-number'
+import type { ChannelOrder } from './channel-order.js'
+import { generateOrderNumber } from './order-number.js'
 import {
   findOrderByExternalEventId,
   insertOrder,
-} from './order-repository'
+} from './order-repository.js'
 import {
   OrderFulfilmentStatus,
   OrderPaymentStatus,
   type CreateOrderInput,
   type CreatedOrder,
-} from './order-types'
+} from './order-types.js'
 
 export type CreateChannelOrderResult = {
   order: CreatedOrder

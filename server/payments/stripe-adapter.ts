@@ -1,7 +1,7 @@
 import Stripe from 'stripe'
 
-import type { ChannelOrder } from '../orders/channel-order'
-import { OrderSalesChannel } from '../orders/order-channel'
+import type { ChannelOrder } from '../orders/channel-order.js'
+import { OrderSalesChannel } from '../orders/order-channel.js'
 
 /**
  * Converts a paid Stripe Checkout Session and its line items

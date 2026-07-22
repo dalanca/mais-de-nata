@@ -1,8 +1,7 @@
 import Stripe from 'stripe'
 
-import { createOrderFromChannel } from '../server/orders/order-service'
-import { createChannelOrderFromStripeSession } from '../server/payments/stripe-adapter'
-
+import { createOrderFromChannel } from '../server/orders/order-service.js'
+import { createChannelOrderFromStripeSession } from '../server/payments/stripe-adapter.js'
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
 
 if (!stripeSecretKey) {
@@ -102,20 +101,20 @@ export default {
             break
           }
 
-const lineItemsResponse =
-  await stripe.checkout.sessions.listLineItems(
-    session.id,
-    {
-      limit: 100,
-    },
-  )
+          const lineItemsResponse =
+            await stripe.checkout.sessions.listLineItems(
+              session.id,
+              {
+                limit: 100,
+              },
+            )
 
-const channelOrder =
-  createChannelOrderFromStripeSession(
-    event.id,
-    session,
-    lineItemsResponse.data,
-  )
+          const channelOrder =
+            createChannelOrderFromStripeSession(
+              event.id,
+              session,
+              lineItemsResponse.data,
+            )
 
           const result =
             await createOrderFromChannel(channelOrder)
@@ -154,10 +153,10 @@ const channelOrder =
         received: true,
       })
     } catch (error) {
-console.error(
-  'Stripe webhook processing failed:',
-  error instanceof Error ? error.stack : error,
-)
+      console.error(
+        'Stripe webhook processing failed:',
+        error instanceof Error ? error.stack : error,
+      )
 
       return Response.json(
         {
