@@ -570,3 +570,26 @@
     flex-shrink: 0;
   }
 }
+.orderFreshCartButton {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px 18px;
+  border: 1px solid #4e312d;
+  border-radius: 14px;
+  background: #fff;
+  color: #4e312d;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.orderFreshCartButton:hover {
+  background: #f8f4f1;
+}
+
+.orderFreshCartButton strong {
+  white-space: nowrap;
+}

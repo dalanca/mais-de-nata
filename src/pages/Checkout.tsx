@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './Checkout.css'
 import type { CheckoutRequest } from '../../shared/checkout-types'
 type CheckoutStep = 1 | 2 | 3
@@ -52,6 +52,41 @@ export default function Checkout() {
   const [deliveryTime, setDeliveryTime] =
     useState('asap')
   const [termsAccepted, setTermsAccepted] = useState(false)
+  useEffect(() => {
+  const savedCheckout = sessionStorage.getItem(
+    'maisDeNataCheckout',
+  )
+
+  if (!savedCheckout) {
+    return
+  }
+
+  try {
+    const checkout = JSON.parse(savedCheckout)
+
+    setFirstName(checkout.firstName || '')
+    setLastName(checkout.lastName || '')
+    setEmail(checkout.email || '')
+    setPhone(checkout.phone || '')
+
+    setStreet(checkout.street || '')
+    setHouseNumber(checkout.houseNumber || '')
+    setApartment(checkout.apartment || '')
+    setCity(checkout.city || '')
+    setPostcode(checkout.postcode || '')
+
+    setDeliveryDate(
+      checkout.deliveryDate || getTodayDate(),
+    )
+    setDeliveryTime(checkout.deliveryTime || 'asap')
+
+    if (checkout.returnToReview) {
+      setCurrentStep(3)
+    }
+  } catch {
+    sessionStorage.removeItem('maisDeNataCheckout')
+  }
+}, [])
   const cartItems = useMemo<CartItem[]>(() => {
     const savedCart = localStorage.getItem('maisDeNataCart')
 
@@ -100,7 +135,25 @@ const formattedTotal = new Intl.NumberFormat('en-CZ', {
       behavior: 'smooth',
     })
   }
-
+  function saveCheckoutState(returnToReview = false) {
+  sessionStorage.setItem(
+    'maisDeNataCheckout',
+    JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      phone,
+      street,
+      houseNumber,
+      apartment,
+      city,
+      postcode,
+      deliveryDate,
+      deliveryTime,
+      returnToReview,
+    }),
+  )
+}
   function handleCustomerContinue(
     event: React.FormEvent<HTMLFormElement>,
   ) {
@@ -612,7 +665,12 @@ window.location.href = data.checkoutUrl
               <h3>Your Order</h3>
             </div>
 
-            <a href="/cart">Edit Cart</a>
+            <a
+                href="/cart"
+                onClick={() => saveCheckoutState(true)}
+            >
+                Edit Cart
+            </a>
           </div>
 
           <div className="checkoutPremiumCardContent">

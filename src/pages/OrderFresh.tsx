@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router'
 import '../App.css'
 import './OrderFresh.css'
 import heroNata from '../assets/images/hero-nata.jpg'
@@ -30,6 +31,7 @@ function formatDisplayDate(date: string) {
 
 export default function OrderFresh() {
   const { t, language } = useLanguage()
+  const navigate = useNavigate()
 
   
   const [boxQuantities, setBoxQuantities] = useState<Record<BoxSize, number>>({
@@ -40,12 +42,16 @@ export default function OrderFresh() {
 })
   const [preferredDate, setPreferredDate] = useState(getTodayDate())
   const [preferredTime, setPreferredTime] = useState('asap')
-  const [, setAddedToCart] = useState(false)
+  const [addedToCart, setAddedToCart] = useState(false)
   const [hasExistingCart, setHasExistingCart] = useState(false)
   const subtotal = boxSizes
   .reduce((total, size) => {
     return total + boxPrices[size] * boxQuantities[size]
   }, 0)
+  const totalBoxes = boxSizes.reduce(
+  (total, size) => total + boxQuantities[size],
+  0,
+)
 useEffect(() => {
   const savedCart = localStorage.getItem('maisDeNataCart')
 
@@ -96,7 +102,7 @@ function updateBoxQuantity(size: BoxSize, change: number) {
 
   setAddedToCart(false)
 }
-function handleAddToCart() {
+function saveCart() {
   const selectedItems = (
     Object.keys(boxQuantities) as unknown as BoxSize[]
   )
@@ -113,16 +119,25 @@ function handleAddToCart() {
     }))
 
   if (selectedItems.length === 0) {
+    return false
+  }
+
+  localStorage.setItem(
+    'maisDeNataCart',
+    JSON.stringify(selectedItems),
+  )
+
+  setHasExistingCart(true)
+
+  return true
+}
+
+function handleAddToCart() {
+  if (!saveCart()) {
     return
   }
 
-localStorage.setItem(
-  'maisDeNataCart',
-  JSON.stringify(selectedItems),
-)
-
-setHasExistingCart(true)
-setAddedToCart(true)
+  setAddedToCart(true)
 }  return (
     <main className="orderFreshPage">
       <section
@@ -324,12 +339,33 @@ setAddedToCart(true)
             </div>
 
             <button
-              type="button"
-              className="orderFreshAddButton"
-              onClick={handleAddToCart}
+                type="button"
+                className="orderFreshAddButton"
+                onClick={handleAddToCart}
             >
-                {hasExistingCart ? 'Update Cart' : t.orderFreshAddToCart}
+                {addedToCart
+                ? '✓ Added to Cart'
+                : hasExistingCart
+                ? 'Update Cart'
+                : t.orderFreshAddToCart}
             </button>
+            {hasExistingCart && (
+                <button
+                type="button"
+                className="orderFreshCartButton"
+                onClick={() => {
+                    if (saveCart()) {
+                    navigate('/cart')
+                }
+            }}
+            >
+                <span>🛒</span>
+                <span>
+                  {totalBoxes} {totalBoxes === 1 ? 'box' : 'boxes'} in cart
+                </span>
+                <strong>Checkout →</strong>
+            </button>
+        )}
           </aside>
         </div>
       </section>
