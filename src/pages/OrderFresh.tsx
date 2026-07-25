@@ -101,10 +101,11 @@ useEffect(() => {
     }
 
     setHasExistingCart(true)
-  } catch {
-    setHasExistingCart(false)
-  }
-}, []), [];
+    setAddedToCart(true)
+     } catch {
+      setHasExistingCart(false)
+     }
+}, [])
   const formattedPrice = useMemo(() => {
     return new Intl.NumberFormat(language === 'cs' ? 'cs-CZ' : 'en-CZ', {
       style: 'currency',
@@ -384,7 +385,7 @@ function handleAddToCart() {
                         ? t.orderFreshUpdateCart
                         : t.orderFreshAddToCart}
             </button>
-            {hasExistingCart && (
+            {hasExistingCart && addedToCart && (
                 <button
                 type="button"
                 className="orderFreshCartButton"
