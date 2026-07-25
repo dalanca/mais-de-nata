@@ -63,13 +63,48 @@ useEffect(() => {
   try {
     const parsedCart = JSON.parse(savedCart)
 
-    setHasExistingCart(
-      Array.isArray(parsedCart) && parsedCart.length > 0,
-    )
+    if (!Array.isArray(parsedCart) || parsedCart.length === 0) {
+      setHasExistingCart(false)
+      return
+    }
+
+    const restoredQuantities: Record<BoxSize, number> = {
+      4: 0,
+      6: 0,
+      12: 0,
+      18: 0,
+    }
+
+    for (const item of parsedCart) {
+      if (
+        item &&
+        (item.boxSize === 4 ||
+          item.boxSize === 6 ||
+          item.boxSize === 12 ||
+          item.boxSize === 18)
+      ) {
+        restoredQuantities[item.boxSize as BoxSize] =
+          Number(item.quantity) || 0
+      }
+    }
+
+    setBoxQuantities(restoredQuantities)
+
+    const firstItem = parsedCart[0]
+
+    if (firstItem?.preferredDate) {
+      setPreferredDate(firstItem.preferredDate)
+    }
+
+    if (firstItem?.preferredTime) {
+      setPreferredTime(firstItem.preferredTime)
+    }
+
+    setHasExistingCart(true)
   } catch {
     setHasExistingCart(false)
   }
-}, [])
+}, []), [];
   const formattedPrice = useMemo(() => {
     return new Intl.NumberFormat(language === 'cs' ? 'cs-CZ' : 'en-CZ', {
       style: 'currency',
