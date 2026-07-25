@@ -3,14 +3,72 @@ const en = {
   navProductInfo: "Product",
   navWholesaleOrder: "Wholesale",
   navContact: "Contact",
-
+  navOurPasteis: "Our Pastéis",
+  navOrderFresh: "Order Fresh",
+  navWholesale: "Wholesale",
+  
   // Hero
   heroTitle1: "Authentic Portuguese",
   heroTitle2: "Pastéis de Nata",
 
   heroText:
     "Handmade in Portugal using a traditional recipe. Delivered frozen, so you can bake fresh and serve warm whenever your customers want.",
-    
+/* ==========================
+   WHOLESALE REGISTRATION
+========================== */
+
+wholesaleRegisterBack: "← Home",
+wholesaleRegisterEyebrow: "Wholesale",
+wholesaleRegisterTitle: "Register for Wholesale Access",
+wholesaleRegisterIntro:
+  "Register your business to access Mais de Nata wholesale product information, pricing and ordering.",
+
+wholesaleRegisterHowItWorks: "How It Works",
+wholesaleRegisterStep1:
+  "Submit your company and contact details.",
+wholesaleRegisterStep2:
+  "We review and verify your business registration.",
+wholesaleRegisterStep3:
+  "Once approved, your wholesale access is activated.",
+wholesaleRegisterStep4:
+  "Access wholesale products, pricing and ordering.",
+
+wholesaleRegisterFormTitle: "Wholesale Registration",
+wholesaleRegisterFormIntro:
+  "Complete the form below to request access to the Mais de Nata wholesale channel.",
+
+wholesaleRegisterCompanySection: "Company Details",
+wholesaleRegisterCompanyName: "Company Name *",
+wholesaleRegisterCompanyId: "Company ID / IČO *",
+wholesaleRegisterVat: "VAT Number / DIČ (optional)",
+
+wholesaleRegisterCompanyAddress: "Company Address",
+wholesaleRegisterStreet: "Street *",
+wholesaleRegisterHouseNumber: "House Number *",
+wholesaleRegisterPostcode: "Postcode *",
+wholesaleRegisterCity: "City *",
+wholesaleRegisterCountry: "Country *",
+wholesaleRegisterCountryDefault: "Czech Republic",
+
+wholesaleRegisterContactSection: "Contact Person",
+wholesaleRegisterContactName: "Contact Name *",
+wholesaleRegisterEmail: "Email Address *",
+wholesaleRegisterPhone: "Telephone *",
+
+wholesaleRegisterDeliverySection: "Delivery Address",
+wholesaleRegisterDeliverySame:
+  "Delivery address is the same as company address",
+
+wholesaleRegisterBusinessSection: "About Your Business",
+wholesaleRegisterBusinessPlaceholder:
+  "Tell us briefly about your business — for example café, bakery, hotel, retailer, restaurant or other operation.",
+
+wholesaleRegisterSubmit: "Submit Registration",
+
+wholesaleRegisterApprovalTitle:
+  "Wholesale access requires approval.",
+wholesaleRegisterApprovalText:
+  "We will review your business details and contact you once your wholesale account has been approved.",
    // Product Information
 productInfoBackHome: "← Home",
 productInfoTitle: "Pastéis de Nata for Wholesale",
@@ -193,8 +251,179 @@ orderFreshSummaryTotal: "Total",
 orderFreshDeliveryCalculated: "Calculated at checkout",
 orderFreshAddToCart: "Add to Cart",
 orderFreshContinueCheckout: "Continue to Checkout",
+orderFreshAddedToCart: "✓ Added to Cart",
+orderFreshUpdateCart: "Update Cart",
+orderFreshBoxInCart: "box in cart",
+orderFreshBoxesInCart: "boxes in cart",
+orderFreshCheckout: "Checkout →",
 
 orderFreshDeliveryText: 'Freshly baked and delivered to your address',
+
+  /* ==========================
+     CART (B2C)
+  ========================== */
+
+cartTitle: "Your Cart",
+
+cartEmptyTitle: "Your cart is empty",
+cartEmptyText:
+  "Looks like you haven't added any freshly baked Pastéis de Nata yet.",
+cartEmptyButton: "Order Fresh",
+
+cartBoxOf: "Box of",
+cartFreshProduct: "Freshly Baked Pastéis de Nata",
+
+cartQuantity: "Quantity",
+cartPrice: "Price",
+cartSubtotal: "Subtotal",
+
+cartSummarySubtotal: "Subtotal (incl. VAT)",
+cartDelivery: "Delivery",
+cartDeliveryCalculated: "Calculated at checkout",
+cartTotal: "Total",
+cartVatNote: "All prices include 12% VAT.",
+
+cartContinueShopping: "← Back to Order",
+cartContinueCheckout: "Continue to Checkout",
+cartClear: "Clear Cart",
+
+cartDecreaseQuantity: "Decrease quantity for box of",
+cartIncreaseQuantity: "Increase quantity for box of",
+
+/* ==========================
+   CHECKOUT (B2C)
+========================== */
+
+checkoutTitle: "Checkout",
+
+checkoutProgressCustomer: "Customer",
+checkoutProgressDelivery: "Delivery",
+checkoutProgressReview: "Review & Pay",
+checkoutStepOf: "Step",
+checkoutOf: "of",
+
+checkoutCustomerTitle: "Customer Details",
+checkoutCustomerIntro:
+  "We will use these details to confirm your order.",
+checkoutFirstName: "First Name",
+checkoutLastName: "Last Name",
+checkoutEmail: "Email",
+checkoutPhone: "Mobile Number",
+checkoutContinueDelivery: "Continue to Delivery →",
+
+checkoutDeliveryTitle: "Delivery Details",
+checkoutDeliveryIntro:
+  "Tell us where and when you would like your freshly baked Pastéis delivered.",
+checkoutStreet: "Street",
+checkoutHouseNumber: "House Number",
+checkoutApartment: "Apartment, Floor or Doorbell Name",
+checkoutOptional: "Optional",
+checkoutCity: "City",
+checkoutPostcode: "Postcode",
+checkoutPreferredDelivery: "Preferred Delivery",
+checkoutDeliveryDate: "Delivery Date",
+checkoutPreferredTime: "Preferred Time",
+
+checkoutTimeAsap: "As soon as possible",
+checkoutTimeMorning: "Morning",
+checkoutTimeAfternoon: "Afternoon",
+checkoutTimeEvening: "Evening",
+
+checkoutDeliveryAvailability: "Delivery availability",
+checkoutDeliveryAvailabilityText:
+  "The delivery charge and final delivery time will be confirmed before payment.",
+
+checkoutBack: "← Back",
+checkoutContinueReview: "Continue to Review & Pay →",
+
+checkoutReviewTitle: "Review & Pay",
+checkoutReviewIntro:
+  "Please check your order and delivery details before continuing to payment.",
+
+checkoutChangeTitle: "Need to make a change?",
+checkoutChangeText:
+  "You can edit your customer details, delivery details or cart before completing your payment.",
+
+checkoutFreshTitle: "Freshly baked in Prague",
+checkoutFreshText:
+  "Your Pastéis de Nata will be baked fresh on the day of delivery to ensure the best taste and quality.",
+
+checkoutCustomerCard: "Customer",
+checkoutDeliveryCard: "Delivery",
+checkoutOrderCard: "Your Order",
+checkoutEdit: "Edit",
+checkoutEditCart: "Edit Cart",
+
+checkoutDate: "Date",
+checkoutTime: "Time",
+
+checkoutBoxOf: "Box of",
+checkoutBox: "box",
+checkoutBoxes: "boxes",
+checkoutEach: "each",
+
+checkoutEmptyCart: "Your cart is empty.",
+checkoutReturnOrderFresh: "Return to Order Fresh",
+
+checkoutSubtotal: "Subtotal",
+checkoutDelivery: "Delivery",
+checkoutDeliveryCalculated: "Calculated before payment",
+checkoutTotalBeforeDelivery: "Total before delivery",
+checkoutVatIncluded: "Product prices include 12% VAT",
+
+checkoutTermsStart:
+  "I have reviewed my order and accept the",
+checkoutTermsConditions: "Terms & Conditions",
+checkoutTermsAnd: "and",
+checkoutPrivacyPolicy: "Privacy Policy",
+
+checkoutSecurePayment: "Secure payment",
+checkoutSecurePaymentText:
+  "Your payment will be processed securely through Stripe.",
+
+checkoutContinuePayment: "Continue to Payment",
+checkoutTermsReminder:
+  "Please accept the Terms & Conditions to continue.",
+
+/* ==========================
+   PAYMENT SUCCESS (B2C)
+========================== */
+
+paymentSuccessVerifying: "Verifying payment",
+paymentSuccessPleaseWait: "Please wait",
+paymentSuccessVerifyingText:
+  "We are confirming your payment and retrieving your order details.",
+
+paymentSuccessNotVerified: "Payment not verified",
+paymentSuccessCouldNotConfirm: "We could not confirm your order",
+paymentSuccessAlreadyPaid: "Have you already paid?",
+paymentSuccessAlreadyPaidText:
+  "Please check your Stripe payment confirmation. If the payment was successful, contact Mais de Nata and include the email address used during checkout.",
+paymentSuccessReturnHome: "Return to Home",
+
+paymentSuccessSuccessful: "Payment successful",
+paymentSuccessThankYou: "Thank you for your order",
+paymentSuccessConfirmed: "Your payment has been confirmed",
+
+paymentSuccessOrderSummary: "Order summary",
+paymentSuccessQuantity: "Quantity",
+
+paymentSuccessDelivery: "Delivery",
+paymentSuccessRequestedTime: "Requested time",
+paymentSuccessNotSpecified: "Not specified",
+paymentSuccessApartment: "Apartment",
+
+paymentSuccessNextTitle: "What happens next?",
+paymentSuccessNextText:
+  "We will contact you using the details provided to confirm the final delivery time.",
+
+paymentSuccessEmailStart:
+  "A payment confirmation has been sent to",
+
+paymentSuccessMissingReference:
+  "We could not find a payment reference for this order.",
+paymentSuccessVerificationFailed:
+  "The payment could not be verified.",
 
   // Product Information
 

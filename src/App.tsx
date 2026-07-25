@@ -35,12 +35,16 @@ function App() {
               id="homepage-navigation"
               className="homeNavLinks heroNavLinks"
             >
-              <a href="/product-information">
-                {t.navProductInfo}
+              <a href="/our-pasteis">
+                {t.navOurPasteis}
               </a>
 
-              <a href="/wholesale-order">
-                {t.navWholesaleOrder}
+              <a href="/order-fresh">
+                {t.navOrderFresh}
+              </a>
+
+              <a href="/register">
+                {t.navWholesale}
               </a>
 
               <a href="/register">
@@ -60,15 +64,15 @@ function App() {
 </span>          </div>
         </nav>
 
-        <div className="tramHeroContent">
-          <h1>
-            {t.heroTitle1}
-            <br />
-            {t.heroTitle2}
-          </h1>
+<div className="tramHeroContent">
+  <h1>
+    {t.heroTitle1}
+    <br />
+    {t.heroTitle2}
+  </h1>
 
-          <p>{t.heroText}</p>
-        </div>
+  <p>{t.heroText}</p>
+</div>
       </section>
 
       <section id="why-nata" className="nataStorySection">
@@ -139,16 +143,20 @@ function App() {
           </div>
 
           <div className="footerLinks">
-            <a href="/product-information">
-              {t.navProductInfo}
+            <a href="/our-pasteis">
+              {t.navOurPasteis}
             </a>
 
-            <a href="/wholesale-order">
-              {t.navWholesaleOrder}
+            <a href="/order-fresh">
+              {t.navOrderFresh}
             </a>
 
             <a href="/register">
-              {t.navContact}
+              {t.navWholesale}
+            </a>
+
+            <a href="/register">
+            {t.navContact}
             </a>
           </div>
 

@@ -344,10 +344,10 @@ function handleAddToCart() {
                 onClick={handleAddToCart}
             >
                 {addedToCart
-                ? '✓ Added to Cart'
-                : hasExistingCart
-                ? 'Update Cart'
-                : t.orderFreshAddToCart}
+                    ? t.orderFreshAddedToCart
+                    : hasExistingCart
+                        ? t.orderFreshUpdateCart
+                        : t.orderFreshAddToCart}
             </button>
             {hasExistingCart && (
                 <button
@@ -359,11 +359,14 @@ function handleAddToCart() {
                 }
             }}
             >
-                <span>🛒</span>
                 <span>
-                  {totalBoxes} {totalBoxes === 1 ? 'box' : 'boxes'} in cart
+                    {totalBoxes}{' '}
+                    {totalBoxes === 1
+                        ? t.orderFreshBoxInCart
+                        : t.orderFreshBoxesInCart}
                 </span>
-                <strong>Checkout →</strong>
+
+<strong>{t.orderFreshCheckout}</strong>
             </button>
         )}
           </aside>

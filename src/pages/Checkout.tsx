@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './Checkout.css'
 import type { CheckoutRequest } from '../../shared/checkout-types'
+import { useLanguage } from '../LanguageContext'
 type CheckoutStep = 1 | 2 | 3
 
 type CartItem = {
@@ -32,9 +33,10 @@ function formatDisplayDate(date: string) {
 }
 
 export default function Checkout() {
-  const [currentStep, setCurrentStep] =
-    useState<CheckoutStep>(1)
-
+    const { t } = useLanguage()
+    const [currentStep, setCurrentStep] =
+      useState<CheckoutStep>(1)
+  
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -122,38 +124,19 @@ const formattedTotal = new Intl.NumberFormat('en-CZ', {
   maximumFractionDigits: 0,
 }).format(orderTotal)
 
-  const selectedTimeLabel = {
-    asap: 'As soon as possible',
-    morning: 'Morning',
-    afternoon: 'Afternoon',
-    evening: 'Evening',
-  }[deliveryTime]
-
+const selectedTimeLabel = {
+  asap: t.checkoutTimeAsap,
+  morning: t.checkoutTimeMorning,
+  afternoon: t.checkoutTimeAfternoon,
+  evening: t.checkoutTimeEvening,
+}[deliveryTime]
   function scrollToCheckoutTop() {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }
-  function saveCheckoutState(returnToReview = false) {
-  sessionStorage.setItem(
-    'maisDeNataCheckout',
-    JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      phone,
-      street,
-      houseNumber,
-      apartment,
-      city,
-      postcode,
-      deliveryDate,
-      deliveryTime,
-      returnToReview,
-    }),
-  )
-}
+
   function handleCustomerContinue(
     event: React.FormEvent<HTMLFormElement>,
   ) {
@@ -238,7 +221,7 @@ window.location.href = data.checkoutUrl
   return (
     <main className="checkoutPage">
       <section className="checkoutContainer">
-        <h1>Checkout</h1>
+        <h1>{t.checkoutTitle}</h1>
 
         <div className="checkoutProgress">
           <div
@@ -247,7 +230,7 @@ window.location.href = data.checkoutUrl
             }`}
           >
             <span>{currentStep > 1 ? '✓' : '1'}</span>
-            <small>Customer</small>
+            <small>{t.checkoutProgressCustomer}</small>
           </div>
 
           <div
@@ -262,7 +245,7 @@ window.location.href = data.checkoutUrl
             }`}
           >
             <span>{currentStep > 2 ? '✓' : '2'}</span>
-            <small>Delivery</small>
+            <small>{t.checkoutProgressDelivery}</small>
           </div>
 
           <div
@@ -277,13 +260,13 @@ window.location.href = data.checkoutUrl
             }`}
           >
             <span>3</span>
-            <small>Review &amp; Pay</small>
+            <small>{t.checkoutProgressReview}</small>
           </div>
         </div>
 
         <p className="checkoutStepIndicator">
-          Step {currentStep} of 3
-        </p>
+            {t.checkoutStepOf} {currentStep} {t.checkoutOf} 3
+       </p>
 
         {currentStep === 1 && (
           <form
@@ -295,17 +278,15 @@ window.location.href = data.checkoutUrl
                 <span className="checkoutStepNumber">1</span>
 
                 <div>
-                  <h2>Customer Details</h2>
+                  <h2>{t.checkoutCustomerTitle}</h2>
 
-                  <p>
-                    We will use these details to confirm your order.
-                  </p>
+                  <p>{t.checkoutCustomerIntro}</p>
                 </div>
               </div>
 
               <div className="checkoutTwoColumnGrid">
                 <label>
-                  First Name
+                  {t.checkoutFirstName}
 
                   <input
                     type="text"
@@ -319,7 +300,7 @@ window.location.href = data.checkoutUrl
                 </label>
 
                 <label>
-                  Last Name
+                  {t.checkoutLastName}
 
                   <input
                     type="text"
@@ -334,7 +315,7 @@ window.location.href = data.checkoutUrl
               </div>
 
               <label>
-                Email
+                {t.checkoutEmail}
 
                 <input
                   type="email"
@@ -348,7 +329,7 @@ window.location.href = data.checkoutUrl
               </label>
 
               <label>
-                Mobile Number
+                {t.checkoutPhone}
 
                 <input
                   type="tel"
@@ -367,7 +348,7 @@ window.location.href = data.checkoutUrl
               type="submit"
               className="checkoutButton"
             >
-              Continue to Delivery →
+              {t.checkoutContinueDelivery}
             </button>
           </form>
         )}
@@ -382,18 +363,15 @@ window.location.href = data.checkoutUrl
                 <span className="checkoutStepNumber">2</span>
 
                 <div>
-                  <h2>Delivery Details</h2>
+                  <h2>{t.checkoutDeliveryTitle}</h2>
 
-                  <p>
-                    Tell us where and when you would like your
-                    freshly baked Pastéis delivered.
-                  </p>
+                  <p>{t.checkoutDeliveryIntro}</p>
                 </div>
               </div>
 
               <div className="checkoutAddressGrid">
                 <label className="checkoutStreetField">
-                  Street
+                  {t.checkoutStreet}
 
                   <input
                     type="text"
@@ -407,7 +385,7 @@ window.location.href = data.checkoutUrl
                 </label>
 
                 <label>
-                  House Number
+                  {t.checkoutHouseNumber}
 
                   <input
                     type="text"
@@ -421,7 +399,7 @@ window.location.href = data.checkoutUrl
               </div>
 
               <label>
-                Apartment, Floor or Doorbell Name
+                {t.checkoutApartment}
 
                 <input
                   type="text"
@@ -430,13 +408,13 @@ window.location.href = data.checkoutUrl
                   onChange={(event) =>
                     setApartment(event.target.value)
                   }
-                  placeholder="Optional"
+                  placeholder={t.checkoutOptional}
                 />
               </label>
 
               <div className="checkoutTwoColumnGrid">
                 <label>
-                  City
+                  {t.checkoutCity}
 
                   <input
                     type="text"
@@ -450,7 +428,7 @@ window.location.href = data.checkoutUrl
                 </label>
 
                 <label>
-                  Postcode
+                  {t.checkoutPostcode}
 
                   <input
                     type="text"
@@ -467,11 +445,11 @@ window.location.href = data.checkoutUrl
               </div>
 
               <div className="checkoutDeliverySchedule">
-                <h3>Preferred Delivery</h3>
+                <h3>{t.checkoutPreferredDelivery}</h3>
 
                 <div className="checkoutTwoColumnGrid">
                   <label>
-                    Delivery Date
+                    {t.checkoutDeliveryDate}
 
                     <input
                       type="date"
@@ -485,7 +463,7 @@ window.location.href = data.checkoutUrl
                   </label>
 
                   <label>
-                    Preferred Time
+                    {t.checkoutPreferredTime}
 
                     <select
                       value={deliveryTime}
@@ -494,19 +472,18 @@ window.location.href = data.checkoutUrl
                       }
                     >
                       <option value="asap">
-                        As soon as possible
-                      </option>
-
-                      <option value="morning">
-                        Morning
-                      </option>
-
-                      <option value="afternoon">
-                        Afternoon
-                      </option>
-
-                      <option value="evening">
-                        Evening
+                        <option value="asap">
+                            {t.checkoutTimeAsap}
+                        </option>
+                        <option value="morning">
+                            {t.checkoutTimeMorning}
+                        </option>
+                        <option value="afternoon">
+                            {t.checkoutTimeAfternoon}
+                        </option>
+                        <option value="evening">
+                            {t.checkoutTimeEvening}
+                        </option>
                       </option>
                     </select>
                   </label>
@@ -514,12 +491,9 @@ window.location.href = data.checkoutUrl
               </div>
 
               <div className="checkoutDeliveryNotice">
-                <strong>Delivery availability</strong>
+                <strong>{t.checkoutDeliveryAvailability}</strong>
 
-                <p>
-                  The delivery charge and final delivery time will
-                  be confirmed before payment.
-                </p>
+                <p>{t.checkoutDeliveryAvailabilityText}</p>
               </div>
             </section>
 
@@ -529,14 +503,13 @@ window.location.href = data.checkoutUrl
                 className="checkoutBackButton"
                 onClick={goBackToCustomerDetails}
               >
-                ← Back
+                {t.checkoutBack}
               </button>
 
               <button
                 type="submit"
                 className="checkoutButton"
-              >
-                Continue to Review &amp; Pay →
+              >{t.checkoutContinueReview}
               </button>
             </div>
           </form>
@@ -549,34 +522,25 @@ window.location.href = data.checkoutUrl
         <span className="checkoutStepNumber">3</span>
 
         <div>
-          <h2>Review &amp; Pay</h2>
+          <h2>{t.checkoutReviewTitle}</h2>
 
-          <p>
-            Please check your order and delivery details before
-            continuing to payment.
-          </p>
+          <p>{t.checkoutReviewIntro}</p>
         </div>
       </div>
 
       <div className="checkoutChangeNotice">
-        <strong>Need to make a change?</strong>
+        <strong>{t.checkoutChangeTitle}</strong>
 
-        <p>
-          You can edit your customer details, delivery details or
-          cart before completing your payment.
-        </p>
+        <p>{t.checkoutChangeText}</p>
       </div>
 
       <div className="checkoutFreshMessage">
         <span className="checkoutFreshMessageIcon">🥧</span>
 
         <div>
-          <strong>Freshly baked in Prague</strong>
+          <strong>{t.checkoutFreshTitle}</strong>
 
-          <p>
-            Your Pastéis de Nata will be baked fresh on the day of
-            delivery to ensure the best taste and quality.
-          </p>
+          <p>{t.checkoutFreshText}</p>
         </div>
       </div>
 
@@ -585,7 +549,7 @@ window.location.href = data.checkoutUrl
           <div className="checkoutPremiumCardHeader">
             <div>
               <span className="checkoutPremiumCardIcon">👤</span>
-              <h3>Customer</h3>
+              <h3>{t.checkoutCustomerCard}</h3>
             </div>
 
             <button
@@ -595,7 +559,7 @@ window.location.href = data.checkoutUrl
                 scrollToCheckoutTop()
               }}
             >
-              Edit
+              {t.checkoutEdit}
             </button>
           </div>
 
@@ -615,7 +579,7 @@ window.location.href = data.checkoutUrl
           <div className="checkoutPremiumCardHeader">
             <div>
               <span className="checkoutPremiumCardIcon">📍</span>
-              <h3>Delivery</h3>
+              <h3>{t.checkoutDeliveryCard}</h3>
             </div>
 
             <button
@@ -625,7 +589,7 @@ window.location.href = data.checkoutUrl
                 scrollToCheckoutTop()
               }}
             >
-              Edit
+              {t.checkoutEdit}
             </button>
           </div>
 
@@ -644,14 +608,14 @@ window.location.href = data.checkoutUrl
 
             <div className="checkoutPremiumCardDetails">
               <p>
-                <span>Date</span>
+                <span>{t.checkoutDate}</span>
                 <strong>
                   {formatDisplayDate(deliveryDate)}
                 </strong>
               </p>
 
               <p>
-                <span>Time</span>
+                <span>{t.checkoutTime}</span>
                 <strong>{selectedTimeLabel}</strong>
               </p>
             </div>
@@ -662,15 +626,10 @@ window.location.href = data.checkoutUrl
           <div className="checkoutPremiumCardHeader">
             <div>
               <span className="checkoutPremiumCardIcon">🥧</span>
-              <h3>Your Order</h3>
+              <h3>{t.checkoutOrderCard}</h3>
             </div>
 
-            <a
-                href="/cart"
-                onClick={() => saveCheckoutState(true)}
-            >
-                Edit Cart
-            </a>
+            <a href="/cart">{t.checkoutEditCart}</a>
           </div>
 
           <div className="checkoutPremiumCardContent">
@@ -688,14 +647,14 @@ window.location.href = data.checkoutUrl
 
                       <div>
                         <strong>
-                          Box of {item.boxSize}
+                          {t.checkoutBoxOf} {item.boxSize}
                         </strong>
 
                         <small>
                           {item.quantity}{' '}
                           {item.quantity === 1
-                            ? 'box'
-                            : 'boxes'}
+                            ? t.checkoutBox
+                            : t.checkoutBoxes}
                         </small>
                       </div>
                     </div>
@@ -707,7 +666,7 @@ window.location.href = data.checkoutUrl
                           currency: 'CZK',
                           maximumFractionDigits: 0,
                         }).format(item.unitPriceIncVat)}
-                        {' '}each
+                        {' '}{t.checkoutEach}
                       </span>
 
                       <strong>
@@ -726,10 +685,10 @@ window.location.href = data.checkoutUrl
               </div>
             ) : (
               <div className="checkoutEmptyOrder">
-                <p>Your cart is empty.</p>
+                <p>{t.checkoutEmptyCart}</p>
 
                 <a href="/order-fresh">
-                  Return to Order Fresh
+                  {t.checkoutReturnOrderFresh}
                 </a>
               </div>
             )}
@@ -740,23 +699,23 @@ window.location.href = data.checkoutUrl
       <div className="checkoutFinalTotals">
         <div className="checkoutFinalTotalsRows">
           <p>
-            <span>Subtotal</span>
+            <span>{t.checkoutSubtotal}</span>
             <strong>{formattedSubtotal}</strong>
           </p>
 
           <p>
-            <span>Delivery</span>
+            <span>{t.checkoutDelivery}</span>
 
             <strong className="checkoutDeliveryPending">
-              Calculated before payment
+              {t.checkoutDeliveryCalculated}
             </strong>
           </p>
         </div>
 
         <div className="checkoutFinalTotal">
           <div>
-            <span>Total before delivery</span>
-            <small>Product prices include 12% VAT</small>
+            <span>{t.checkoutTotalBeforeDelivery}</span>
+            <small>{t.checkoutVatIncluded}</small>
           </div>
 
           <strong>{formattedTotal}</strong>
@@ -773,10 +732,11 @@ window.location.href = data.checkoutUrl
         />
 
         <span>
-          I have reviewed my order and accept the{' '}
-          <a href="/terms">Terms &amp; Conditions</a> and{' '}
-          <a href="/privacy">Privacy Policy</a>.
-        </span>
+            {t.checkoutTermsStart}{' '}
+              <a href="/terms">{t.checkoutTermsConditions}</a>{' '}
+            {t.checkoutTermsAnd}{' '}
+              <a href="/privacy">{t.checkoutPrivacyPolicy}</a>.
+      </span>
       </label>
 
       <div className="checkoutPaymentMethods">
@@ -784,12 +744,9 @@ window.location.href = data.checkoutUrl
           <span className="checkoutPaymentIcon">🔒</span>
 
           <div>
-            <strong>Secure payment</strong>
+            <strong>{t.checkoutSecurePayment}</strong>
 
-            <p>
-              Your payment will be processed securely through
-              Stripe.
-            </p>
+            <p>{t.checkoutSecurePaymentText}</p>
           </div>
         </div>
 
@@ -811,7 +768,7 @@ window.location.href = data.checkoutUrl
         className="checkoutBackButton"
         onClick={goBackToDeliveryDetails}
       >
-        ← Back
+       {t.checkoutBack}
       </button>
 
       <button
@@ -822,13 +779,13 @@ window.location.href = data.checkoutUrl
           cartItems.length === 0 || !termsAccepted
         }
       >
-        Continue to Payment
+        {t.checkoutContinuePayment}
       </button>
     </div>
 
     {!termsAccepted && cartItems.length > 0 && (
       <p className="checkoutTermsReminder">
-        Please accept the Terms &amp; Conditions to continue.
+        {t.checkoutTermsReminder}
       </p>
     )}
   </div>

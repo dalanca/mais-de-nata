@@ -1,11 +1,6 @@
 /**
- * ============================================================
- * Order Sales Channel
- * ============================================================
- *
- * Identifies where an order originated.
+ * Identifies the channel through which an order originated.
  */
-
 export const OrderSalesChannel = {
   WholesaleWebsite: 'WholesaleWebsite',
   ConsumerWebsite: 'ConsumerWebsite',

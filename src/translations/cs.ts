@@ -3,6 +3,9 @@ const cs = {
   navProductInfo: "Produkt",
   navWholesaleOrder: "Velkoobchod",
   navContact: "Kontakt",
+  navOurPasteis: "Naše Pastéis",
+  navOrderFresh: "Objednat čerstvé",
+  navWholesale: "Velkoobchod",
 
   // Hero
   heroTitle1: "Autentické portugalské",
@@ -122,9 +125,194 @@ orderFreshDeliveryText: 'Čerstvě upečené a doručené na vaši adresu',
 orderFreshDeliveryCalculated: "Vypočítá se při placení",
 orderFreshAddToCart: "Přidat do košíku",
 orderFreshContinueCheckout: "Pokračovat k objednávce",
+orderFreshAddedToCart: "✓ Přidáno do košíku",
+orderFreshUpdateCart: "Aktualizovat košík",
+orderFreshBoxInCart: "krabice v košíku",
+orderFreshBoxesInCart: "krabice v košíku",
+orderFreshCheckout: "Pokladna →",
 
+  /* ==========================
+     CART (B2C)
+  ========================== */
 
+cartTitle: "Váš košík",
 
+cartEmptyTitle: "Váš košík je prázdný",
+cartEmptyText:
+  "Zatím jste nepřidali žádné čerstvě upečené Pastéis de Nata.",
+cartEmptyButton: "Objednat čerstvé",
+
+cartBoxOf: "Balení",
+cartFreshProduct: "Čerstvě upečené Pastéis de Nata",
+
+cartQuantity: "Množství",
+cartPrice: "Cena",
+cartSubtotal: "Mezisoučet",
+
+cartSummarySubtotal: "Mezisoučet (včetně DPH)",
+cartDelivery: "Doručení",
+cartDeliveryCalculated: "Vypočítá se při placení",
+cartTotal: "Celkem",
+cartVatNote: "Všechny ceny zahrnují 12 % DPH.",
+
+cartContinueShopping: "← Zpět k objednávce",
+cartContinueCheckout: "Pokračovat k objednávce",
+cartClear: "Vyprázdnit košík",
+
+cartDecreaseQuantity: "Snížit množství balení",
+cartIncreaseQuantity: "Zvýšit množství balení",
+
+/* ==========================
+   CHECKOUT (B2C)
+========================== */
+
+checkoutTitle: "Objednávka",
+
+checkoutProgressCustomer: "Zákazník",
+checkoutProgressDelivery: "Doručení",
+checkoutProgressReview: "Kontrola a platba",
+checkoutStepOf: "Krok",
+checkoutOf: "ze",
+
+checkoutCustomerTitle: "Údaje zákazníka",
+checkoutCustomerIntro:
+  "Tyto údaje použijeme k potvrzení vaší objednávky.",
+checkoutFirstName: "Jméno",
+checkoutLastName: "Příjmení",
+checkoutEmail: "E-mail",
+checkoutPhone: "Telefonní číslo",
+checkoutContinueDelivery: "Pokračovat k doručení →",
+
+checkoutDeliveryTitle: "Údaje pro doručení",
+checkoutDeliveryIntro:
+  "Sdělte nám, kam a kdy si přejete doručit vaše čerstvě upečené Pastéis.",
+checkoutStreet: "Ulice",
+checkoutHouseNumber: "Číslo domu",
+checkoutApartment: "Byt, patro nebo jméno na zvonku",
+checkoutOptional: "Volitelné",
+checkoutCity: "Město",
+checkoutPostcode: "PSČ",
+checkoutPreferredDelivery: "Preferované doručení",
+checkoutDeliveryDate: "Datum doručení",
+checkoutPreferredTime: "Preferovaný čas",
+
+checkoutTimeAsap: "Co nejdříve",
+checkoutTimeMorning: "Dopoledne",
+checkoutTimeAfternoon: "Odpoledne",
+checkoutTimeEvening: "Večer",
+
+checkoutDeliveryAvailability: "Dostupnost doručení",
+checkoutDeliveryAvailabilityText:
+  "Cena doručení a konečný čas doručení budou potvrzeny před platbou.",
+
+checkoutBack: "← Zpět",
+checkoutContinueReview: "Pokračovat ke kontrole a platbě →",
+
+checkoutReviewTitle: "Kontrola a platba",
+checkoutReviewIntro:
+  "Před pokračováním k platbě zkontrolujte svou objednávku a údaje o doručení.",
+
+checkoutChangeTitle: "Potřebujete něco změnit?",
+checkoutChangeText:
+  "Před dokončením platby můžete upravit údaje zákazníka, doručení nebo obsah košíku.",
+
+checkoutFreshTitle: "Čerstvě upečené v Praze",
+checkoutFreshText:
+  "Vaše Pastéis de Nata upečeme čerstvé v den doručení pro nejlepší chuť a kvalitu.",
+
+checkoutCustomerCard: "Zákazník",
+checkoutDeliveryCard: "Doručení",
+checkoutOrderCard: "Vaše objednávka",
+checkoutEdit: "Upravit",
+checkoutEditCart: "Upravit košík",
+
+checkoutDate: "Datum",
+checkoutTime: "Čas",
+
+checkoutBoxOf: "Balení",
+checkoutBox: "krabice",
+checkoutBoxes: "krabice",
+checkoutEach: "za kus",
+
+checkoutEmptyCart: "Váš košík je prázdný.",
+checkoutReturnOrderFresh: "Zpět k objednávce",
+
+checkoutSubtotal: "Mezisoučet",
+checkoutDelivery: "Doručení",
+checkoutDeliveryCalculated: "Vypočítá se před platbou",
+checkoutTotalBeforeDelivery: "Celkem bez dopravy",
+checkoutVatIncluded: "Ceny produktů zahrnují 12 % DPH",
+
+checkoutTermsStart:
+  "Zkontroloval/a jsem svou objednávku a souhlasím s",
+checkoutTermsConditions: "Obchodními podmínkami",
+checkoutTermsAnd: "a",
+checkoutPrivacyPolicy: "Zásadami ochrany osobních údajů",
+
+checkoutSecurePayment: "Bezpečná platba",
+checkoutSecurePaymentText:
+  "Vaše platba bude bezpečně zpracována prostřednictvím Stripe.",
+
+checkoutContinuePayment: "Pokračovat k platbě",
+checkoutTermsReminder:
+  "Pro pokračování prosím přijměte Obchodní podmínky.",
+
+/* ==========================
+   WHOLESALE REGISTRATION
+========================== */
+
+wholesaleRegisterBack: "← Domů",
+wholesaleRegisterEyebrow: "Velkoobchod",
+wholesaleRegisterTitle: "Registrace pro velkoobchodní přístup",
+wholesaleRegisterIntro:
+  "Zaregistrujte svou společnost a získejte přístup k velkoobchodním informacím o produktech, cenám a objednávkám Mais de Nata.",
+
+wholesaleRegisterHowItWorks: "Jak to funguje",
+wholesaleRegisterStep1:
+  "Odešlete údaje o společnosti a kontaktní údaje.",
+wholesaleRegisterStep2:
+  "Vaši registraci zkontrolujeme a ověříme.",
+wholesaleRegisterStep3:
+  "Po schválení aktivujeme váš velkoobchodní přístup.",
+wholesaleRegisterStep4:
+  "Získáte přístup k produktům, cenám a velkoobchodním objednávkám.",
+
+wholesaleRegisterFormTitle: "Velkoobchodní registrace",
+wholesaleRegisterFormIntro:
+  "Vyplňte formulář a požádejte o přístup k velkoobchodnímu kanálu Mais de Nata.",
+
+wholesaleRegisterCompanySection: "Údaje o společnosti",
+wholesaleRegisterCompanyName: "Název společnosti *",
+wholesaleRegisterCompanyId: "IČO *",
+wholesaleRegisterVat: "DIČ (volitelné)",
+
+wholesaleRegisterCompanyAddress: "Adresa společnosti",
+wholesaleRegisterStreet: "Ulice *",
+wholesaleRegisterHouseNumber: "Číslo domu *",
+wholesaleRegisterPostcode: "PSČ *",
+wholesaleRegisterCity: "Město *",
+wholesaleRegisterCountry: "Země *",
+wholesaleRegisterCountryDefault: "Česká republika",
+
+wholesaleRegisterContactSection: "Kontaktní osoba",
+wholesaleRegisterContactName: "Jméno kontaktní osoby *",
+wholesaleRegisterEmail: "E-mail *",
+wholesaleRegisterPhone: "Telefon *",
+
+wholesaleRegisterDeliverySection: "Dodací adresa",
+wholesaleRegisterDeliverySame:
+  "Dodací adresa je stejná jako adresa společnosti",
+
+wholesaleRegisterBusinessSection: "O vaší společnosti",
+wholesaleRegisterBusinessPlaceholder:
+  "Stručně nám popište svůj podnik — například kavárna, pekárna, hotel, maloobchod, restaurace nebo jiný provoz.",
+
+wholesaleRegisterSubmit: "Odeslat registraci",
+
+wholesaleRegisterApprovalTitle:
+  "Velkoobchodní přístup podléhá schválení.",
+wholesaleRegisterApprovalText:
+  "Vaše firemní údaje zkontrolujeme a po schválení velkoobchodního účtu vás budeme kontaktovat.", 
   // Why Pastel de Nata
   whyTitle: "Proč Pastel de Nata",
   logoTagline: "AUTENTICKÁ PORTUGALSKÁ KVALITA",
@@ -149,6 +337,47 @@ orderFreshContinueCheckout: "Pokračovat k objednávce",
       "Konzistentní kvalita každé várky",
       "Ideální pro kavárny, pekárny, hotely a maloobchod",
 ],
+
+/* ==========================
+   PAYMENT SUCCESS (B2C)
+========================== */
+
+paymentSuccessVerifying: "Ověřujeme platbu",
+paymentSuccessPleaseWait: "Prosím čekejte",
+paymentSuccessVerifyingText:
+  "Potvrzujeme vaši platbu a načítáme údaje o objednávce.",
+
+paymentSuccessNotVerified: "Platbu se nepodařilo ověřit",
+paymentSuccessCouldNotConfirm: "Vaši objednávku se nepodařilo potvrdit",
+paymentSuccessAlreadyPaid: "Už jste zaplatili?",
+paymentSuccessAlreadyPaidText:
+  "Zkontrolujte prosím potvrzení platby od Stripe. Pokud byla platba úspěšná, kontaktujte Mais de Nata a uveďte e-mailovou adresu použitou při objednávce.",
+paymentSuccessReturnHome: "Zpět na úvodní stránku",
+
+paymentSuccessSuccessful: "Platba byla úspěšná",
+paymentSuccessThankYou: "Děkujeme za vaši objednávku",
+paymentSuccessConfirmed: "Vaše platba byla potvrzena",
+
+paymentSuccessOrderSummary: "Shrnutí objednávky",
+paymentSuccessQuantity: "Množství",
+
+paymentSuccessDelivery: "Doručení",
+paymentSuccessRequestedTime: "Požadovaný čas",
+paymentSuccessNotSpecified: "Neuvedeno",
+paymentSuccessApartment: "Byt",
+
+paymentSuccessNextTitle: "Co bude následovat?",
+paymentSuccessNextText:
+  "Budeme vás kontaktovat pomocí uvedených údajů a potvrdíme konečný čas doručení.",
+
+paymentSuccessEmailStart:
+  "Potvrzení platby bylo odesláno na",
+
+paymentSuccessMissingReference:
+  "Pro tuto objednávku se nepodařilo najít platební referenci.",
+paymentSuccessVerificationFailed:
+  "Platbu se nepodařilo ověřit.",
+
    // Baking steps
 
    bakingTitle: "Pokyny k pečení",

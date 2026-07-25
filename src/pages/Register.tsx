@@ -1,82 +1,312 @@
+import { useState } from 'react'
 import '../App.css'
 import './Contact.css'
+import { useLanguage } from '../LanguageContext'
+
 function Register() {
+  const { t } = useLanguage()
+
+  const [deliverySameAsCompany, setDeliverySameAsCompany] =
+    useState(true)
+
   return (
-<main>
-  <section className="contactPage">
-
-    <a href="/" className="pageBack">
-    ← Home
-    </a>
-
+    <main>
+      <section className="contactPage">
+        <a href="/" className="pageBack">
+          {t.wholesaleRegisterBack}
+        </a>
 
         <div className="contactHero">
-  
-        <h1>
-            Authentic Portuguese
-            <br />
-            Pastéis de Nata
-        </h1>
+          <p className="contactEyebrow">
+            {t.wholesaleRegisterEyebrow}
+          </p>
 
-                <p className="contactHeroText">
-                Offer your customers the same authentic Pastel de Nata experience they enjoyed in Lisbon and throughout Portugal.
-                 </p>
-         </div>
+          <h1>{t.wholesaleRegisterTitle}</h1>
 
-         <div className="contactGrid">
-         <div className="contactSteps">
+          <p className="contactHeroText">
+            {t.wholesaleRegisterIntro}
+          </p>
+        </div>
 
-         <h2>How It Works</h2>
+        <div className="wholesaleRegistrationCard">
+          <div className="wholesaleRegistrationHeader">
+            <h2>{t.wholesaleRegisterFormTitle}</h2>
 
-         <div className="stepItem">
-         <div className="stepIcon">📋</div>
-         <span>Tell us about your business, expected volumes, or any questions you may have</span>
-       
-</div>
-<div className="stepItem">
-  <div className="stepIcon">📞</div>
-  <span>We contact you personally and discuss your needs</span>
-</div>
+            <p>{t.wholesaleRegisterFormIntro}</p>
+          </div>
 
-<div className="stepItem">
-  <div className="stepIcon">🥮</div>
-    <span>We arrange a tasting or product presentation</span>
-</div>
+          <form
+            className="wholesaleRegistrationForm"
+            action="https://formspree.io/f/mkoaqype"
+            method="POST"
+          >
+            <input
+              type="hidden"
+              name="formType"
+              value="Wholesale Registration"
+            />
 
-<div className="stepItem">
-  <div className="stepIcon">🚚</div>
-    <span>We arrange delivery and supply</span>
-</div>
- </div>
-    <div className="contactFormBox">
-      <h2>Contact Mais de Nata</h2>
-      <form
-        className="contactForm"
-        action="https://formspree.io/f/mkoaqype"
-        method="POST"
-      >
-        <input type="hidden" name="formType" value="Partner Enquiry" />
+            <div className="wholesaleRegistrationGrid">
+              {/* LEFT COLUMN */}
+              <div className="wholesaleRegistrationColumn">
+                <div className="wholesaleRegistrationSection">
+                  <h3>
+                    {t.wholesaleRegisterCompanySection}
+                  </h3>
 
-        <input name="name" type="text" placeholder="Your Name" required />
-        <input name="company" type="text" placeholder="Company Name" required />
-        <input name="email" type="email" placeholder="Email Address" required />
+                  <input
+                    name="companyName"
+                    type="text"
+                    placeholder={
+                      t.wholesaleRegisterCompanyName
+                    }
+                    required
+                  />
 
-        <textarea
-          name="message"
-          placeholder="Tell us briefly about your business and what you would like to discuss"
-          required
-        />
+                  <div className="contactFormTwoColumns">
+                    <input
+                      name="companyId"
+                      type="text"
+                      placeholder={
+                        t.wholesaleRegisterCompanyId
+                      }
+                      required
+                    />
 
-        <button type="submit">Send Enquiry</button>
+                    <input
+                      name="vatNumber"
+                      type="text"
+                      placeholder={t.wholesaleRegisterVat}
+                    />
+                  </div>
+                </div>
 
-        <p className="formResponseNote">
-        Response within 1 business day.
-        </p>
-      </form>
-    </div>
-  </div>
-</section>
-</main>
+                <div className="wholesaleRegistrationSection">
+                  <h3>
+                    {t.wholesaleRegisterContactSection}
+                  </h3>
+
+                  <input
+                    name="contactName"
+                    type="text"
+                    placeholder={
+                      t.wholesaleRegisterContactName
+                    }
+                    required
+                  />
+
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder={t.wholesaleRegisterEmail}
+                    required
+                  />
+
+                  <input
+                    name="phone"
+                    type="tel"
+                    placeholder={t.wholesaleRegisterPhone}
+                    required
+                  />
+                </div>
+
+                <div className="wholesaleRegistrationSection">
+                  <h3>
+                    {t.wholesaleRegisterBusinessSection}
+                  </h3>
+
+                  <textarea
+                    name="businessDetails"
+                    placeholder={
+                      t.wholesaleRegisterBusinessPlaceholder
+                    }
+                  />
+
+                  <button
+                    type="submit"
+                    className="wholesaleRegistrationSubmit"
+                  >
+                    {t.wholesaleRegisterSubmit}
+                  </button>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN */}
+              <div className="wholesaleRegistrationColumn">
+                <div className="wholesaleRegistrationSection">
+                  <h3>
+                    {t.wholesaleRegisterCompanyAddress}
+                  </h3>
+
+                  <input
+                    name="companyStreet"
+                    type="text"
+                    placeholder={t.wholesaleRegisterStreet}
+                    required
+                  />
+
+                  <div className="contactFormTwoColumns">
+                    <input
+                      name="companyHouseNumber"
+                      type="text"
+                      placeholder={
+                        t.wholesaleRegisterHouseNumber
+                      }
+                      required
+                    />
+
+                    <input
+                      name="companyPostcode"
+                      type="text"
+                      placeholder={
+                        t.wholesaleRegisterPostcode
+                      }
+                      required
+                    />
+                  </div>
+
+                  <div className="contactFormTwoColumns">
+                    <input
+                      name="companyCity"
+                      type="text"
+                      placeholder={t.wholesaleRegisterCity}
+                      required
+                    />
+
+                    <input
+                      name="companyCountry"
+                      type="text"
+                      placeholder={
+                        t.wholesaleRegisterCountry
+                      }
+                      defaultValue={
+                        t.wholesaleRegisterCountryDefault
+                      }
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="wholesaleRegistrationSection">
+                  <h3>
+                    {t.wholesaleRegisterDeliverySection}
+                  </h3>
+
+                  <label className="contactCheckbox">
+                    <input
+                      type="checkbox"
+                      name="deliverySameAsCompany"
+                      checked={deliverySameAsCompany}
+                      onChange={(event) =>
+                        setDeliverySameAsCompany(
+                          event.target.checked,
+                        )
+                      }
+                    />
+
+                    <span>
+                      {t.wholesaleRegisterDeliverySame}
+                    </span>
+                  </label>
+
+                  {!deliverySameAsCompany && (
+                    <div className="contactConditionalFields">
+                      <input
+                        name="deliveryStreet"
+                        type="text"
+                        placeholder={
+                          t.wholesaleRegisterStreet
+                        }
+                        required
+                      />
+
+                      <div className="contactFormTwoColumns">
+                        <input
+                          name="deliveryHouseNumber"
+                          type="text"
+                          placeholder={
+                            t.wholesaleRegisterHouseNumber
+                          }
+                          required
+                        />
+
+                        <input
+                          name="deliveryPostcode"
+                          type="text"
+                          placeholder={
+                            t.wholesaleRegisterPostcode
+                          }
+                          required
+                        />
+                      </div>
+
+                      <div className="contactFormTwoColumns">
+                        <input
+                          name="deliveryCity"
+                          type="text"
+                          placeholder={
+                            t.wholesaleRegisterCity
+                          }
+                          required
+                        />
+
+                        <input
+                          name="deliveryCountry"
+                          type="text"
+                          placeholder={
+                            t.wholesaleRegisterCountry
+                          }
+                          defaultValue={
+                            t.wholesaleRegisterCountryDefault
+                          }
+                          required
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="wholesaleRegistrationSection wholesaleHowItWorks">
+                  <h3>
+                    {t.wholesaleRegisterHowItWorks}
+                  </h3>
+
+                  <div className="wholesaleMiniStep">
+                    <span>1</span>
+                    <p>{t.wholesaleRegisterStep1}</p>
+                  </div>
+
+                  <div className="wholesaleMiniStep">
+                    <span>2</span>
+                    <p>{t.wholesaleRegisterStep2}</p>
+                  </div>
+
+                  <div className="wholesaleMiniStep">
+                    <span>3</span>
+                    <p>{t.wholesaleRegisterStep3}</p>
+                  </div>
+
+                  <div className="wholesaleMiniStep">
+                    <span>4</span>
+                    <p>{t.wholesaleRegisterStep4}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="wholesaleRegistrationApproval">
+              <strong>
+                {t.wholesaleRegisterApprovalTitle}
+              </strong>
+
+              <p>
+                {t.wholesaleRegisterApprovalText}
+              </p>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
   )
 }
 

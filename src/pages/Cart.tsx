@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import './Cart.css'
-
+import { useLanguage } from '../LanguageContext'
 interface CartItem {
   product: string
   boxSize: number
@@ -14,7 +14,9 @@ interface CartItem {
 }
 
 export default function Cart() {
-  const [cart, setCart] = useState<CartItem[]>([])
+    const { t } = useLanguage()
+
+    const [cart, setCart] = useState<CartItem[]>([])
 
   const cartTotal = cart.reduce((total, item) => {
     return total + item.quantity * item.unitPriceIncVat
@@ -59,24 +61,21 @@ export default function Cart() {
   return (
     <main className="cartPage">
       <section className="cartContainer">
-        <h1>Your Cart</h1>
+        <h1>{t.cartTitle}</h1>
 
 {cart.length === 0 ? (
   <div className="cartEmptyState">
     <div className="cartEmptyIcon">🥧</div>
 
-    <h2>Your cart is empty</h2>
+<h2>{t.cartEmptyTitle}</h2>
 
-    <p>
-      Looks like you haven't added any freshly baked
-      Pastéis de Nata yet.
-    </p>
+<p>{t.cartEmptyText}</p>
 
     <a
       href="/order-fresh"
       className="cartEmptyButton"
     >
-      Order Fresh
+      {t.cartEmptyButton}
     </a>
   </div>
 ) : (
@@ -94,17 +93,19 @@ export default function Cart() {
     </div>
 
     <div>
-      <h2>Box of {item.boxSize}</h2>
+      <h2>
+        {t.cartBoxOf} {item.boxSize}
+     </h2>
 
       <p className="cartProductName">
-        Freshly Baked Pastéis de Nata
+        {t.cartFreshProduct}
       </p>
     </div>
   </div>
 </div>
                   <div className="cartItemDetails">
                     <div className="cartQuantitySection">
-                      <strong>Quantity</strong>
+                      <strong>{t.cartQuantity}</strong>
 
                       <div className="cartQuantityControl">
                         <button
@@ -112,7 +113,7 @@ export default function Cart() {
                           onClick={() =>
                             updateQuantity(index, -1)
                           }
-                          aria-label={`Decrease quantity for box of ${item.boxSize}`}
+                          aria-label={`${t.cartDecreaseQuantity} ${item.boxSize}`}
                         >
                           −
                         </button>
@@ -124,7 +125,7 @@ export default function Cart() {
                           onClick={() =>
                             updateQuantity(index, 1)
                           }
-                          aria-label={`Increase quantity for box of ${item.boxSize}`}
+                          aria-label={`${t.cartIncreaseQuantity} ${item.boxSize}`}
                         >
                           +
                         </button>
@@ -133,14 +134,14 @@ export default function Cart() {
 
                     <div className="cartPriceRows">
                       <div className="cartPriceRow">
-                        <span>Price</span>
+                        <span>{t.cartPrice}</span>
                         <strong>
                           {item.unitPriceIncVat} Kč
                         </strong>
                       </div>
 
                       <div className="cartPriceRow cartLineSubtotal">
-                        <span>Subtotal</span>
+                        <span>{t.cartSubtotal}</span>
                         <strong>
                           {item.quantity *
                             item.unitPriceIncVat}{' '}
@@ -155,24 +156,24 @@ export default function Cart() {
 
             <div className="cartSummary">
               <div className="cartSummaryRow">
-                <span>Subtotal (incl. VAT)</span>
+                <span>{t.cartSummarySubtotal}</span>
                 <strong>{cartTotal} Kč</strong>
               </div>
 
               <div className="cartSummaryRow">
-                <span>Delivery</span>
-                <span>Calculated at checkout</span>
+              <span>{t.cartDelivery}</span>
+<span>{t.cartDeliveryCalculated}</span>
               </div>
 
               <div className="cartSummaryDivider" />
 
               <div className="cartSummaryRow cartSummaryTotal">
-                <span>Total</span>
+                <span>{t.cartTotal}</span>
                 <strong>{cartTotal} Kč</strong>
               </div>
 
               <p className="cartVatNote">
-                All prices include 12% VAT.
+                {t.cartVatNote}
               </p>
 
               <div className="cartSummaryActions">
@@ -180,13 +181,13 @@ export default function Cart() {
                 to="/order-fresh"
                 className="cartSecondaryButton"
               >
-                Continue Shopping
+                {t.cartContinueShopping}
             </Link>
             <Link
                 to="/checkout"
                 className="cartCheckoutButton"
             >
-                Continue to Checkout
+                {t.cartContinueCheckout}
             </Link>
               </div>
             </div>
@@ -196,7 +197,7 @@ export default function Cart() {
               className="cartClearButton"
               onClick={handleClearCart}
             >
-              Clear Cart
+              {t.cartClear}
             </button>
           </>
         )}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import './PaymentSuccess.css'
+import { useLanguage } from '../LanguageContext'
 
 type VerifiedLineItem = {
   description: string
@@ -51,7 +52,10 @@ function formatMoney(
   }).format(amount / 100)
 }
 
-function formatDeliveryDate(value: string) {
+function formatDeliveryDate(
+  value: string,
+  language: 'cs' | 'en',
+) {
   if (!value) {
     return ''
   }
@@ -62,15 +66,21 @@ function formatDeliveryDate(value: string) {
     return value
   }
 
-  return new Intl.DateTimeFormat('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(date)
+  return new Intl.DateTimeFormat(
+    language === 'cs' ? 'cs-CZ' : 'en-GB',
+    {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    },
+  ).format(date)
 }
 
 export default function PaymentSuccess() {
+  const { t, language } = useLanguage()
+
   const [order, setOrder] = useState<VerifiedOrder | null>(null)
+
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -84,7 +94,7 @@ export default function PaymentSuccess() {
 
       if (!sessionId) {
         setErrorMessage(
-          'We could not find a payment reference for this order.',
+          t.paymentSuccessMissingReference,
         )
         setIsLoading(false)
         return
@@ -107,7 +117,7 @@ export default function PaymentSuccess() {
           !data.order
         ) {
           throw new Error(
-            data.error || 'The payment could not be verified.',
+            data.error || t.paymentSuccessVerificationFailed,
           )
         }
 
@@ -120,7 +130,7 @@ export default function PaymentSuccess() {
         setErrorMessage(
           error instanceof Error
             ? error.message
-            : 'The payment could not be verified.',
+            : t.paymentSuccessVerificationFailed,
         )
       } finally {
         setIsLoading(false)
@@ -137,15 +147,12 @@ export default function PaymentSuccess() {
           <div className="paymentSuccessSpinner" />
 
           <p className="paymentSuccessEyebrow">
-            Verifying payment
+            {t.paymentSuccessVerifying}
           </p>
 
-          <h1>Please wait</h1>
+          {t.paymentSuccessPleaseWait}
 
-          <p className="paymentSuccessIntro">
-            We are confirming your payment and retrieving your
-            order details.
-          </p>
+          {t.paymentSuccessVerifyingText}
         </section>
       </main>
     )
@@ -158,27 +165,25 @@ export default function PaymentSuccess() {
           <div className="paymentSuccessErrorIcon">!</div>
 
           <p className="paymentSuccessEyebrow">
-            Payment not verified
+            {t.paymentSuccessNotVerified}
           </p>
 
-          <h1>We could not confirm your order</h1>
+          <h1>{t.paymentSuccessCouldNotConfirm}</h1>
 
           <p className="paymentSuccessIntro">
             {errorMessage}
           </p>
 
           <div className="paymentSuccessNotice">
-            <strong>Have you already paid?</strong>
+            <strong>{t.paymentSuccessAlreadyPaid}</strong>
 
             <p>
-              Please check your Stripe payment confirmation. If the
-              payment was successful, contact Mais de Nata and include
-              the email address used during checkout.
+             {t.paymentSuccessAlreadyPaidText}
             </p>
           </div>
 
           <a href="/" className="paymentSuccessButton">
-            Return to Home
+            {t.paymentSuccessReturnHome}
           </a>
         </section>
       </main>
@@ -188,7 +193,7 @@ export default function PaymentSuccess() {
   const deliveryAddress = [
     `${order.delivery.street} ${order.delivery.houseNumber}`.trim(),
     order.delivery.apartment
-      ? `Apartment ${order.delivery.apartment}`
+      ? `${t.paymentSuccessApartment} ${order.delivery.apartment}`
       : '',
     `${order.delivery.postcode} ${order.delivery.city}`.trim(),
   ].filter(Boolean)
@@ -199,13 +204,13 @@ export default function PaymentSuccess() {
         <div className="paymentSuccessIcon">✓</div>
 
         <p className="paymentSuccessEyebrow">
-          Payment successful
+          {t.paymentSuccessSuccessful}
         </p>
 
-        <h1>Thank you for your order</h1>
+        <h1>{t.paymentSuccessThankYou}</h1>
 
         <p className="paymentSuccessIntro">
-          Your payment has been confirmed
+          {t.paymentSuccessConfirmed}
           {order.customerName
             ? `, ${order.customerName.split(' ')[0]}`
             : ''}
@@ -214,7 +219,7 @@ export default function PaymentSuccess() {
 
         <div className="paymentSuccessOrder">
           <div className="paymentSuccessOrderHeader">
-            <h2>Order summary</h2>
+            <h2>{t.paymentSuccessOrderSummary}</h2>
 
             <strong>
               {formatMoney(
@@ -234,7 +239,7 @@ export default function PaymentSuccess() {
                   <strong>{item.description}</strong>
 
                   <span>
-                    Quantity: {item.quantity ?? 0}
+                    {t.paymentSuccessQuantity}: {item.quantity ?? 0}
                   </span>
                 </div>
 
@@ -251,7 +256,7 @@ export default function PaymentSuccess() {
 
         <div className="paymentSuccessDetails">
           <div className="paymentSuccessDetailCard">
-            <h2>Delivery</h2>
+            <h2><h2>{t.paymentSuccessDelivery}</h2></h2>
 
             {deliveryAddress.map((line) => (
               <p key={line}>{line}</p>
@@ -259,36 +264,36 @@ export default function PaymentSuccess() {
           </div>
 
           <div className="paymentSuccessDetailCard">
-            <h2>Requested time</h2>
+            <h2><h2>{t.paymentSuccessRequestedTime}</h2></h2>
 
-            <p>
-              {formatDeliveryDate(
+           <p>
+            {formatDeliveryDate(
                 order.delivery.deliveryDate,
-              )}
+                language,
+            )}
             </p>
 
             <p>
-              {order.delivery.preferredTime || 'Not specified'}
+              {order.delivery.preferredTime || t.paymentSuccessNotSpecified}
             </p>
           </div>
         </div>
 
         <div className="paymentSuccessNotice">
-          <strong>What happens next?</strong>
+          <strong>{t.paymentSuccessNextTitle}</strong>
 
           <p>
-            We will contact you using the details provided to confirm
-            the final delivery time.
+            {t.paymentSuccessNextText}
           </p>
         </div>
 
         <p className="paymentSuccessEmail">
-          A payment confirmation has been sent to{' '}
+          {t.paymentSuccessEmailStart}{' '}{' '}
           <strong>{order.customerEmail}</strong>.
         </p>
 
         <a href="/" className="paymentSuccessButton">
-          Return to Home
+          {t.paymentSuccessReturnHome}
         </a>
       </section>
     </main>
