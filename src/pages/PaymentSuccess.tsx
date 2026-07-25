@@ -124,6 +124,7 @@ export default function PaymentSuccess() {
         setOrder(data.order)
 
         localStorage.removeItem('maisDeNataCart')
+        sessionStorage.removeItem('maisDeNataCheckout')
       } catch (error) {
         console.error('Payment verification failed:', error)
 
