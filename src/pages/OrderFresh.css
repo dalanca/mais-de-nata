@@ -282,7 +282,62 @@
 .orderFreshAddButton:hover {
   background: #38221f;
 }
+.orderFreshMethodOptions {
+  display: grid;
+  grid-template-columns: 1fr;
+}
 
+.orderFreshMethodOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 58px;
+  padding: 14px 16px;
+  border: 1px solid rgba(78, 49, 45, 0.18);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #4e312d;
+  text-align: left;
+  font: inherit;
+}
+
+.orderFreshMethodIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 1.2rem;
+}
+
+.orderFreshMethodOption > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.orderFreshMethodOption strong {
+  font-size: 0.98rem;
+}
+
+.orderFreshMethodOption small {
+  color: #70564f;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+.orderFreshHeroLogo {
+  display: block;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 24px;
+}
+
+.orderFreshHeroLogo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
 @media screen and (max-width: 1000px) {
   .orderFreshConfigurator {
     grid-template-columns: 1fr;
@@ -298,7 +353,13 @@
   .orderFreshHeroOverlay {
     min-height: 520px;
   }
-
+@media screen and (max-width: 700px) {
+  .orderFreshHeroLogo {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 18px;
+  }
+}
   .orderFreshHeroOverlay {
     align-items: flex-end;
     padding: 52px 20px;
@@ -332,10 +393,9 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .orderFreshMethodOptions,
-  .orderFreshScheduleGrid {
-    grid-template-columns: 1fr;
-  }
+.orderFreshMethodOptions {
+  grid-template-columns: 1fr;
+}
 }
 .orderFreshQuantityControl {
   display: flex;

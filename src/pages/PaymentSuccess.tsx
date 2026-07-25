@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './PaymentSuccess.css'
 import { useLanguage } from '../LanguageContext'
+import SiteHeader from '../components/SiteHeader'
 
 type VerifiedLineItem = {
   description: string
@@ -141,8 +142,11 @@ export default function PaymentSuccess() {
     verifyPayment()
   }, [])
 
-  if (isLoading) {
-    return (
+if (isLoading) {
+  return (
+    <>
+      <SiteHeader />
+
       <main className="paymentSuccessPage">
         <section className="paymentSuccessCard">
           <div className="paymentSuccessSpinner" />
@@ -151,13 +155,16 @@ export default function PaymentSuccess() {
             {t.paymentSuccessVerifying}
           </p>
 
-          {t.paymentSuccessPleaseWait}
+          <h1>{t.paymentSuccessPleaseWait}</h1>
 
-          {t.paymentSuccessVerifyingText}
+          <p className="paymentSuccessIntro">
+            {t.paymentSuccessVerifyingText}
+          </p>
         </section>
       </main>
-    )
-  }
+    </>
+  )
+}
 
   if (errorMessage || !order) {
     return (

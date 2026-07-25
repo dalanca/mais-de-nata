@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import './Cart.css'
 import { useLanguage } from '../LanguageContext'
+import nataProductIcon from '../assets/images/nata-product-icon.jpg'
+import SiteHeader from '../components/SiteHeader'
 interface CartItem {
   product: string
   boxSize: number
@@ -58,7 +60,10 @@ export default function Cart() {
     })
   }
 
-  return (
+return (
+  <>
+    <SiteHeader />
+
     <main className="cartPage">
       <section className="cartContainer">
         <h1>{t.cartTitle}</h1>
@@ -88,14 +93,15 @@ export default function Cart() {
                 >
 <div className="cartItemHeader">
   <div className="cartProductInfo">
-    <div className="cartProductIcon">
-      🥧
-    </div>
+<div className="cartProductIcon">
+  <img src={nataProductIcon} alt="Pastel de Nata" />
+</div>
 
     <div>
-      <h2>
-        {t.cartBoxOf} {item.boxSize}
-     </h2>
+<h2>
+  <span>{t.cartBoxOf}</span>
+  <span className="cartBoxSize">{item.boxSize}</span>
+</h2>
 
       <p className="cartProductName">
         {t.cartFreshProduct}
@@ -203,5 +209,6 @@ export default function Cart() {
         )}
       </section>
     </main>
-  )
+  </>
+)
 }

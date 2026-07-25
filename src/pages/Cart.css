@@ -39,9 +39,19 @@
 }
 
 .cartItem h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
   margin: 0;
   color: #4e312d;
   font-size: 22px;
+  line-height: 1.1;
+}
+
+.cartBoxSize {
+  line-height: 1;
+  position: relative;
+  top: -1px;
 }
 
 .cartProductName {
@@ -253,12 +263,17 @@
 }
 
 .cartProductIcon {
-  width: 56px;
-  height: 56px;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
   border-radius: 50%;
+  overflow: hidden;
   background: #fff6ef;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
+}
+
+.cartProductIcon img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }

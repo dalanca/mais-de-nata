@@ -4,6 +4,7 @@ import '../App.css'
 import './OrderFresh.css'
 import heroNata from '../assets/images/hero-nata.jpg'
 import { useLanguage } from '../LanguageContext'
+import logo from '../assets/images/mais-de-nata-logo.png'
 
 type BoxSize = 4 | 6 | 12 | 18
 const boxPrices: Record<BoxSize, number> = {
@@ -13,22 +14,6 @@ const boxPrices: Record<BoxSize, number> = {
   18: 936,
 }
 const boxSizes: BoxSize[] = [4, 6, 12, 18]
-
-function getTodayDate() {
-  const today = new Date()
-  const timezoneOffset = today.getTimezoneOffset() * 60_000
-  return new Date(today.getTime() - timezoneOffset)
-    .toISOString()
-    .split('T')[0]
-}
-function formatDisplayDate(date: string) {
-  if (!date) return ''
-
-  const [year, month, day] = date.split('-')
-
-  return `${day}.${month}.${year}`
-}
-
 export default function OrderFresh() {
   const { t, language } = useLanguage()
   const navigate = useNavigate()
@@ -40,8 +25,6 @@ export default function OrderFresh() {
   12: 0,
   18: 0,
 })
-  const [preferredDate, setPreferredDate] = useState(getTodayDate())
-  const [preferredTime, setPreferredTime] = useState('asap')
   const [addedToCart, setAddedToCart] = useState(false)
   const [hasExistingCart, setHasExistingCart] = useState(false)
   const subtotal = boxSizes
@@ -90,16 +73,6 @@ useEffect(() => {
 
     setBoxQuantities(restoredQuantities)
 
-    const firstItem = parsedCart[0]
-
-    if (firstItem?.preferredDate) {
-      setPreferredDate(firstItem.preferredDate)
-    }
-
-    if (firstItem?.preferredTime) {
-      setPreferredTime(firstItem.preferredTime)
-    }
-
     setHasExistingCart(true)
     setAddedToCart(true)
      } catch {
@@ -123,12 +96,7 @@ const selectedBoxes = boxSizes
 
 const selectedMethodLabel = t.orderFreshDelivery
 
-  const selectedTimeLabel = {
-    asap: t.orderFreshTimeAsap,
-    morning: t.orderFreshTimeMorning,
-    afternoon: t.orderFreshTimeAfternoon,
-    evening: t.orderFreshTimeEvening,
-  }[preferredTime]
+
 function updateBoxQuantity(size: BoxSize, change: number) {
  
   setBoxQuantities((currentQuantities) => ({
@@ -150,8 +118,6 @@ function saveCart() {
       unitPriceIncVat: boxPrices[size],
       vatRate: 12,
       fulfilmentMethod: 'delivery' as const,
-      preferredDate,
-      preferredTime,
     }))
 
   if (selectedItems.length === 0) {
@@ -182,15 +148,16 @@ function handleAddToCart() {
       >
         <div className="orderFreshHeroOverlay">
           <div className="orderFreshHeroContent">
-            <a href="/" className="orderFreshBackLink">
-              {t.orderFreshBackHome}
+            <a href="/" className="orderFreshHeroLogo">
+                <img src={logo} alt="Mais de Nata" />
             </a>
 
-            <p className="orderFreshEyebrow">{t.orderFreshEyebrow}</p>
+            <a href="/" className="orderFreshBackLink">
+                {t.orderFreshBackHome}
+            </a>
 
             <h1>{t.orderFreshTitle}</h1>
-
-            <p className="orderFreshIntro">{t.orderFreshIntro}</p>
+                <p className="orderFreshIntro">{t.orderFreshIntro}</p>
           </div>
         </div>
       </section>
@@ -270,47 +237,6 @@ function handleAddToCart() {
       </span>
     </button>
   </div>
-</div>
-
-            <div className="orderFreshSection">
-              <div className="orderFreshScheduleGrid">
-                <label className="orderFreshField">
-                  <span>{t.orderFreshDateLabel}</span>
-
-                  <input
-                    type="date"
-                    min={getTodayDate()}
-                    value={preferredDate}
-                    onChange={(event) => {
-                      setPreferredDate(event.target.value)
-                      setAddedToCart(false)
-                    }}
-                  />
-                </label>
-
-                <label className="orderFreshField">
-                  <span>{t.orderFreshTimeLabel}</span>
-
-                  <select
-                    value={preferredTime}
-                    onChange={(event) => {
-                      setPreferredTime(event.target.value)
-                      setAddedToCart(false)
-                    }}
-                  >
-                    <option value="asap">{t.orderFreshTimeAsap}</option>
-                    <option value="morning">
-                      {t.orderFreshTimeMorning}
-                    </option>
-                    <option value="afternoon">
-                      {t.orderFreshTimeAfternoon}
-                    </option>
-                    <option value="evening">
-                      {t.orderFreshTimeEvening}
-                    </option>
-                  </select>
-                </label>
-              </div>
             </div>
           </div>
 
@@ -344,18 +270,7 @@ function handleAddToCart() {
               <p>
                 <span>{t.orderFreshSummaryMethod}</span>
                 <strong>{selectedMethodLabel}</strong>
-              </p>
-
- <p>
-  <span>{t.orderFreshSummaryDate}</span>
-  <strong>{formatDisplayDate(preferredDate)}</strong>
-</p>
-
-              <p>
-                <span>{t.orderFreshSummaryTime}</span>
-                <strong>{selectedTimeLabel}</strong>
-              </p>
-            </div>
+              </p>            </div>
 
             <div className="orderFreshSummaryTotals">
               <p>
@@ -386,25 +301,25 @@ function handleAddToCart() {
                         : t.orderFreshAddToCart}
             </button>
             {hasExistingCart && addedToCart && (
-                <button
+              <button
                 type="button"
                 className="orderFreshCartButton"
                 onClick={() => {
-                    if (saveCart()) {
+                  if (saveCart()) {
                     navigate('/cart')
-                }
-            }}
-            >
+                  }
+                }}
+              >
                 <span>
-                    {totalBoxes}{' '}
-                    {totalBoxes === 1
-                        ? t.orderFreshBoxInCart
-                        : t.orderFreshBoxesInCart}
+                  {totalBoxes}{' '}
+                  {totalBoxes === 1
+                    ? t.orderFreshBoxInCart
+                    : t.orderFreshBoxesInCart}
                 </span>
 
-<strong>{t.orderFreshCheckout}</strong>
-            </button>
-        )}
+                <strong>{t.orderFreshCheckout}</strong>
+              </button>
+            )}
           </aside>
         </div>
       </section>

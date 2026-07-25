@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import './Checkout.css'
 import type { CheckoutRequest } from '../../shared/checkout-types'
 import { useLanguage } from '../LanguageContext'
+import nataProductIcon from '../assets/images/nata-product-icon.jpg'
+import SiteHeader from '../components/SiteHeader'
 type CheckoutStep = 1 | 2 | 3
 
 type CartItem = {
@@ -237,6 +239,9 @@ window.location.href = data.checkoutUrl
 }
 
   return (
+  <>
+    <SiteHeader />
+
     <main className="checkoutPage">
       <section className="checkoutContainer">
         <h1>{t.checkoutTitle}</h1>
@@ -553,15 +558,20 @@ window.location.href = data.checkoutUrl
         <p>{t.checkoutChangeText}</p>
       </div>
 
-      <div className="checkoutFreshMessage">
-        <span className="checkoutFreshMessageIcon">🥧</span>
+        <div className="checkoutFreshMessage">
+            <span className="checkoutFreshMessageIcon">
+                <img
+                    src={nataProductIcon}
+                    alt=""
+                />
+            </span>
 
         <div>
-          <strong>{t.checkoutFreshTitle}</strong>
+            <strong>{t.checkoutFreshTitle}</strong>
 
-          <p>{t.checkoutFreshText}</p>
+            <p>{t.checkoutFreshText}</p>
         </div>
-      </div>
+    </div>
 
       <div className="checkoutReviewCards">
         <article className="checkoutPremiumCard">
@@ -642,11 +652,17 @@ window.location.href = data.checkoutUrl
         </article>
 
         <article className="checkoutPremiumCard checkoutOrderCard">
-          <div className="checkoutPremiumCardHeader">
-            <div>
-              <span className="checkoutPremiumCardIcon">🥧</span>
-              <h3>{t.checkoutOrderCard}</h3>
-            </div>
+          <div className="checkoutPremiumCardHeader"><div>
+
+            <span className="checkoutPremiumCardIcon checkoutNataCardIcon">
+                <img
+                    src={nataProductIcon}
+                    alt=""
+                />
+            </span>
+
+            <h3>{t.checkoutOrderCard}</h3>
+        </div>
 
             <a
                 href="/cart"
@@ -665,9 +681,12 @@ window.location.href = data.checkoutUrl
                     className="checkoutPremiumOrderItem"
                   >
                     <div className="checkoutPremiumOrderProduct">
-                      <span className="checkoutOrderPastryIcon">
-                        🥧
-                      </span>
+                        <span className="checkoutOrderPastryIcon">
+                            <img
+                                src={nataProductIcon}
+                                alt="Pastel de Nata"
+                            />
+                        </span>
 
                       <div>
                         <strong>
@@ -813,7 +832,8 @@ window.location.href = data.checkoutUrl
       </p>
     )}
   </div>
-)}      </section>
+)}       </section>
     </main>
-  )
+  </>
+)
 }
