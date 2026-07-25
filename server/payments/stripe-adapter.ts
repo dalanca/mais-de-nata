@@ -11,6 +11,7 @@ export function createChannelOrderFromStripeSession(
   eventId: string,
   session: Stripe.Checkout.Session,
   stripeLineItems: Stripe.LineItem[],
+  salesChannel: OrderSalesChannel,
 ): ChannelOrder {
   const amountTotal = session.amount_total
 
@@ -32,7 +33,9 @@ export function createChannelOrderFromStripeSession(
     ''
 
   const customerName =
-    session.metadata?.customerName ?? ''
+    session.customer_details?.name ??
+    session.metadata?.customerName ??
+    ''
 
   if (!customerEmail.trim()) {
     throw new Error(
@@ -99,8 +102,7 @@ export function createChannelOrderFromStripeSession(
   }
 
   return {
-    salesChannel:
-      OrderSalesChannel.WholesaleWebsite,
+    salesChannel,
 
     externalEventId: eventId,
     externalOrderId: session.id,

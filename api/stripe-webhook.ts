@@ -1,5 +1,5 @@
 import Stripe from 'stripe'
-
+import { OrderSalesChannel } from '../server/orders/order-channel.js'
 import { createOrderFromChannel } from '../server/orders/order-service.js'
 import { createChannelOrderFromStripeSession } from '../server/payments/stripe-adapter.js'
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
@@ -88,11 +88,23 @@ export default {
 
     try {
       switch (event.type) {
-        case 'checkout.session.completed': {
-          const session =
-            event.data.object as Stripe.Checkout.Session
+case 'checkout.session.completed': {
+  const session =
+    event.data.object as Stripe.Checkout.Session
 
-          if (session.payment_status !== 'paid') {
+  const salesChannel =
+    session.metadata?.salesChannel
+
+  if (
+    salesChannel !== OrderSalesChannel.ConsumerWebsite &&
+    salesChannel !== OrderSalesChannel.WholesaleWebsite
+  ) {
+    throw new Error(
+      `Unsupported Stripe sales channel: ${salesChannel}`,
+    )
+  }
+
+  if (session.payment_status !== 'paid') {
             console.log(
               'Checkout completed but payment is not yet paid:',
               session.id,
@@ -111,9 +123,10 @@ export default {
 
           const channelOrder =
             createChannelOrderFromStripeSession(
-              event.id,
-              session,
-              lineItemsResponse.data,
+                event.id,
+                session,
+                lineItemsResponse.data,
+                salesChannel,
             )
 
           const result =

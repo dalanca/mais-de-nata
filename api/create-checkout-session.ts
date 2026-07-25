@@ -1,5 +1,6 @@
 import Stripe from 'stripe';
 import type { CheckoutRequest } from '../shared/checkout-types.js';
+import { OrderSalesChannel } from '../server/orders/order-channel.js'
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
 
 if (!stripeSecretKey) {
@@ -88,7 +89,8 @@ if (hasInvalidCartItem) {
       customer_email: customer.email,
 
       metadata: {
-        customerName: `${customer.firstName} ${customer.lastName}`,
+        salesChannel: OrderSalesChannel.ConsumerWebsite,
+        customerName: `${customer.firstName} ${customer.lastName}`.trim(),
         customerPhone: customer.phone,
         deliveryStreet: delivery.street,
         deliveryHouseNumber: delivery.houseNumber,
