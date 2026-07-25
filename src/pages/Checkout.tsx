@@ -136,7 +136,25 @@ const selectedTimeLabel = {
       behavior: 'smooth',
     })
   }
-
+function saveCheckoutState(returnToReview = false) {
+  sessionStorage.setItem(
+    'maisDeNataCheckout',
+    JSON.stringify({
+      firstName,
+      lastName,
+      email,
+      phone,
+      street,
+      houseNumber,
+      apartment,
+      city,
+      postcode,
+      deliveryDate,
+      deliveryTime,
+      returnToReview,
+    }),
+  )
+}
   function handleCustomerContinue(
     event: React.FormEvent<HTMLFormElement>,
   ) {
@@ -471,20 +489,21 @@ window.location.href = data.checkoutUrl
                         setDeliveryTime(event.target.value)
                       }
                     >
-                      <option value="asap">
-                        <option value="asap">
-                            {t.checkoutTimeAsap}
-                        </option>
-                        <option value="morning">
-                            {t.checkoutTimeMorning}
-                        </option>
-                        <option value="afternoon">
-                            {t.checkoutTimeAfternoon}
-                        </option>
-                        <option value="evening">
-                            {t.checkoutTimeEvening}
-                        </option>
-                      </option>
+                    <option value="asap">
+                        {t.checkoutTimeAsap}
+                    </option>
+
+                    <option value="morning">
+                        {t.checkoutTimeMorning}
+                    </option>
+
+                    <option value="afternoon">
+                        {t.checkoutTimeAfternoon}
+                    </option>
+
+                    <option value="evening">
+                        {t.checkoutTimeEvening}
+                    </option>
                     </select>
                   </label>
                 </div>
@@ -629,7 +648,12 @@ window.location.href = data.checkoutUrl
               <h3>{t.checkoutOrderCard}</h3>
             </div>
 
-            <a href="/cart">{t.checkoutEditCart}</a>
+            <a
+                href="/cart"
+                onClick={() => saveCheckoutState(true)}
+            >
+                {t.checkoutEditCart}
+            </a>
           </div>
 
           <div className="checkoutPremiumCardContent">
