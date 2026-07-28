@@ -1,0 +1,128 @@
+.wholesaleAccountSetupPage {
+  min-height: 100vh;
+  padding: 80px 20px 110px;
+  background: #fffaf6;
+  color: #4e312d;
+}
+
+.wholesaleAccountSetupCard {
+  width: min(560px, 100%);
+  margin: 0 auto;
+  padding: 40px;
+  border: 1px solid rgba(78, 49, 45, 0.1);
+  border-radius: 26px;
+  background: #ffffff;
+  box-shadow: 0 20px 55px rgba(78, 49, 45, 0.08);
+}
+
+.wholesaleAccountSetupEyebrow {
+  margin: 0 0 12px;
+  color: #9b6c32;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.wholesaleAccountSetupCard h1 {
+  margin: 0 0 18px;
+  color: #4e312d;
+  font-size: 2.5rem;
+}
+
+.wholesaleAccountSetupIntro {
+  margin: 0 0 30px;
+  color: #70564f;
+  line-height: 1.65;
+}
+
+.wholesaleAccountSetupCard form {
+  display: grid;
+  gap: 20px;
+}
+
+.wholesaleAccountSetupCard label {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.wholesaleAccountSetupCard input {
+  min-height: 52px;
+  padding: 0 15px;
+  border: 1px solid rgba(78, 49, 45, 0.18);
+  border-radius: 14px;
+  font: inherit;
+}
+
+.wholesaleAccountSetupCard button {
+  min-height: 54px;
+  border: 0;
+  border-radius: 999px;
+  background: #4e312d;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.wholesaleAccountSetupError {
+  margin: 0;
+  color: #b33a32;
+  font-weight: 700;
+}
+
+@media (max-width: 700px) {
+  .wholesaleAccountSetupPage {
+    padding: 58px 20px 80px;
+  }
+
+  .wholesaleAccountSetupCard {
+    padding: 28px 22px;
+  }
+}
+.wholesaleAccountSetupActions {
+  display: flex;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.wholesaleAccountPrimaryButton,
+.wholesaleAccountSecondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+  text-align: center;
+}
+
+.wholesaleAccountPrimaryButton {
+  background: #4e312d;
+  color: #ffffff;
+}
+
+.wholesaleAccountSecondaryButton {
+  border: 1px solid rgba(78, 49, 45, 0.2);
+  background: #ffffff;
+  color: #4e312d;
+}
+
+.wholesaleAccountPrimaryButton:hover,
+.wholesaleAccountSecondaryButton:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+  .wholesaleAccountSetupActions {
+    flex-direction: column;
+  }
+
+  .wholesaleAccountPrimaryButton,
+  .wholesaleAccountSecondaryButton {
+    width: 100%;
+  }
+}

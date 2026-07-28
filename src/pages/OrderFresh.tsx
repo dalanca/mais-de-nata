@@ -4,7 +4,7 @@ import '../App.css'
 import './OrderFresh.css'
 import heroNata from '../assets/images/hero-nata.jpg'
 import { useLanguage } from '../LanguageContext'
-import logo from '../assets/images/mais-de-nata-logo.png'
+import SiteHeader from '../components/SiteHeader'
 
 type BoxSize = 4 | 6 | 12 | 18
 const boxPrices: Record<BoxSize, number> = {
@@ -141,6 +141,9 @@ function handleAddToCart() {
 
   setAddedToCart(true)
 }  return (
+  <>
+    <SiteHeader />
+
     <main className="orderFreshPage">
       <section
         className="orderFreshHero"
@@ -148,14 +151,6 @@ function handleAddToCart() {
       >
         <div className="orderFreshHeroOverlay">
           <div className="orderFreshHeroContent">
-            <a href="/" className="orderFreshHeroLogo">
-                <img src={logo} alt="Mais de Nata" />
-            </a>
-
-            <a href="/" className="orderFreshBackLink">
-                {t.orderFreshBackHome}
-            </a>
-
             <h1>{t.orderFreshTitle}</h1>
                 <p className="orderFreshIntro">{t.orderFreshIntro}</p>
           </div>
@@ -324,5 +319,6 @@ function handleAddToCart() {
         </div>
       </section>
     </main>
-  )
+  </>
+)
 }

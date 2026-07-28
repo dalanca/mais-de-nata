@@ -43,11 +43,11 @@ function App() {
                 {t.navOrderFresh}
               </a>
 
-              <a href="/register">
+              <a href="/product-information">
                 {t.navWholesale}
               </a>
 
-              <a href="/register">
+              <a href="/contact">
                 {t.navContact}
               </a>
             </div>
@@ -155,8 +155,8 @@ function App() {
               {t.navWholesale}
             </a>
 
-            <a href="/register">
-            {t.navContact}
+            <a href="/contact">
+              {t.navContact}
             </a>
           </div>
 

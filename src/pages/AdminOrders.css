@@ -1,0 +1,235 @@
+.adminOrdersPage {
+  min-height: calc(100vh - 110px);
+  padding: 64px 24px 90px;
+  background: #f8f5f1;
+}
+
+.adminOrdersContainer {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.adminOrdersHeader {
+  margin-bottom: 38px;
+}
+
+.adminOrdersEyebrow {
+  margin: 0 0 8px;
+  color: #9a6b24;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.adminOrdersHeader h1 {
+  margin: 0;
+  color: #2f211e;
+  font-size: clamp(2.1rem, 5vw, 3.5rem);
+  line-height: 1.05;
+}
+
+.adminOrdersLoading,
+.adminOrdersError,
+.adminOrdersEmpty {
+  padding: 28px;
+  border: 1px solid #eadfd5;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.adminOrdersError {
+  color: #9b2525;
+}
+
+.adminOrdersList {
+  display: grid;
+  gap: 28px;
+}
+
+.adminOrderCard {
+  overflow: hidden;
+  border: 1px solid #eadfd5;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 12px 34px rgba(78, 49, 45, 0.08);
+}
+
+.adminOrderTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  border-bottom: 1px solid #eee5dd;
+  background: #fffdfb;
+}
+
+.adminOrderNumber {
+  margin: 0 0 6px;
+  color: #4e312d;
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.adminOrderDate {
+  margin: 0;
+  color: #786b65;
+  font-size: 0.92rem;
+}
+
+.adminOrderTotal {
+  margin: 0;
+  color: #4e312d;
+  font-size: 1.35rem;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.adminOrderContent {
+  padding: 28px;
+}
+
+.adminOrderDetailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.adminOrderSection {
+  min-width: 0;
+}
+
+.adminOrderSection h2 {
+  margin: 0 0 16px;
+  color: #9a6b24;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.adminOrderDetail {
+  margin: 0 0 13px;
+}
+
+.adminOrderDetail span {
+  display: block;
+  margin-bottom: 3px;
+  color: #82746d;
+  font-size: 0.78rem;
+}
+
+.adminOrderDetail strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #302725;
+  font-size: 0.96rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.adminOrderNotes {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #eee5dd;
+}
+
+.adminOrderNotes h2 {
+  margin: 0 0 10px;
+  color: #9a6b24;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.adminOrderNotes p {
+  margin: 0;
+  color: #4e4440;
+  line-height: 1.6;
+}
+
+.adminOrderStatusRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid #eee5dd;
+}
+
+.adminOrderStatus {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f8f5f1;
+}
+
+.adminOrderStatus span {
+  display: block;
+  margin-bottom: 4px;
+  color: #82746d;
+  font-size: 0.76rem;
+}
+
+.adminOrderStatus strong {
+  color: #4e312d;
+  font-size: 0.95rem;
+}
+
+.adminOrderActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+.adminOrderConfirmButton {
+  min-width: 160px;
+  padding: 12px 20px;
+  border: 1px solid #4e312d;
+  border-radius: 10px;
+  background: #4e312d;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.adminOrderConfirmButton:hover:not(:disabled) {
+  background: #35211e;
+}
+
+.adminOrderConfirmButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+@media (max-width: 900px) {
+  .adminOrderDetailsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .adminOrdersPage {
+    padding: 42px 16px 70px;
+  }
+
+  .adminOrderTop {
+    flex-direction: column;
+    padding: 22px;
+  }
+
+  .adminOrderContent {
+    padding: 22px;
+  }
+
+  .adminOrderDetailsGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .adminOrderStatusRow {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,6 +3,14 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.SUPABASE_URL
 const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY
 
+console.log('Supabase URL check:', {
+  exists: Boolean(supabaseUrl),
+  startsWithHttps: supabaseUrl?.startsWith('https://'),
+  endsWithSupabaseCo: supabaseUrl?.endsWith('.supabase.co'),
+  length: supabaseUrl?.length,
+  last10: supabaseUrl?.slice(-10),
+})
+
 if (!supabaseUrl) {
   throw new Error('SUPABASE_URL is not configured')
 }

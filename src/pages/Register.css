@@ -534,3 +534,77 @@
     font-size: 23px;
   }
 }
+/* =====================================
+   ARES COMPANY VERIFICATION
+===================================== */
+
+.wholesaleCompanyLookup {
+  display: grid;
+  gap: 12px;
+}
+
+.wholesaleCompanyLookupField {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.wholesaleVerifyButton {
+  min-height: 52px;
+  padding: 0 20px;
+  border: 1px solid #4e312d;
+  border-radius: 14px;
+  background: #4e312d;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.wholesaleVerifyButton:hover:not(:disabled) {
+  background: #38221f;
+}
+
+.wholesaleVerifyButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.wholesaleVerificationSuccess,
+.wholesaleVerificationError {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.wholesaleVerificationSuccess {
+  color: #347a46;
+}
+
+.wholesaleVerificationError {
+  color: #b33a32;
+}
+
+.wholesaleRegistrationSection input:read-only {
+  background: #f7f4f1;
+  color: #5f504c;
+  cursor: default;
+}
+
+@media (max-width: 600px) {
+  .wholesaleCompanyLookupField {
+    grid-template-columns: 1fr;
+  }
+
+  .wholesaleVerifyButton {
+    width: 100%;
+  }
+}
+.wholesaleRegistrationSubmit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

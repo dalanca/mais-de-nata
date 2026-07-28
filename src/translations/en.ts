@@ -6,7 +6,10 @@ const en = {
   navOurPasteis: "Our Pastéis",
   navOrderFresh: "Order Fresh",
   navWholesale: "Wholesale",
-  
+  navSignIn: "Sign In",
+  navMyAccount: "My Account",
+  navSignOut: "Sign Out",
+  navWholesaleRegister: "Wholesale",
   // Hero
   heroTitle1: "Authentic Portuguese",
   heroTitle2: "Pastéis de Nata",
@@ -69,7 +72,16 @@ wholesaleRegisterApprovalTitle:
   "Wholesale access requires approval.",
 wholesaleRegisterApprovalText:
   "We will review your business details and contact you once your wholesale account has been approved.",
-   // Product Information
+  wholesaleRegisterSubmitting: "Submitting...",
+
+wholesaleRegisterSubmissionSuccess:
+  "Registration successful. Please check your email to complete your wholesale account setup.",
+
+wholesaleRegisterSubmissionError:
+  "We could not complete your registration. Please try again.",
+  
+  
+  // Product Information
 productInfoBackHome: "← Home",
 productInfoTitle: "Pastéis de Nata for Wholesale",
 productInfoIntro:
@@ -291,6 +303,20 @@ cartDecreaseQuantity: "Decrease quantity for box of",
 cartIncreaseQuantity: "Increase quantity for box of",
 
 /* ==========================
+   CONTACT
+========================== */
+contactEyebrow: "Get in touch",
+contactTitle: "We'd love to hear from you.",
+contactIntro:
+  "Whether you have a question about our Pastéis de Nata, an order, or working with Mais de Nata, send us a message and we'll get back to you.",
+contactName: "Name",
+contactEmail: "Email",
+contactPhone: "Phone (optional)",
+contactSubject: "Subject",
+contactMessage: "Message",
+contactSubmit: "Send Message",
+
+/* ==========================
    CHECKOUT (B2C)
 ========================== */
 
@@ -460,13 +486,16 @@ wholesalePricingTier2: "10–24 boxes",
 wholesalePricingTier3: "25+ boxes",
 wholesaleCustomQuote: "Custom quote",
 
-wholesaleDeliveryTitle: "Delivery Schedule",
-wholesaleDeliveryTuesday: "Tuesday",
-wholesaleDeliveryFriday: "Friday",
-wholesaleDeliveryCost: "Delivery",
-wholesaleOrderByMonday: "Order by Mon 12:00",
-wholesaleOrderByThursday: "Order by Thu 12:00",
-wholesaleDeliveryCharged: "Charged separately",
+wholesaleDeliveryTitle: 'Delivery & Collection',
+wholesaleDeliveryMessage1:
+  'Every wholesale order is individually reviewed by our team.',
+wholesaleDeliveryMessage2:
+  'Once your order has been confirmed, we will contact you to arrange the most suitable collection or delivery option.',
+
+ // Company Details
+ wholesaleDetailsTitle: 'Company & Delivery Details',
+wholesaleDetailsMessage:
+  'Please review your company details and provide any delivery instructions for this order.',
 
 // Order Summary
 boxUnit: "boxes",
@@ -484,11 +513,161 @@ orderSummaryNote4: "72 Pastéis de Nata per box • 6-month frozen shelf life",
 pricePerUnit: "/ box",
 submitOrderButton: "Submit Order Request",
 
+wholesaleAccountLoading: 'Loading your wholesale account...',
+wholesaleAccountLoadError: 'Unable to load your wholesale account.',
+
+wholesaleAccountEyebrow: 'WHOLESALE ACCOUNT',
+wholesaleAccountTitle: 'My Account',
+wholesaleAccountPlaceOrder: 'Place New Order',
+
+wholesaleAccountDetailsTitle: 'Account Details',
+wholesaleAccountCompany: 'Company',
+wholesaleAccountCompanyId: 'Company ID / IČO',
+wholesaleAccountVatNumber: 'VAT number',
+wholesaleAccountContact: 'Contact',
+wholesaleAccountEmail: 'Email',
+wholesaleAccountPhone: 'Phone',
+wholesaleAccountCompanyAddress: 'Company address',
+wholesaleAccountDeliveryAddress: 'Delivery address',
+
+wholesaleAccountOrderHistory: 'Order History',
+wholesaleAccountNoOrders: 'You have not placed any wholesale orders yet.',
+
+wholesaleAccountCartons: 'Cartons',
+wholesaleAccountPayment: 'Payment',
+wholesaleAccountOrderStatus: 'Order status',
+
+wholesaleAccountPaymentPending: 'Payment Pending',
+wholesaleAccountPaymentPaid: 'Paid',
+wholesaleAccountPaymentFailed: 'Payment Failed',
+wholesaleAccountPaymentRefunded: 'Refunded',
+
+wholesaleAccountOrderReceived: 'Order Received',
+wholesaleAccountOrderConfirmed: 'Order Confirmed',
+wholesaleAccountOrderPreparing: 'Preparing',
+wholesaleAccountOrderFulfilled: 'Fulfilled',
+wholesaleAccountOrderCancelled: 'Cancelled',
+
+  /* ==========================
+     Sign in keys(B2B)
+  ========================== */
+wholesaleSignInEyebrow: 'WHOLESALE ACCOUNT',
+wholesaleSignInTitle: 'Sign in',
+wholesaleSignInIntro:
+  'Sign in to access wholesale pricing and place your Mais de Nata orders.',
+
+wholesaleSignInEmail: 'Email',
+wholesaleSignInPassword: 'Password',
+wholesaleSignInForgotPassword: 'Forgot password?',
+
+wholesaleSignInSubmitting: 'Signing in...',
+wholesaleSignInSubmit: 'Sign In',
+
+wholesaleSignInNoAccount:
+  "Don't have a wholesale account?",
+wholesaleSignInRegister: 'Register for Wholesale',
+
+wholesaleSignInUnable: 'Unable to sign in.',
+wholesaleSignInInactive:
+  'Your wholesale account is not active.',
+
+  /* ==========================
+   Forgot Password (B2B)
+========================== */
+
+wholesaleForgotEyebrow:
+  'WHOLESALE ACCOUNT',
+
+wholesaleForgotTitle:
+  'Forgot your password?',
+
+wholesaleForgotIntro:
+  'Enter the email address associated with your wholesale account and we’ll send you a link to reset your password.',
+
+wholesaleForgotSuccessTitle:
+  'Check your email',
+
+wholesaleForgotSuccessText:
+  'If an account exists for this email address, we’ve sent you a password reset link.',
+
+wholesaleForgotReturnSignIn:
+  'Return to Sign In',
+
+wholesaleForgotEmail:
+  'Email',
+
+wholesaleForgotSending:
+  'Sending...',
+
+wholesaleForgotSendLink:
+  'Send Reset Link',
+
+wholesaleForgotSendError:
+  'We could not send the reset email. Please try again.',
+
+/* ==========================
+   Reset Password (B2B)
+========================== */
+
+wholesaleResetEyebrow: 'WHOLESALE ACCOUNT',
+
+wholesaleResetExpiredTitle: 'Reset link expired',
+wholesaleResetExpiredText:
+  'This password reset link is invalid or has expired. Please request a new password reset link.',
+wholesaleResetRequestNewLink:
+  'Request New Reset Link',
+
+wholesaleResetSuccessTitle: 'Password updated',
+wholesaleResetSuccessText:
+  'Your password has been updated successfully. You can now sign in to your wholesale account.',
+wholesaleResetContinue:
+  'Continue to Sign In',
+
+wholesaleResetTitle: 'Set a New Password',
+wholesaleResetIntro:
+  'Enter a new password for your wholesale account.',
+
+wholesaleResetNewPassword:
+  'New Password',
+
+wholesaleResetConfirmPassword:
+  'Confirm New Password',
+
+wholesaleResetPasswordHint:
+  'At least 8 characters including one number and one special character.',
+
+wholesaleResetUpdate:
+  'Update Password',
+
+wholesaleResetUpdating:
+  'Updating...',
+
+wholesaleResetPasswordInvalid:
+  'Password must contain at least 8 characters, including one number and one special character.',
+
+wholesaleResetPasswordsMismatch:
+  'Passwords do not match.',
+
+wholesaleResetUpdateFailed:
+  'Unable to update your password.',
+
+  /* ==========================
+     Wholesale ARES Lookup (B2B)
+  ========================== */
+wholesaleRegisterAresVerify: "Verify company",
+wholesaleRegisterAresVerifying: "Verifying...",
+wholesaleRegisterAresVerified: "Company verified via ARES",
+wholesaleRegisterAresInvalidIco:
+  "Please enter a valid 8-digit IČO.",
+wholesaleRegisterAresNotFound:
+  "We could not find this company in ARES.",
+wholesaleRegisterAresError:
+  "We could not verify the company at this time.",
+
 // Company Details
 companyName: "Company Name",
 companyId: "Company ID Number",
 vatNumber: "VAT Number (optional)",
-contactName: "Contact Name",
 emailAddress: "Email Address",
 phoneNumber: "Phone Number",
 deliveryAddress: "Delivery Address",
@@ -497,6 +676,8 @@ notesPlaceholder:
   "Opening hours, delivery instructions, contact name and phone number, special requirements...",
 
 companyDetailsTitle: "Company Details",
+wholesaleRegisterAresRequired:
+  "Please verify your company with ARES before submitting the registration.",
 
 // Footer
 footerBrand: "Authentic Portuguese Pastéis de Nata",

@@ -88,3 +88,16 @@
     display: none;
   }
 }
+.siteHeaderSignOut {
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  cursor: pointer;
+}
+
+.siteHeaderSignOut:hover {
+  opacity: 0.7;
+}

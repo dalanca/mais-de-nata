@@ -2,14 +2,14 @@ import '../App.css'
 import './ProductInformation.css'
 import heroNata from '../assets/images/hero-nata.jpg'
 import { useLanguage } from "../LanguageContext"
+import SiteHeader from "../components/SiteHeader";
 function ProductInformation() {
   const { t } = useLanguage()
   return (
+   <>
+  <SiteHeader /> 
     <main>
       <section className="productPage">
-      <a href="/" className="pageBack">
-      {t.productInfoBackHome}
-      </a>
         <div className="productIntro productIntroWithImage"><div>
         <h1>{t.productInfoTitle}</h1>
         <p>{t.productInfoIntro}</p>
@@ -104,6 +104,7 @@ function ProductInformation() {
 </div>  
 </section>
 </main>
+</>
   )
 }
 

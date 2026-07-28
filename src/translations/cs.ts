@@ -6,7 +6,10 @@ const cs = {
   navOurPasteis: "Naše Pastéis",
   navOrderFresh: "Objednat čerstvé",
   navWholesale: "Velkoobchod",
-
+  navSignIn: "Přihlásit se",
+  navMyAccount: "Můj účet",
+  navSignOut: "Odhlásit se",
+  navWholesaleRegister: "Velkoobchod",
   // Hero
   heroTitle1: "Autentické portugalské",
   heroTitle2: "Pastéis de Nata",
@@ -86,6 +89,19 @@ productOverviewItems: [
   "Tradiční receptura zdokonalovaná více než 80 let",
   "Trvanlivost až 360 dní při zmrazení",
 ],
+    /* ==========================
+     CONTACT
+  ========================== */
+contactEyebrow: "Kontaktujte nás",
+contactTitle: "Rádi o vás uslyšíme.",
+contactIntro:
+  "Ať už máte dotaz k našim Pastéis de Nata, objednávce nebo spolupráci s Mais de Nata, napište nám a ozveme se vám.",
+contactName: "Jméno",
+contactEmail: "E-mail",
+contactPhone: "Telefon (volitelné)",
+contactSubject: "Předmět",
+contactMessage: "Zpráva",
+contactSubmit: "Odeslat zprávu",
     /* ==========================
      Order Fresh (B2C)
   ========================== */
@@ -261,6 +277,41 @@ checkoutTermsReminder:
    WHOLESALE REGISTRATION
 ========================== */
 
+wholesaleAccountLoading: 'Načítání velkoobchodního účtu...',
+wholesaleAccountLoadError: 'Velkoobchodní účet se nepodařilo načíst.',
+
+wholesaleAccountEyebrow: 'VELKOOBCHODNÍ ÚČET',
+wholesaleAccountTitle: 'Můj účet',
+wholesaleAccountPlaceOrder: 'Nová objednávka',
+
+wholesaleAccountDetailsTitle: 'Údaje o účtu',
+wholesaleAccountCompany: 'Společnost',
+wholesaleAccountCompanyId: 'IČO',
+wholesaleAccountVatNumber: 'DIČ',
+wholesaleAccountContact: 'Kontaktní osoba',
+wholesaleAccountEmail: 'E-mail',
+wholesaleAccountPhone: 'Telefon',
+wholesaleAccountCompanyAddress: 'Adresa společnosti',
+wholesaleAccountDeliveryAddress: 'Doručovací adresa',
+
+wholesaleAccountOrderHistory: 'Historie objednávek',
+wholesaleAccountNoOrders: 'Zatím jste nevytvořili žádnou velkoobchodní objednávku.',
+
+wholesaleAccountCartons: 'Kartony',
+wholesaleAccountPayment: 'Platba',
+wholesaleAccountOrderStatus: 'Stav objednávky',
+
+wholesaleAccountPaymentPending: 'Čeká na platbu',
+wholesaleAccountPaymentPaid: 'Zaplaceno',
+wholesaleAccountPaymentFailed: 'Platba se nezdařila',
+wholesaleAccountPaymentRefunded: 'Platba vrácena',
+
+wholesaleAccountOrderReceived: 'Objednávka přijata',
+wholesaleAccountOrderConfirmed: 'Objednávka potvrzena',
+wholesaleAccountOrderPreparing: 'Připravuje se',
+wholesaleAccountOrderFulfilled: 'Vyřízeno',
+wholesaleAccountOrderCancelled: 'Zrušeno',
+
 wholesaleRegisterBack: "← Domů",
 wholesaleRegisterEyebrow: "Velkoobchod",
 wholesaleRegisterTitle: "Registrace pro velkoobchodní přístup",
@@ -313,6 +364,15 @@ wholesaleRegisterApprovalTitle:
   "Velkoobchodní přístup podléhá schválení.",
 wholesaleRegisterApprovalText:
   "Vaše firemní údaje zkontrolujeme a po schválení velkoobchodního účtu vás budeme kontaktovat.", 
+ 
+ wholesaleRegisterSubmitting: "Odesílání...",
+
+wholesaleRegisterSubmissionSuccess:
+  "Registrace byla úspěšná. Zkontrolujte prosím svůj e-mail a dokončete nastavení velkoobchodního účtu.",
+
+wholesaleRegisterSubmissionError:
+  "Registraci se nepodařilo dokončit. Zkuste to prosím znovu.",
+ 
   // Why Pastel de Nata
   whyTitle: "Proč Pastel de Nata",
   logoTagline: "AUTENTICKÁ PORTUGALSKÁ KVALITA",
@@ -337,6 +397,123 @@ wholesaleRegisterApprovalText:
       "Konzistentní kvalita každé várky",
       "Ideální pro kavárny, pekárny, hotely a maloobchod",
 ],
+  /* ==========================
+     Wholesale ARES Lookup (B2B)
+  ========================== */
+wholesaleRegisterAresVerify: "Ověřit firmu",
+wholesaleRegisterAresVerifying: "Ověřování...",
+wholesaleRegisterAresVerified: "Firma ověřena přes ARES",
+wholesaleRegisterAresInvalidIco:
+  "Zadejte platné osmimístné IČO.",
+wholesaleRegisterAresNotFound:
+  "Tuto firmu se nepodařilo najít v ARES.",
+wholesaleRegisterAresError:
+  "Firmu se nyní nepodařilo ověřit.",
+wholesaleRegisterAresRequired:
+  "Před odesláním registrace prosím ověřte firmu v systému ARES.",
+
+    /* ==========================
+     Sign in keys(B2B)
+  ========================== */
+wholesaleSignInEyebrow: 'VELKOOBCHODNÍ ÚČET',
+wholesaleSignInTitle: 'Přihlášení',
+wholesaleSignInIntro:
+  'Přihlaste se pro přístup k velkoobchodním cenám a zadávání objednávek Mais de Nata.',
+
+wholesaleSignInEmail: 'E-mail',
+wholesaleSignInPassword: 'Heslo',
+wholesaleSignInForgotPassword: 'Zapomněli jste heslo?',
+
+wholesaleSignInSubmitting: 'Přihlašuji...',
+wholesaleSignInSubmit: 'Přihlásit se',
+
+wholesaleSignInNoAccount:
+  'Nemáte velkoobchodní účet?',
+wholesaleSignInRegister: 'Registrovat se pro velkoobchod',
+
+wholesaleSignInUnable: 'Přihlášení se nezdařilo.',
+wholesaleSignInInactive:
+  'Váš velkoobchodní účet není aktivní.',
+
+/* ==========================
+   Reset Password (B2B)
+========================== */
+
+wholesaleResetEyebrow: 'VELKOOBCHODNÍ ÚČET',
+
+wholesaleResetExpiredTitle: 'Platnost odkazu vypršela',
+wholesaleResetExpiredText:
+  'Tento odkaz pro obnovení hesla je neplatný nebo jeho platnost vypršela. Požádejte o nový odkaz pro obnovení hesla.',
+wholesaleResetRequestNewLink:
+  'Požádat o nový odkaz',
+
+wholesaleResetSuccessTitle: 'Heslo bylo změněno',
+wholesaleResetSuccessText:
+  'Vaše heslo bylo úspěšně změněno. Nyní se můžete přihlásit ke svému velkoobchodnímu účtu.',
+wholesaleResetContinue:
+  'Pokračovat na přihlášení',
+
+wholesaleResetTitle: 'Nastavit nové heslo',
+wholesaleResetIntro:
+  'Zadejte nové heslo pro svůj velkoobchodní účet.',
+
+wholesaleResetNewPassword:
+  'Nové heslo',
+
+wholesaleResetConfirmPassword:
+  'Potvrďte nové heslo',
+
+wholesaleResetPasswordHint:
+  'Alespoň 8 znaků, včetně čísla a speciálního znaku.',
+
+wholesaleResetUpdate:
+  'Aktualizovat heslo',
+
+wholesaleResetUpdating:
+  'Aktualizuji...',
+
+wholesaleResetPasswordInvalid:
+  'Heslo musí obsahovat alespoň 8 znaků, jedno číslo a jeden speciální znak.',
+
+wholesaleResetPasswordsMismatch:
+  'Hesla se neshodují.',
+
+wholesaleResetUpdateFailed:
+  'Heslo se nepodařilo aktualizovat.',
+
+  /* ==========================
+   Forgot Password (B2B)
+========================== */
+
+wholesaleForgotEyebrow:
+  'VELKOOBCHODNÍ ÚČET',
+
+wholesaleForgotTitle:
+  'Zapomněli jste heslo?',
+
+wholesaleForgotIntro:
+  'Zadejte e-mailovou adresu spojenou s vaším velkoobchodním účtem a zašleme vám odkaz pro obnovení hesla.',
+
+wholesaleForgotSuccessTitle:
+  'Zkontrolujte svůj e-mail',
+
+wholesaleForgotSuccessText:
+  'Pokud pro tuto e-mailovou adresu existuje účet, odeslali jsme vám odkaz pro obnovení hesla.',
+
+wholesaleForgotReturnSignIn:
+  'Zpět na přihlášení',
+
+wholesaleForgotEmail:
+  'E-mail',
+
+wholesaleForgotSending:
+  'Odesílám...',
+
+wholesaleForgotSendLink:
+  'Odeslat odkaz pro obnovení hesla',
+
+wholesaleForgotSendError:
+  'E-mail pro obnovení hesla se nepodařilo odeslat. Zkuste to prosím znovu.',
 
 /* ==========================
    PAYMENT SUCCESS (B2C)
@@ -461,15 +638,18 @@ wholesalePricingTier2: "10–24 ks",
 wholesalePricingTier3: "25+ ks",
 wholesaleCustomQuote: "Individuální nabídka",
 
-wholesaleDeliveryTitle: "Harmonogram dodávek",
-wholesaleDeliveryTuesday: "Úterý",
-wholesaleDeliveryFriday: "Pátek",
-wholesaleDeliveryCost: "Doprava",
-wholesaleOrderByMonday: "Objednat do po 12:00",
-wholesaleOrderByThursday: "Objednat do čt 12:00",
-wholesaleDeliveryCharged: "Účtována zvlášť",
+wholesaleDeliveryTitle: 'Doručení a vyzvednutí',
+wholesaleDeliveryMessage1:
+  'Každou velkoobchodní objednávku náš tým posuzuje individuálně.',
+wholesaleDeliveryMessage2:
+  'Po potvrzení objednávky vás kontaktujeme a domluvíme nejvhodnější způsob vyzvednutí nebo doručení.',
 
-// Order summary
+  // Company Details
+wholesaleDetailsTitle: 'Firemní a doručovací údaje',
+wholesaleDetailsMessage:
+  'Zkontrolujte prosím firemní údaje a doplňte případné pokyny k doručení této objednávky.',
+
+  // Order summary
 boxUnit: "ks",
 orderSummaryTitle: "Přehled objednávky",
 
@@ -489,7 +669,6 @@ submitOrderButton: "Odeslat objednávku",
 companyName: "Název společnosti",
 companyId: "IČO",
 vatNumber: "DIČ (volitelné)",
-contactName: "Kontaktní osoba",
 emailAddress: "E-mail",
 phoneNumber: "Telefon",
 deliveryAddress: "Dodací adresa",

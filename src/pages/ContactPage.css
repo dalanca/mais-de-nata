@@ -1,0 +1,126 @@
+/* =====================================
+   CONTACT PAGE
+===================================== */
+
+.contactSimplePage {
+  min-height: 100vh;
+  padding: 80px 20px 110px;
+  background: #fffaf6;
+  color: #4e312d;
+}
+
+.contactSimpleHero {
+  width: min(760px, 100%);
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.contactSimpleEyebrow {
+  margin: 0 0 14px;
+  color: #9b6c32;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.contactSimpleHero h1 {
+  margin: 0 0 20px;
+  color: #4e312d;
+  font-size: clamp(2.6rem, 5vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.contactSimpleHero > p:not(.contactSimpleEyebrow) {
+  max-width: 650px;
+  margin: 0 auto;
+  color: #70564f;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.contactSimpleCard {
+  width: min(720px, 100%);
+  margin: 0 auto;
+  padding: 40px;
+  border: 1px solid rgba(78, 49, 45, 0.1);
+  border-radius: 26px;
+  background: #ffffff;
+  box-shadow: 0 20px 55px rgba(78, 49, 45, 0.08);
+}
+
+.contactSimpleForm {
+  display: grid;
+  gap: 22px;
+}
+
+.contactSimpleForm label {
+  display: grid;
+  gap: 9px;
+  color: #4e312d;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.contactSimpleForm input,
+.contactSimpleForm textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid rgba(78, 49, 45, 0.18);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #4e312d;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.contactSimpleForm input {
+  min-height: 52px;
+}
+
+.contactSimpleForm textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contactSimpleForm input:focus,
+.contactSimpleForm textarea:focus {
+  outline: 2px solid rgba(214, 185, 42, 0.45);
+  border-color: #d6b92a;
+}
+
+.contactSimpleForm button {
+  min-height: 54px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: #4e312d;
+  color: #ffffff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.contactSimpleForm button:hover {
+  background: #38221f;
+}
+
+@media (max-width: 700px) {
+  .contactSimplePage {
+    padding: 58px 20px 80px;
+  }
+
+  .contactSimpleHero {
+    margin-bottom: 34px;
+  }
+
+  .contactSimpleHero h1 {
+    font-size: 2.6rem;
+  }
+
+  .contactSimpleCard {
+    padding: 26px 22px;
+    border-radius: 22px;
+  }
+}
