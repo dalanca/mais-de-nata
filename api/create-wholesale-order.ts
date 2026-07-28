@@ -1,4 +1,4 @@
-import { supabaseAdmin } from '../server/database/supabase'
+import { supabaseAdmin } from '../server/database/supabase.js'
 
 type WholesaleOrderRequest = {
   boxes: number
