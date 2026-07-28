@@ -1,4 +1,4 @@
-import { supabaseAdmin } from '../../server/database/supabase'
+import { supabase } from '../../server/database/supabase.js'
 
 const allowedStatuses = [
   'pending',
