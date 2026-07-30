@@ -4,9 +4,12 @@ import type React from 'react'
 import SiteHeader from '../components/SiteHeader'
 import { supabase } from '../lib/supabaseClient'
 
+import './AdminSignIn.css'
+
 function AdminSignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [isSigningIn, setIsSigningIn] = useState(false)
   const [error, setError] = useState('')
 
@@ -77,92 +80,97 @@ function AdminSignIn() {
     }
   }
 
-  return (
-    <>
-      <SiteHeader />
+ return (
+  <>
+    <SiteHeader />
 
-      <main style={{ padding: '60px 24px' }}>
-        <section
-          style={{
-            width: '100%',
-            maxWidth: '520px',
-            margin: '0 auto',
-          }}
-        >
-          <p>MAIS DE NATA ADMIN</p>
+    <main className="adminSignInPage">
+      <section className="adminSignInCard">
+        <p className="adminSignInEyebrow">
+          Mais de Nata Administration
+        </p>
 
-          <h1>Admin Sign In</h1>
+        <h1 className="adminSignInTitle">
+          Admin Sign In
+        </h1>
 
-          <form onSubmit={handleSignIn}>
-            <div style={{ marginBottom: '18px' }}>
-              <label>
-                Email
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(event) =>
-                    setEmail(event.target.value)
-                  }
-                  autoComplete="email"
-                  required
-                  style={{
-                    display: 'block',
-                    width: '100%',
-                    marginTop: '8px',
-                    padding: '12px',
-                    boxSizing: 'border-box',
-                  }}
-                />
-              </label>
-            </div>
+        <p className="adminSignInIntro">
+          Sign in to manage wholesale orders and customer activity.
+        </p>
 
-            <div style={{ marginBottom: '18px' }}>
-              <label>
-                Password
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(event) =>
-                    setPassword(event.target.value)
-                  }
-                  autoComplete="current-password"
-                  required
-                  style={{
-                    display: 'block',
-                    width: '100%',
-                    marginTop: '8px',
-                    padding: '12px',
-                    boxSizing: 'border-box',
-                  }}
-                />
-              </label>
-            </div>
-            
-            <p>
-                <a href="/admin/forgot-password">
-                    Forgot password?
-                </a>
+        <form onSubmit={handleSignIn}>
+          <label className="adminSignInField">
+            Email
+            <input
+              className="adminSignInInput"
+              type="email"
+              value={email}
+              onChange={(event) =>
+                setEmail(event.target.value)
+              }
+              autoComplete="email"
+              required
+            />
+          </label>
+
+         <label className="adminSignInField">
+  Password
+
+  <div className="adminSignInPasswordWrap">
+    <input
+      className="adminSignInInput"
+      type={showPassword ? 'text' : 'password'}
+      value={password}
+      onChange={(event) =>
+        setPassword(event.target.value)
+      }
+      autoComplete="current-password"
+      required
+    />
+
+    <button
+      type="button"
+      className="adminSignInPasswordToggle"
+      onClick={() =>
+        setShowPassword(!showPassword)
+      }
+      aria-label={
+        showPassword
+          ? 'Hide password'
+          : 'Show password'
+      }
+    >
+      {showPassword ? '🙈' : '👁'}
+    </button>
+  </div>
+</label>
+
+          <p className="adminSignInForgot">
+            <a href="/admin/forgot-password">
+              Forgot password?
+            </a>
+          </p>
+
+          {error && (
+            <p className="adminSignInError">
+              {error}
             </p>
-            
-            {error && (
-              <p style={{ color: '#9b2525' }}>
-                {error}
-              </p>
-            )}
+          )}
 
-            <button
-              type="submit"
-              disabled={isSigningIn}
-            >
-              {isSigningIn
-                ? 'Signing in...'
-                : 'Sign In'}
-            </button>
-          </form>
-        </section>
-      </main>
-    </>
-  )
+          <button
+            className="adminSignInButton"
+            type="submit"
+            disabled={isSigningIn}
+          >
+            {isSigningIn
+              ? 'Signing in...'
+              : 'Sign In'}
+          </button>
+        </form>
+      </section>
+    </main>
+  </>
+)
 }
 
 export default AdminSignIn

@@ -41,29 +41,28 @@ function WholesaleSignIn() {
         throw new Error(t.wholesaleSignInUnable)
       }
 
-      const {
-        data: wholesaleCustomer,
-        error: profileError,
-      } = await supabase
-        .from('wholesale_customers')
-        .select('account_status')
-        .eq('id', user.id)
-        .single()
+const {
+  data: wholesaleCustomer,
+  error: profileError,
+} = await supabase
+  .from('wholesale_customers')
+  .select('id, company_name, account_status')
+  .eq('auth_user_id', user.id)
+  .eq('account_status', 'active')
+  .limit(1)
+  .maybeSingle()
 
-      if (profileError) {
-        throw profileError
-      }
+if (profileError) {
+  throw profileError
+}
 
-      if (
-        wholesaleCustomer.account_status !== 'active'
-      ) {
-        await supabase.auth.signOut()
+if (!wholesaleCustomer) {
+  await supabase.auth.signOut()
 
-      throw new Error(
-        t.wholesaleSignInInactive,
-)
-      }
-
+  throw new Error(
+    'No active wholesale company is linked to this account.',
+  )
+}
       window.location.href = '/wholesale-account'
     } catch (err) {
       console.error('Wholesale sign in failed:', err)

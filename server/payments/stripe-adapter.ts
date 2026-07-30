@@ -27,6 +27,14 @@ export function createChannelOrderFromStripeSession(
     )
   }
 
+  const language = session.metadata?.language
+
+    if (language !== 'en' && language !== 'cs') {
+      throw new Error(
+        'Stripe session is missing a valid checkout language',
+      )
+    }
+
   const customerEmail =
     session.customer_details?.email ??
     session.customer_email ??
@@ -103,6 +111,7 @@ export function createChannelOrderFromStripeSession(
 
   return {
     salesChannel,
+     language,
 
     externalEventId: eventId,
     externalOrderId: session.id,

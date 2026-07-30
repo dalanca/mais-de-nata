@@ -25,6 +25,13 @@ export async function createOrderFromChannel(
 ): Promise<CreateChannelOrderResult> {
   validateChannelOrder(channelOrder)
 
+  if (
+    channelOrder.language !== 'en' &&
+    channelOrder.language !== 'cs'
+  ) {
+    throw new Error('Order language must be en or cs')
+  }
+
   if (channelOrder.externalEventId) {
     const existingOrder = await findOrderByExternalEventId(
       channelOrder.externalEventId,
@@ -41,6 +48,7 @@ export async function createOrderFromChannel(
   const input: CreateOrderInput = {
     orderNumber: generateOrderNumber(),
     salesChannel: channelOrder.salesChannel,
+    language: channelOrder.language,
 
     externalEventId: channelOrder.externalEventId,
     externalOrderId: channelOrder.externalOrderId,

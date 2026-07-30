@@ -1,10 +1,14 @@
 import { supabaseAdmin } from '../server/database/supabase.js'
+import {
+  sendWholesaleRegistrationEmail,
+} from '../server/email/send-wholesale-registration-email.js'
 
 type WholesaleRegistrationRequest = {
   companyId: string
   contactName: string
   email: string
   phone: string
+  language?: 'en' | 'cs'
 
   deliverySameAsCompany: boolean
 
@@ -61,6 +65,9 @@ export default async function handler(
 
     const phone =
       body.phone?.trim() ?? ''
+
+    const language =
+      body.language === 'cs' ? 'cs' : 'en'
 
     if (!/^\d{8}$/.test(companyId)) {
       return response.status(400).json({
@@ -133,15 +140,15 @@ export default async function handler(
       country: 'Czech Republic',
     }
 
-    // Prevent the same IČO from being registered twice.
     const {
       data: existingCompany,
       error: existingCompanyError,
     } = await supabaseAdmin
       .from('wholesale_customers')
-      .select('id')
+      .select('id, company_name, company_id')
       .eq('company_id', company.ico)
       .maybeSingle()
+      console.log('Existing company lookup result:', existingCompany)
 
     if (existingCompanyError) {
       throw existingCompanyError
@@ -154,50 +161,106 @@ export default async function handler(
       })
     }
 
-// Invite the wholesale user.
-const {
-  data: inviteData,
-  error: inviteError,
-} = await supabaseAdmin.auth.admin.inviteUserByEmail(
-  email,
-  {
-    redirectTo:
-      'http://localhost:5173/wholesale-account-setup',
+// Use the currently authenticated user when available.
+// A signed-in user may register more than one company.
+const authorizationHeader =
+  request.headers.authorization ?? ''
 
-    data: {
-      contact_name: contactName,
-      company_id: company.ico,
-      company_name: company.companyName,
-    },
-  },
+const accessToken = authorizationHeader.startsWith(
+  'Bearer ',
 )
+  ? authorizationHeader.slice(7)
+  : null
 
-    if (inviteError) {
-      console.error(
-        'Wholesale user invitation failed:',
-        inviteError,
-      )
+let userId: string | null = null
+let invitedNewUser = false
 
-      return response.status(400).json({
-        success: false,
-        message: inviteError.message,
-      })
-    }
+if (accessToken) {
+  const {
+    data: authenticatedUserData,
+    error: authenticatedUserError,
+  } = await supabaseAdmin.auth.getUser(accessToken)
 
-    const userId = inviteData.user?.id
+  if (
+    authenticatedUserError ||
+    !authenticatedUserData.user
+  ) {
+    return response.status(401).json({
+      success: false,
+      message:
+        'Your session has expired. Please sign in again.',
+    })
+  }
 
-    if (!userId) {
-      throw new Error(
-        'Supabase did not return an invited user ID',
-      )
-    }
+  const authenticatedUser =
+    authenticatedUserData.user
 
+  const authenticatedEmail =
+    authenticatedUser.email?.trim().toLowerCase()
+
+  if (authenticatedEmail !== email) {
+    return response.status(400).json({
+      success: false,
+      message:
+        'The registration email must match your signed-in account.',
+    })
+  }
+
+  userId = authenticatedUser.id
+} else {
+  // A person who does not yet have an account receives an invitation.
+  const {
+    data: inviteData,
+    error: inviteError,
+  } =
+    await supabaseAdmin.auth.admin.inviteUserByEmail(
+      email,
+      {
+        redirectTo:
+          'http://localhost:5173/wholesale-account-setup',
+
+        data: {
+          contact_name: contactName,
+          company_id: company.ico,
+          company_name: company.companyName,
+        },
+      },
+    )
+
+  if (inviteError) {
+    console.error(
+      'Wholesale user invitation failed:',
+      inviteError,
+    )
+
+    const existingUser =
+      inviteError.message
+        .toLowerCase()
+        .includes('already')
+
+    return response.status(400).json({
+      success: false,
+      message: existingUser
+        ? 'An account already exists for this email. Please sign in before registering another company.'
+        : inviteError.message,
+    })
+  }
+
+  userId = inviteData.user?.id ?? null
+  invitedNewUser = true
+}
+
+if (!userId) {
+  throw new Error(
+    'Supabase did not return a wholesale user ID',
+  )
+}
     const {
       error: profileError,
     } = await supabaseAdmin
       .from('wholesale_customers')
       .insert({
-        id: userId,
+        auth_user_id: userId,
 
         company_name: company.companyName,
         company_id: company.ico,
@@ -248,7 +311,7 @@ const {
         company_verified_at:
           new Date().toISOString(),
 
-        account_status: 'pending_activation',
+        account_status: 'active',
       })
 
     if (profileError) {
@@ -257,17 +320,66 @@ const {
         profileError,
       )
 
-      // Avoid leaving an orphaned Auth user behind.
-      await supabaseAdmin.auth.admin.deleteUser(userId)
+      // Only remove the Auth user when this request created 
+      // // a brand-new invitation.
+      if (invitedNewUser) {
+        await supabaseAdmin.auth.admin.deleteUser(userId)
+      }
 
       throw profileError
     }
 
-    return response.status(201).json({
-      success: true,
-      message:
-        'Wholesale registration created successfully',
+    try {
+  const emailResult =
+    await sendWholesaleRegistrationEmail({
+      to: email,
+      contactName,
+      companyName: company.companyName,
+      language,
     })
+
+  if (emailResult.error) {
+    console.error(
+      'Wholesale registration email failed:',
+      emailResult.error,
+    )
+  } else {
+    console.log(
+      'Wholesale registration email sent:',
+      emailResult.data?.id,
+    )
+  }
+} catch (emailError) {
+  console.error(
+    'Wholesale registration email failed:',
+    emailError,
+  )
+}
+
+    try {
+  await sendWholesaleRegistrationEmail({
+    to: email,
+    contactName,
+    companyName: company.companyName,
+    language,
+  })
+} catch (emailError) {
+  console.error(
+    'Wholesale registration email failed:',
+    emailError,
+  )
+}
+
+      return response.status(201).json({
+        success: true,
+        message:
+            'Wholesale company registered successfully',
+        company: {
+          id: company.ico,
+          name: company.companyName,
+          status: 'active',
+        },
+      })
   } catch (error) {
     console.error(
       'Wholesale registration failed:',

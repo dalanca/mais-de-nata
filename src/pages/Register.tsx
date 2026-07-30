@@ -3,9 +3,10 @@ import '../App.css'
 import './Register.css'
 import { useLanguage } from '../LanguageContext'
 import SiteHeader from '../components/SiteHeader'
+import { supabase } from '../lib/supabaseClient'
 
 function Register() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   const [deliverySameAsCompany, setDeliverySameAsCompany] =
     useState(true)
@@ -116,6 +117,7 @@ async function handleWholesaleRegistration(
     contactName: String(form.get('contactName') || ''),
     email: String(form.get('email') || ''),
     phone: String(form.get('phone') || ''),
+    language,
 
     deliverySameAsCompany,
 
@@ -145,13 +147,22 @@ async function handleWholesaleRegistration(
   }
 
   try {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
     const response = await fetch('/api/register-wholesale', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      },
+          ...(session?.access_token
+          ? {
+              Authorization: `Bearer ${session.access_token}`,
+            }
+          : {}),
+},
       body: JSON.stringify(payload),
-    })
+  })
 
     const data = await response.json()
 

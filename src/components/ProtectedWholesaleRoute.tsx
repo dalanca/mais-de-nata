@@ -36,14 +36,13 @@ function ProtectedWholesaleRoute({
           error: profileError,
         } = await supabase
           .from('wholesale_customers')
-          .select('account_status')
-          .eq('id', user.id)
-          .single()
+          .select('id, company_name, account_status')
+          .eq('auth_user_id', user.id)
+          .eq('account_status', 'active')
+          .limit(1)
+          .maybeSingle()
 
-        if (
-          profileError ||
-          wholesaleCustomer?.account_status !== 'active'
-        ) {
+        if (profileError || !wholesaleCustomer) {
           if (isMounted) {
             setHasAccess(false)
           }

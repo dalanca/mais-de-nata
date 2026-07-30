@@ -12,10 +12,15 @@
 
 .wholesaleAccountHeader {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+  margin-bottom: 40px;
+}
+
+.wholesaleAccountHeader h1 {
+  margin: 0;
+  white-space: nowrap;
 }
 
 .wholesaleAccountEyebrow {
@@ -44,6 +49,12 @@
   font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
 }
 
 .wholesaleAccountSection {
@@ -169,6 +180,75 @@
   background: #f8f4ef;
 }
 
+.wholesaleAccountHeaderActions {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  width: 100%;
+}
+
+.wholesaleAccountCompanySelector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wholesaleAccountCompanySelector span {
+  font-weight: 700;
+}
+
+.wholesaleAccountCompanySelector select {
+  min-width: 220px;
+  padding: 12px 14px;
+  border: 1px solid #d8cfca;
+  border-radius: 10px;
+  background: #fff;
+  font: inherit;
+  color: #4e312d;
+}
+
+.wholesaleAccountStatus {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.wholesaleAccountStatus--pending {
+  background: #fff4cc;
+  color: #7a5a00;
+}
+
+.wholesaleAccountStatus--paid {
+  background: #e6f5ea;
+  color: #25633a;
+}
+
+.wholesaleAccountStatus--confirmed {
+  background: #e8eef8;
+  color: #315a8a;
+}
+
+.wholesaleAccountStatus--fulfilled {
+  background: #e6f5ea;
+  color: #25633a;
+}
+
+@media (max-width: 768px) {
+  .wholesaleAccountHeaderActions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wholesaleAccountCompanySelector select {
+    width: 100%;
+  }
+}
 @media (max-width: 700px) {
   .wholesaleAccountPage {
     padding: 40px 16px;

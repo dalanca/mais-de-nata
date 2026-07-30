@@ -311,6 +311,7 @@ wholesaleAccountOrderConfirmed: 'Objednávka potvrzena',
 wholesaleAccountOrderPreparing: 'Připravuje se',
 wholesaleAccountOrderFulfilled: 'Vyřízeno',
 wholesaleAccountOrderCancelled: 'Zrušeno',
+wholesaleAccountOrderDelivered: 'Doručeno',
 
 wholesaleRegisterBack: "← Domů",
 wholesaleRegisterEyebrow: "Velkoobchod",
@@ -361,17 +362,24 @@ wholesaleRegisterBusinessPlaceholder:
 wholesaleRegisterSubmit: "Odeslat registraci",
 
 wholesaleRegisterApprovalTitle:
-  "Velkoobchodní přístup podléhá schválení.",
+  "Okamžitý velkoobchodní přístup",
+
 wholesaleRegisterApprovalText:
-  "Vaše firemní údaje zkontrolujeme a po schválení velkoobchodního účtu vás budeme kontaktovat.", 
+  "Společnosti úspěšně ověřené prostřednictvím ARES získají okamžitý přístup k velkoobchodním cenám a objednávkám.",
  
  wholesaleRegisterSubmitting: "Odesílání...",
 
 wholesaleRegisterSubmissionSuccess:
-  "Registrace byla úspěšná. Zkontrolujte prosím svůj e-mail a dokončete nastavení velkoobchodního účtu.",
+  "Registrace společnosti byla úspěšná. Váš velkoobchodní přístup je nyní aktivní.",
 
 wholesaleRegisterSubmissionError:
   "Registraci se nepodařilo dokončit. Zkuste to prosím znovu.",
+
+  wholesaleAccountRegisterCompany:
+  'Přidat společnost',
+
+  wholesaleAccountCompanySelector:
+  'Společnost',
  
   // Why Pastel de Nata
   whyTitle: "Proč Pastel de Nata",

@@ -47,6 +47,7 @@ export type CreateOrderItemInput = {
 export type CreateOrderInput = {
   orderNumber: string
   salesChannel: OrderSalesChannel
+  language: 'en' | 'cs'
 
   externalEventId?: string
   externalOrderId?: string

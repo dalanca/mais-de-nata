@@ -69,17 +69,27 @@ wholesaleRegisterBusinessPlaceholder:
 wholesaleRegisterSubmit: "Submit Registration",
 
 wholesaleRegisterApprovalTitle:
-  "Wholesale access requires approval.",
-wholesaleRegisterApprovalText:
-  "We will review your business details and contact you once your wholesale account has been approved.",
-  wholesaleRegisterSubmitting: "Submitting...",
+  "Immediate Wholesale Access",
 
-wholesaleRegisterSubmissionSuccess:
-  "Registration successful. Please check your email to complete your wholesale account setup.",
+  wholesaleRegisterSubmissionSuccess:
+  "Company registration successful. You can now access wholesale pricing and place orders.",
+
+wholesaleRegisterApprovalText:
+  "Companies successfully verified through ARES receive immediate access to wholesale pricing and ordering.",
+
+wholesaleRegisterSubmitting: "Submitting...",
+
+  wholesaleRegisterSuccess:
+  'Company registration successful. Your wholesale access is now active.',
 
 wholesaleRegisterSubmissionError:
   "We could not complete your registration. Please try again.",
-  
+ 
+wholesaleAccountRegisterCompany:
+  'Add Company',
+
+  wholesaleAccountCompanySelector:
+  'Company',
   
   // Product Information
 productInfoBackHome: "← Home",
@@ -547,6 +557,8 @@ wholesaleAccountOrderConfirmed: 'Order Confirmed',
 wholesaleAccountOrderPreparing: 'Preparing',
 wholesaleAccountOrderFulfilled: 'Fulfilled',
 wholesaleAccountOrderCancelled: 'Cancelled',
+
+wholesaleAccountOrderDelivered: 'Delivered',
 
   /* ==========================
      Sign in keys(B2B)

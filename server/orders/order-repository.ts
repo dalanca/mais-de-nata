@@ -54,6 +54,7 @@ export async function insertOrder(
     {
       p_order_number: input.orderNumber,
       p_sales_channel: input.salesChannel,
+      p_language: input.language,
       p_external_event_id: input.externalEventId ?? null,
       p_external_order_id: input.externalOrderId ?? null,
       p_payment_status: input.paymentStatus,

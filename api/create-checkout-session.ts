@@ -40,7 +40,7 @@ export default async function handler(
       });
     }
 
-    const { customer, delivery, cartItems } = body;
+    const { customer, delivery, cartItems, language } = body;
 
     if (!customer || !delivery || !Array.isArray(cartItems)) {
       return response.status(400).json({
@@ -48,6 +48,14 @@ export default async function handler(
         message: 'Invalid checkout data',
       });
     }
+
+    if (language !== 'en' && language !== 'cs') {
+      return response.status(400).json({
+        success: false,
+        message: 'Invalid checkout language',
+      })
+    }
+
     if (cartItems.length === 0) {
   return response.status(400).json({
     success: false,
@@ -90,6 +98,7 @@ if (hasInvalidCartItem) {
 
       metadata: {
         salesChannel: OrderSalesChannel.ConsumerWebsite,
+        language,
         customerName: `${customer.firstName} ${customer.lastName}`.trim(),
         customerPhone: customer.phone,
         deliveryStreet: delivery.street,

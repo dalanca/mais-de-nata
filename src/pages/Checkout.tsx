@@ -35,7 +35,7 @@ function formatDisplayDate(date: string) {
 }
 
 export default function Checkout() {
-    const { t } = useLanguage()
+    const { t, language } = useLanguage()
     const [currentStep, setCurrentStep] =
       useState<CheckoutStep>(1)
   
@@ -55,10 +55,10 @@ export default function Checkout() {
 
   const [deliveryTime, setDeliveryTime] =
     useState('asap')
-  const [termsAccepted, setTermsAccepted] = useState(false)
+
   useEffect(() => {
-  const savedCheckout = sessionStorage.getItem(
-    'maisDeNataCheckout',
+    const savedCheckout = sessionStorage.getItem(
+      'maisDeNataCheckout',
   )
 
   if (!savedCheckout) {
@@ -183,26 +183,28 @@ function saveCheckoutState(returnToReview = false) {
     scrollToCheckoutTop()
   }
 async function handlePayment() {
-  const checkoutRequest: CheckoutRequest = {
-    customer: {
-      firstName,
-      lastName,
-      email,
-      phone,
-    },
+const checkoutRequest: CheckoutRequest = {
+  customer: {
+    firstName,
+    lastName,
+    email,
+    phone,
+  },
 
-    delivery: {
-      street,
-      houseNumber,
-      apartment,
-      city,
-      postcode,
-      deliveryDate,
-      preferredTime: deliveryTime,
-    },
+  delivery: {
+    street,
+    houseNumber,
+    apartment,
+    city,
+    postcode,
+    deliveryDate,
+    preferredTime: deliveryTime,
+  },
 
-    cartItems,
-  }
+  cartItems,
+
+  language,
+}
 
   console.log(checkoutRequest)
 
@@ -764,24 +766,6 @@ window.location.href = data.checkoutUrl
           <strong>{formattedTotal}</strong>
         </div>
       </div>
-
-      <label className="checkoutTerms">
-        <input
-          type="checkbox"
-          checked={termsAccepted}
-          onChange={(event) =>
-            setTermsAccepted(event.target.checked)
-          }
-        />
-
-        <span>
-            {t.checkoutTermsStart}{' '}
-              <a href="/terms">{t.checkoutTermsConditions}</a>{' '}
-            {t.checkoutTermsAnd}{' '}
-              <a href="/privacy">{t.checkoutPrivacyPolicy}</a>.
-      </span>
-      </label>
-
       <div className="checkoutPaymentMethods">
         <div className="checkoutPaymentMethodsText">
           <span className="checkoutPaymentIcon">🔒</span>
@@ -805,35 +789,29 @@ window.location.href = data.checkoutUrl
       </div>
     </section>
 
-    <div className="checkoutNavigation">
-      <button
-        type="button"
-        className="checkoutBackButton"
-        onClick={goBackToDeliveryDetails}
-      >
-       {t.checkoutBack}
-      </button>
+<div className="checkoutNavigation">
+  <button
+    type="button"
+    className="checkoutBackButton"
+    onClick={goBackToDeliveryDetails}
+  >
+    {t.checkoutBack}
+  </button>
 
-      <button
-        type="button"
-        className="checkoutButton"
-        onClick={handlePayment}
-        disabled={
-          cartItems.length === 0 || !termsAccepted
-        }
-      >
-        {t.checkoutContinuePayment}
-      </button>
-    </div>
-
-    {!termsAccepted && cartItems.length > 0 && (
-      <p className="checkoutTermsReminder">
-        {t.checkoutTermsReminder}
-      </p>
-    )}
+  <button
+    type="button"
+    className="checkoutButton"
+    onClick={handlePayment}
+    disabled={cartItems.length === 0}
+  >
+    {t.checkoutContinuePayment}
+  </button>
+</div>
   </div>
-)}       </section>
-    </main>
-  </>
+  
+)}
+</section>
+</main>
+</>
 )
 }

@@ -22,7 +22,7 @@ export type ChannelOrderItem = {
  */
 export type ChannelOrder = {
   salesChannel: OrderSalesChannel
-
+  language: 'en' | 'cs'
   /**
    * Unique event identifier supplied by the external channel.
    *

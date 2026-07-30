@@ -30,4 +30,5 @@ export interface CheckoutRequest {
   customer: CustomerDetails;
   delivery: DeliveryDetails;
   cartItems: CartItem[];
+  language: 'en' | 'cs';
 }

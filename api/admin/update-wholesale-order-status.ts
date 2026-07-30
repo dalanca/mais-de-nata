@@ -1,11 +1,14 @@
 import { supabaseAdmin } from '../../server/database/supabase.js'
 
-const allowedStatuses = [
+const allowedFulfilmentStatuses = [
   'pending',
   'confirmed',
-  'processing',
   'fulfilled',
-  'cancelled',
+]
+
+const allowedPaymentStatuses = [
+  'pending',
+  'paid',
 ]
 
 export default async function handler(
@@ -71,8 +74,11 @@ export default async function handler(
       })
     }
 
-    const { orderId, fulfilmentStatus } =
-      req.body ?? {}
+   const {
+    orderId,
+    fulfilmentStatus,
+    paymentStatus,
+    } = req.body ?? {}
 
     if (!orderId) {
       return res.status(400).json({
@@ -81,16 +87,36 @@ export default async function handler(
       })
     }
 
-    if (
-      !allowedStatuses.includes(
-        fulfilmentStatus,
-      )
-    ) {
-      return res.status(400).json({
-        success: false,
-        error: 'Invalid fulfilment status',
-      })
-    }
+if (!fulfilmentStatus && !paymentStatus) {
+  return res.status(400).json({
+    success: false,
+    error: 'A status update is required',
+  })
+}
+
+if (
+  fulfilmentStatus &&
+  !allowedFulfilmentStatuses.includes(
+    fulfilmentStatus,
+  )
+) {
+  return res.status(400).json({
+    success: false,
+    error: 'Invalid fulfilment status',
+  })
+}
+
+if (
+  paymentStatus &&
+  !allowedPaymentStatuses.includes(
+    paymentStatus,
+  )
+) {
+  return res.status(400).json({
+    success: false,
+    error: 'Invalid payment status',
+  })
+}
 
     const {
       data: updatedOrder,
@@ -98,9 +124,19 @@ export default async function handler(
     } = await supabaseAdmin
       .from('orders')
       .update({
+  ...(fulfilmentStatus
+    ? {
         fulfilment_status:
           fulfilmentStatus,
-      })
+      }
+    : {}),
+  ...(paymentStatus
+    ? {
+        payment_status:
+          paymentStatus,
+      }
+    : {}),
+})
       .eq('id', orderId)
       .eq(
         'sales_channel',
@@ -110,6 +146,7 @@ export default async function handler(
         `
           id,
           order_number,
+          payment_status,
           fulfilment_status
         `,
       )
