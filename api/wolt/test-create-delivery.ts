@@ -1,8 +1,3 @@
-import type {
-    VercelRequest,
-    VercelResponse,
-} from '@vercel/node'
-
 import {
     supabaseAdmin,
 } from '../../server/database/supabase.js'
@@ -16,8 +11,8 @@ import {
 } from '../../server/wolt/save-delivery.js'
 
 export default async function handler(
-    req: VercelRequest,
-    res: VercelResponse,
+  req: any,
+  res: any,
 ) {
     if (req.method !== 'POST') {
         return res.status(405).json({
