@@ -4,7 +4,7 @@ import type {
 
 export type WoltOrderWebhookUpdate = {
   wolt_delivery_status?: string
-
+  wolt_order_reference_id?: string
   wolt_pickup_eta?: string
   wolt_pickup_eta_updated_at?: string
 
@@ -28,16 +28,19 @@ export type WoltOrderWebhookUpdate = {
 export function mapWoltOrderEventToUpdate(
   event: WoltDriveOrderEvent,
 ): WoltOrderWebhookUpdate {
-  const update: WoltOrderWebhookUpdate = {
-    wolt_delivery_status:
-      event.type,
+const update: WoltOrderWebhookUpdate = {
+  wolt_delivery_status:
+    event.type,
 
-    wolt_last_event_type:
-      event.type,
+  wolt_order_reference_id:
+    event.details.wolt_order_reference_id,
 
-    wolt_last_event_at:
-      event.dispatched_at,
-  }
+  wolt_last_event_type:
+    event.type,
+
+  wolt_last_event_at:
+    event.dispatched_at,
+}
 
   const pickupEta =
     event.details.pickup?.eta
