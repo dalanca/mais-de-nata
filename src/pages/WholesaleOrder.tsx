@@ -7,7 +7,7 @@ import { supabase } from "../lib/supabaseClient"
 import SiteHeader from "../components/SiteHeader"
 
 function WholesaleOrder() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
 
   const [searchParams] = useSearchParams()
   const selectedCompanyId =
@@ -301,20 +301,18 @@ function WholesaleOrder() {
             Authorization:
               `Bearer ${session.access_token}`,
           },
-          body: JSON.stringify({
-            /*
-             * This links the order to the selected
-             * wholesale company record.
-             */
-            wholesaleCustomerId,
+body: JSON.stringify({
+  wholesaleCustomerId,
 
-            boxes,
-            contactName,
-            email,
-            phone,
-            deliveryAddress,
-            notes,
-          }),
+  boxes,
+  contactName,
+  email,
+  phone,
+  deliveryAddress,
+  notes,
+
+  documentLanguage: language,
+}),
         },
       )
 

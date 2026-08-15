@@ -1,9 +1,16 @@
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+
 import { supabaseAdmin } from '../server/database/supabase.js'
 import {
   resend,
   EMAIL_FROM,
   EMAIL_REPLY_TO,
 } from '../server/email/resend.js'
+
+import {
+  createBrandedEmailLayout,
+} from '../server/email/layout.js'
 
 type WholesaleOrderRequest = {
   wholesaleCustomerId: string
@@ -13,12 +20,15 @@ type WholesaleOrderRequest = {
   phone?: string
   deliveryAddress: string
   notes?: string
+  documentLanguage?: 'en' | 'cs'
 }
 
 export default async function handler(
   req: any,
   res: any,
 ) {
+
+
   if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
@@ -35,7 +45,13 @@ export default async function handler(
       phone,
       deliveryAddress,
       notes,
+      documentLanguage,
     } = req.body as WholesaleOrderRequest
+
+    const safeDocumentLanguage =
+      documentLanguage === 'cs'
+        ? 'cs'
+        : 'en'
 
     if (
       !wholesaleCustomerId ||
@@ -175,6 +191,7 @@ export default async function handler(
       .from('orders')
       .insert({
         order_number: orderNumber,
+        document_language: safeDocumentLanguage,
 
         /*
          * Link the order to the selected company,
@@ -252,48 +269,192 @@ export default async function handler(
       throw itemError
     }
 
+    const isCzech =
+      safeDocumentLanguage === 'cs'
+
+    const formattedTotal =
+      `€${(totalAmount / 100).toFixed(2)}`
+
+    const emailSubject = isCzech
+      ? `Velkoobchodní objednávka přijata — ${order.order_number}`
+      : `Wholesale order received — ${order.order_number}`
+
+    const emailTitle = isCzech
+      ? 'Děkujeme za vaši velkoobchodní objednávku'
+      : 'Thank you for your wholesale order'
+
+    const emailContent = isCzech
+      ? `
+      <p style="margin: 0 0 18px;">
+        Dobrý den, ${contactName.trim()},
+      </p>
+
+      <p style="margin: 0 0 22px;">
+        Obdrželi jsme vaši velkoobchodní objednávku
+        <strong>${order.order_number}</strong>.
+      </p>
+
+      <table
+        role="presentation"
+        width="100%"
+        cellspacing="0"
+        cellpadding="0"
+        border="0"
+        style="
+          width: 100%;
+          margin: 0 0 24px;
+          background-color: #fffaf2;
+          border: 1px solid #eadfce;
+          border-radius: 12px;
+        "
+      >
+        <tr>
+          <td
+            style="
+              padding: 18px 20px;
+              color: #2b1d16;
+              font-size: 14px;
+              line-height: 1.7;
+            "
+          >
+            <strong>Společnost:</strong>
+            ${customer.company_name}<br />
+
+            <strong>Číslo objednávky:</strong>
+            ${order.order_number}<br />
+
+            <strong>Počet kartonů:</strong>
+            ${boxes}<br />
+
+            <strong>Celkem:</strong>
+            ${formattedTotal}
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin: 0 0 18px;">
+        Ověříme dostupnost zboží a následně vás budeme
+        kontaktovat ohledně potvrzení dodání a platebních
+        údajů.
+      </p>
+
+      <p style="margin: 28px 0 0;">
+        S pozdravem,<br />
+        <strong>Mais de Nata</strong>
+      </p>
+    `
+      : `
+      <p style="margin: 0 0 18px;">
+        Dear ${contactName.trim()},
+      </p>
+
+      <p style="margin: 0 0 22px;">
+        We have received your wholesale order
+        <strong>${order.order_number}</strong>.
+      </p>
+
+      <table
+        role="presentation"
+        width="100%"
+        cellspacing="0"
+        cellpadding="0"
+        border="0"
+        style="
+          width: 100%;
+          margin: 0 0 24px;
+          background-color: #fffaf2;
+          border: 1px solid #eadfce;
+          border-radius: 12px;
+        "
+      >
+        <tr>
+          <td
+            style="
+              padding: 18px 20px;
+              color: #2b1d16;
+              font-size: 14px;
+              line-height: 1.7;
+            "
+          >
+            <strong>Company:</strong>
+            ${customer.company_name}<br />
+
+            <strong>Order number:</strong>
+            ${order.order_number}<br />
+
+            <strong>Cartons:</strong>
+            ${boxes}<br />
+
+            <strong>Total:</strong>
+            ${formattedTotal}
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin: 0 0 18px;">
+        We will review product availability and contact you
+        to confirm the delivery arrangements and payment
+        details.
+      </p>
+
+      <p style="margin: 28px 0 0;">
+        Kind regards,<br />
+        <strong>Mais de Nata</strong>
+      </p>
+    `
+
+    const emailHtml =
+      createBrandedEmailLayout({
+        title: emailTitle,
+
+        previewText: isCzech
+          ? `Objednávka ${order.order_number} byla přijata.`
+          : `Order ${order.order_number} has been received.`,
+
+        content: emailContent,
+
+        language:
+          isCzech ? 'cs' : 'en',
+      })
+
+
+    const logoContent =
+      await readFile(
+        path.join(
+          process.cwd(),
+          'public',
+          'mais-de-nata-logo.png',
+        ),
+      )
+
     const { error: emailError } =
-  await resend.emails.send({
-    from: EMAIL_FROM,
-    to: email.trim().toLowerCase(),
-    replyTo: EMAIL_REPLY_TO,
-    subject: `Wholesale order received — ${order.order_number}`,
-    html: `
-      <div style="font-family: Arial, sans-serif; color: #4e312d; line-height: 1.6;">
-        <h2>Thank you for your wholesale order</h2>
+      await resend.emails.send({
+        from: EMAIL_FROM,
+        to: email.trim().toLowerCase(),
+        replyTo: EMAIL_REPLY_TO,
+        subject: emailSubject,
+        html: emailHtml,
 
-        <p>Dear ${contactName.trim()},</p>
+        attachments: [
+          {
+            filename:
+              'mais-de-nata-logo.png',
 
-        <p>
-          We have received your wholesale order
-          <strong>${order.order_number}</strong>.
-        </p>
+            content:
+              logoContent.toString('base64'),
 
-        <p>
-          <strong>Company:</strong> ${customer.company_name}<br />
-          <strong>Cartons:</strong> ${boxes}<br />
-          <strong>Total:</strong> €${(totalAmount / 100).toFixed(2)}
-        </p>
+            contentId:
+              'mais-de-nata-logo',
+          },
+        ],
+      })
 
-        <p>
-          We will review availability and contact you to confirm
-          the delivery arrangements and payment details.
-        </p>
-
-        <p>
-          Kind regards,<br />
-          Mais de Nata
-        </p>
-      </div>
-    `,
-  })
-
-if (emailError) {
-  console.error(
-    'Wholesale order email failed:',
-    emailError,
-  )
-}
+    if (emailError) {
+      console.error(
+        'Wholesale order email failed:',
+        emailError,
+      )
+    }
 
     return res.status(200).json({
       success: true,

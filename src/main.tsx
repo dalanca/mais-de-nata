@@ -29,6 +29,7 @@ import WholesaleOrderSuccess from './pages/WholesaleOrderSuccess'
 
 import ProtectedAdminRoute from './components/ProtectedAdminRoute'
 import AdminOrders from './pages/AdminOrders'
+import AdminProduction from './pages/AdminProduction'
 import AdminSignIn from './pages/AdminSignIn'
 import AdminForgotPassword from './pages/AdminForgotPassword'
 import AdminResetPassword from './pages/AdminResetPassword'
@@ -43,10 +44,10 @@ ReactDOM.createRoot(
             path="/"
             element={<App />}
           />
-         <Route
+          <Route
             path="/product-information"
             element={<ProductInformation />}
-          /> 
+          />
           <Route
             path="/wholesale-order"
             element={
@@ -123,46 +124,55 @@ ReactDOM.createRoot(
             path="/wholesale-order-success"
             element={
               <ProtectedWholesaleRoute>
-              <WholesaleOrderSuccess />
+                <WholesaleOrderSuccess />
               </ProtectedWholesaleRoute>
-          }
-        />
+            }
+          />
 
           <Route
             path="/wholesale-account"
             element={
               <ProtectedWholesaleRoute>
-              <WholesaleAccount />
+                <WholesaleAccount />
               </ProtectedWholesaleRoute>
-          }
-      />
+            }
+          />
           <Route
             path="/admin/orders"
             element={
               <ProtectedAdminRoute>
                 <AdminOrders />
-             </ProtectedAdminRoute>
+              </ProtectedAdminRoute>
             }
-        />
+          />
 
-            <Route
-              path="/admin/sign-in"
-              element={<AdminSignIn />}
-            />
+          <Route
+            path="/admin/production"
+            element={
+              <ProtectedAdminRoute>
+                <AdminProduction />
+              </ProtectedAdminRoute>
+            }
+          />
 
-            <Route
-              path="/admin/forgot-password"
-              element={<AdminForgotPassword />}
-            />
+          <Route
+            path="/admin/sign-in"
+            element={<AdminSignIn />}
+          />
 
-<Route
-  path="/admin/reset-password"
-  element={<AdminResetPassword />}
-/>
+          <Route
+            path="/admin/forgot-password"
+            element={<AdminForgotPassword />}
+          />
 
-            <Route
-              path="*"
-              element={<App />}           
+          <Route
+            path="/admin/reset-password"
+            element={<AdminResetPassword />}
+          />
+
+          <Route
+            path="*"
+            element={<App />}
           />
 
         </Routes>

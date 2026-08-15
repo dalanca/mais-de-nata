@@ -67,7 +67,7 @@ function AdminOrders() {
   const [loadError, setLoadError] = useState('')
 
   const [updatingOrderId, setUpdatingOrderId] =
-  useState<string | null>(null)
+    useState<string | null>(null)
 
   const [actionError, setActionError] = useState('')
 
@@ -103,7 +103,7 @@ function AdminOrders() {
         if (!response.ok || !result.success) {
           throw new Error(
             result.error ??
-              'Unable to load wholesale orders.',
+            'Unable to load wholesale orders.',
           )
         }
 
@@ -136,212 +136,212 @@ function AdminOrders() {
       isMounted = false
     }
   }, [])
-async function handleConfirmOrder(orderId: string) {
-  setUpdatingOrderId(orderId)
-  setActionError('')
+  async function handleConfirmOrder(orderId: string) {
+    setUpdatingOrderId(orderId)
+    setActionError('')
 
-  try {
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession()
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
-    if (sessionError || !session) {
-      throw new Error(
-        'Your admin session has expired.',
-      )
-    }
+      if (sessionError || !session) {
+        throw new Error(
+          'Your admin session has expired.',
+        )
+      }
 
-    const response = await fetch(
-      '/api/admin/update-wholesale-order-status',
-      {
-        method: 'PATCH',
-        headers: {
-          Authorization:
-            `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        '/api/admin/update-wholesale-order-status',
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization:
+              `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderId,
+            fulfilmentStatus: 'confirmed',
+          }),
         },
-        body: JSON.stringify({
-          orderId,
-          fulfilmentStatus: 'confirmed',
-        }),
-      },
-    )
-
-    const result = await response.json()
-
-    if (!response.ok || !result.success) {
-      throw new Error(
-        result.error ?? 'Unable to confirm order.',
       )
-    }
 
-    setOrders((currentOrders) =>
-      currentOrders.map((order) =>
-        order.id === orderId
-          ? {
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.error ?? 'Unable to confirm order.',
+        )
+      }
+
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId
+            ? {
               ...order,
               fulfilment_status: 'confirmed',
             }
-          : order,
-      ),
-    )
-  } catch (error) {
-    console.error(
-      'Admin order confirmation failed:',
-      error,
-    )
-
-    setActionError(
-      error instanceof Error
-        ? error.message
-        : 'Unable to confirm order.',
-    )
-  } finally {
-    setUpdatingOrderId(null)
-  }
-}
-async function handleMarkDelivered(orderId: string) {
-  if (updatingOrderId) {
-    return
-  }
-
-  setActionError('')
-  setUpdatingOrderId(orderId)
-
-  try {
-    const {
-      data: sessionData,
-      error: sessionError,
-    } = await supabase.auth.getSession()
-
-    if (sessionError) {
-      throw sessionError
-    }
-
-    const accessToken =
-      sessionData.session?.access_token
-
-    if (!accessToken) {
-      throw new Error(
-        'Your admin session has expired. Please sign in again.',
+            : order,
+        ),
       )
+    } catch (error) {
+      console.error(
+        'Admin order confirmation failed:',
+        error,
+      )
+
+      setActionError(
+        error instanceof Error
+          ? error.message
+          : 'Unable to confirm order.',
+      )
+    } finally {
+      setUpdatingOrderId(null)
+    }
+  }
+  async function handleMarkDelivered(orderId: string) {
+    if (updatingOrderId) {
+      return
     }
 
-    const response = await fetch(
-      '/api/admin/update-wholesale-order-status',
-      {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
+    setActionError('')
+    setUpdatingOrderId(orderId)
+
+    try {
+      const {
+        data: sessionData,
+        error: sessionError,
+      } = await supabase.auth.getSession()
+
+      if (sessionError) {
+        throw sessionError
+      }
+
+      const accessToken =
+        sessionData.session?.access_token
+
+      if (!accessToken) {
+        throw new Error(
+          'Your admin session has expired. Please sign in again.',
+        )
+      }
+
+      const response = await fetch(
+        '/api/admin/update-wholesale-order-status',
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            orderId,
+            fulfilmentStatus: 'fulfilled',
+          }),
         },
-        body: JSON.stringify({
-          orderId,
-          fulfilmentStatus: 'fulfilled',
-        }),
-      },
-    )
-
-    const result = await response.json()
-
-    if (!response.ok) {
-      throw new Error(
-        result.error ||
-          'Unable to mark order as delivered.',
       )
-    }
 
-    setOrders((currentOrders) =>
-      currentOrders.map((order) =>
-        order.id === orderId
-          ? {
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          result.error ||
+          'Unable to mark order as delivered.',
+        )
+      }
+
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId
+            ? {
               ...order,
               fulfilment_status: 'fulfilled',
             }
-          : order,
-      ),
-    )
-  } catch (error) {
-    console.error(
-      'Admin fulfilment status update failed:',
-      error,
-    )
+            : order,
+        ),
+      )
+    } catch (error) {
+      console.error(
+        'Admin fulfilment status update failed:',
+        error,
+      )
 
-    setActionError(
-      error instanceof Error
-        ? error.message
-        : 'Unable to mark order as delivered.',
-    )
-  } finally {
-    setUpdatingOrderId(null)
+      setActionError(
+        error instanceof Error
+          ? error.message
+          : 'Unable to mark order as delivered.',
+      )
+    } finally {
+      setUpdatingOrderId(null)
+    }
   }
-}
-async function handleMarkPaid(orderId: string) {
-  setUpdatingOrderId(orderId)
-  setActionError('')
+  async function handleMarkPaid(orderId: string) {
+    setUpdatingOrderId(orderId)
+    setActionError('')
 
-  try {
-    const {
-      data: { session },
-      error: sessionError,
-    } = await supabase.auth.getSession()
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
-    if (sessionError || !session) {
-      throw new Error(
-        'Your admin session has expired.',
-      )
-    }
+      if (sessionError || !session) {
+        throw new Error(
+          'Your admin session has expired.',
+        )
+      }
 
-    const response = await fetch(
-      '/api/admin/update-wholesale-order-status',
-      {
-        method: 'PATCH',
-        headers: {
-          Authorization:
-            `Bearer ${session.access_token}`,
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        '/api/admin/update-wholesale-order-status',
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization:
+              `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderId,
+            paymentStatus: 'paid',
+          }),
         },
-        body: JSON.stringify({
-          orderId,
-          paymentStatus: 'paid',
-        }),
-      },
-    )
-
-    const result = await response.json()
-
-    if (!response.ok || !result.success) {
-      throw new Error(
-        result.error ?? 'Unable to mark payment as paid.',
       )
-    }
 
-    setOrders((currentOrders) =>
-      currentOrders.map((order) =>
-        order.id === orderId
-          ? {
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.error ?? 'Unable to mark payment as paid.',
+        )
+      }
+
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId
+            ? {
               ...order,
               payment_status: 'paid',
             }
-          : order,
-      ),
-    )
-  } catch (error) {
-    console.error(
-      'Admin payment status update failed:',
-      error,
-    )
+            : order,
+        ),
+      )
+    } catch (error) {
+      console.error(
+        'Admin payment status update failed:',
+        error,
+      )
 
-    setActionError(
-      error instanceof Error
-        ? error.message
-        : 'Unable to mark payment as paid.',
-    )
-  } finally {
-    setUpdatingOrderId(null)
+      setActionError(
+        error instanceof Error
+          ? error.message
+          : 'Unable to mark payment as paid.',
+      )
+    } finally {
+      setUpdatingOrderId(null)
+    }
   }
-}
   return (
     <>
       <AdminHeader />
@@ -372,7 +372,7 @@ async function handleMarkPaid(orderId: string) {
             <div className="adminOrdersError">
               {actionError}
             </div>
-        )}
+          )}
 
           {!isLoading &&
             !loadError &&
@@ -522,82 +522,83 @@ async function handleMarkPaid(orderId: string) {
                           </section>
                         )}
 
-<div className="adminOrderStatusArea">
-  <div className="adminOrderStatusRow">
-    <p
-  className={`adminOrderStatus adminOrderStatusPayment adminOrderStatusPayment--${order.payment_status}`}
->
-      <span>Payment</span>
-      <strong>
-        {formatPaymentStatus(
-          order.payment_status,
-        )}
-      </strong>
-    </p>
+                        <div className="adminOrderStatusArea">
+                          <div className="adminOrderStatusRow">
+                            <p
+                              className={`adminOrderStatus adminOrderStatusPayment adminOrderStatusPayment--${order.payment_status}`}
+                            >
+                              <span>Payment</span>
+                              <strong>
+                                {formatPaymentStatus(
+                                  order.payment_status,
+                                )}
+                              </strong>
+                            </p>
 
-    <p
-  className={`adminOrderStatus adminOrderStatusFulfilment adminOrderStatusFulfilment--${order.fulfilment_status}`}
->
-      <span>Order status</span>
-      <strong>
-        {formatFulfilmentStatus(
-          order.fulfilment_status,
-        )}
-      </strong>
-    </p>
-  </div>
+                            <p
+                              className={`adminOrderStatus adminOrderStatusFulfilment adminOrderStatusFulfilment--${order.fulfilment_status}`}
+                            >
+                              <span>Order status</span>
+                              <strong>
+                                {formatFulfilmentStatus(
+                                  order.fulfilment_status,
+                                )}
+                              </strong>
+                            </p>
+                          </div>
 
-  {(
-    order.payment_status === 'pending' ||
-    order.fulfilment_status === 'pending'
-  ) && (
-    <div className="adminOrderActions">
-      {order.payment_status === 'pending' && (
-        <button
-          type="button"
-          className="adminOrderConfirmButton adminOrderActionButton"
-          disabled={updatingOrderId === order.id}
-          onClick={() =>
-            handleMarkPaid(order.id)
-          }
-        >
-          {updatingOrderId === order.id
-            ? 'Updating...'
-            : 'Mark as Paid'}
-        </button>
-      )}
+                          {(
+                            order.payment_status === 'pending' ||
+                            order.fulfilment_status !== 'fulfilled'
+                          ) && (
 
-      {order.fulfilment_status === 'pending' && (
-        <button
-          type="button"
-          className="adminOrderConfirmButton adminOrderActionButton"
-          disabled={updatingOrderId === order.id}
-          onClick={() =>
-            handleConfirmOrder(order.id)
-          }
-        >
-          {updatingOrderId === order.id
-            ? 'Confirming...'
-            : 'Confirm Order'}
-        </button>
-      )}
-      {order.fulfilment_status === 'confirmed' && (
-  <button
-    type="button"
-    className="adminOrderConfirmButton adminOrderActionButton"
-    disabled={updatingOrderId === order.id}
-    onClick={() =>
-      handleMarkDelivered(order.id)
-    }
-  >
-    {updatingOrderId === order.id
-      ? 'Updating...'
-      : 'Mark as Delivered'}
-  </button>
-)}
-    </div>
-  )}
-</div>
+                              <div className="adminOrderActions">
+                                {order.payment_status === 'pending' && (
+                                  <button
+                                    type="button"
+                                    className="adminOrderConfirmButton adminOrderActionButton"
+                                    disabled={updatingOrderId === order.id}
+                                    onClick={() =>
+                                      handleMarkPaid(order.id)
+                                    }
+                                  >
+                                    {updatingOrderId === order.id
+                                      ? 'Updating...'
+                                      : 'Mark as Paid'}
+                                  </button>
+                                )}
+
+                                {order.fulfilment_status === 'pending' && (
+                                  <button
+                                    type="button"
+                                    className="adminOrderConfirmButton adminOrderActionButton"
+                                    disabled={updatingOrderId === order.id}
+                                    onClick={() =>
+                                      handleConfirmOrder(order.id)
+                                    }
+                                  >
+                                    {updatingOrderId === order.id
+                                      ? 'Confirming...'
+                                      : 'Confirm Order'}
+                                  </button>
+                                )}
+                                {order.fulfilment_status === 'confirmed' && (
+                                  <button
+                                    type="button"
+                                    className="adminOrderConfirmButton adminOrderActionButton"
+                                    disabled={updatingOrderId === order.id}
+                                    onClick={() =>
+                                      handleMarkDelivered(order.id)
+                                    }
+                                  >
+                                    {updatingOrderId === order.id
+                                      ? 'Updating...'
+                                      : 'Mark as Delivered'}
+                                  </button>
+                                )}
+                              </div>
+                            )}
+                        </div>
                       </div>
                     </article>
                   )
