@@ -2,7 +2,22 @@ import Stripe from 'stripe'
 import { OrderSalesChannel } from '../server/orders/order-channel.js'
 import { createOrderFromChannel } from '../server/orders/order-service.js'
 import { createChannelOrderFromStripeSession } from '../server/payments/stripe-adapter.js'
+import {
+  createWoltDelivery,
+} from '../server/wolt/create-delivery.js'
+
+import {
+  saveDeliveryToOrder,
+} from '../server/wolt/save-delivery.js'
+
+import {
+  getOrderWoltDeliveryState,
+} from '../server/wolt/get-order-delivery-state.js'
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
+
+import {
+  sendConsumerOrderConfirmationOnce,
+} from '../server/email/send-consumer-order-confirmation-once.js'
 
 if (!stripeSecretKey) {
   throw new Error('STRIPE_SECRET_KEY is not configured')
@@ -88,23 +103,23 @@ export default {
 
     try {
       switch (event.type) {
-case 'checkout.session.completed': {
-  const session =
-    event.data.object as Stripe.Checkout.Session
+        case 'checkout.session.completed': {
+          const session =
+            event.data.object as Stripe.Checkout.Session
 
-  const salesChannel =
-    session.metadata?.salesChannel
+          const salesChannel =
+            session.metadata?.salesChannel
 
-  if (
-    salesChannel !== OrderSalesChannel.ConsumerWebsite &&
-    salesChannel !== OrderSalesChannel.WholesaleWebsite
-  ) {
-    throw new Error(
-      `Unsupported Stripe sales channel: ${salesChannel}`,
-    )
-  }
+          if (
+            salesChannel !== OrderSalesChannel.ConsumerWebsite &&
+            salesChannel !== OrderSalesChannel.WholesaleWebsite
+          ) {
+            throw new Error(
+              `Unsupported Stripe sales channel: ${salesChannel}`,
+            )
+          }
 
-  if (session.payment_status !== 'paid') {
+          if (session.payment_status !== 'paid') {
             console.log(
               'Checkout completed but payment is not yet paid:',
               session.id,
@@ -121,12 +136,13 @@ case 'checkout.session.completed': {
               },
             )
 
+
           const channelOrder =
             createChannelOrderFromStripeSession(
-                event.id,
-                session,
-                lineItemsResponse.data,
-                salesChannel,
+              event.id,
+              session,
+              lineItemsResponse.data,
+              salesChannel,
             )
 
           const result =
@@ -151,6 +167,206 @@ case 'checkout.session.completed': {
                 orderNumber: result.order.orderNumber,
               },
             )
+          }
+
+          if (
+            salesChannel ===
+            OrderSalesChannel.ConsumerWebsite &&
+            channelOrder.woltDelivery
+          ) {
+            const existingWoltDelivery =
+              await getOrderWoltDeliveryState(
+                result.order.id,
+              )
+
+            if (!existingWoltDelivery.deliveryId) {
+              const customerPhone =
+                channelOrder.customer.phone
+
+              if (!customerPhone) {
+                throw new Error(
+                  'Consumer order is missing customer phone for Wolt delivery',
+                )
+              }
+
+              const woltDelivery =
+                await createWoltDelivery({
+                  shipmentPromiseId:
+                    channelOrder.woltDelivery
+                      .shipmentPromiseId,
+                  scheduledDropoffTime:
+                    channelOrder.delivery.slotEndsAt
+                      ? new Date(
+                        new Date(
+                          channelOrder.delivery.slotEndsAt,
+                        ).getTime() -
+                        30 * 60 * 1000,
+                      ).toISOString()
+                      : undefined,
+
+                  recipient: {
+                    name:
+                      channelOrder.customer.name,
+
+                    phoneNumber:
+                      customerPhone,
+
+                    email:
+                      channelOrder.customer.email,
+                  },
+
+                  dropoff: {
+                    lat:
+                      channelOrder.woltDelivery
+                        .dropoffLat,
+
+                    lon:
+                      channelOrder.woltDelivery
+                        .dropoffLon,
+
+                    comment:
+                      channelOrder.delivery.apartment
+                        ? `Apartment ${channelOrder.delivery.apartment}`
+                        : '',
+                  },
+
+                  merchantOrderReferenceId:
+                    result.order.id,
+
+                  orderNumber:
+                    result.order.orderNumber,
+                })
+
+              await saveDeliveryToOrder(
+                result.order.id,
+                woltDelivery,
+              )
+
+              console.log(
+                'Wolt delivery created successfully:',
+                {
+                  orderId:
+                    result.order.id,
+                  orderNumber:
+                    result.order.orderNumber,
+                  woltDeliveryId:
+                    woltDelivery.id,
+                  woltOrderReferenceId:
+                    woltDelivery
+                      .wolt_order_reference_id,
+                },
+              )
+            } else {
+              console.log(
+                'Wolt delivery already exists:',
+                {
+                  orderId:
+                    result.order.id,
+                  woltDeliveryId:
+                    existingWoltDelivery.deliveryId,
+                },
+              )
+            }
+          }
+
+          if (
+            salesChannel ===
+            OrderSalesChannel.ConsumerWebsite
+          ) {
+            try {
+              const woltState =
+                await getOrderWoltDeliveryState(
+                  result.order.id,
+                )
+
+              const deliveryAddress = [
+                [
+                  channelOrder.delivery.street,
+                  channelOrder.delivery.houseNumber,
+                ]
+                  .filter(Boolean)
+                  .join(' '),
+
+                channelOrder.delivery.apartment
+                  ? `Apartment ${channelOrder.delivery.apartment}`
+                  : '',
+
+                [
+                  channelOrder.delivery.postcode,
+                  channelOrder.delivery.city,
+                ]
+                  .filter(Boolean)
+                  .join(' '),
+              ]
+                .filter(Boolean)
+                .join(', ')
+
+              await sendConsumerOrderConfirmationOnce({
+                orderId:
+                  result.order.id,
+
+                to:
+                  channelOrder.customer.email,
+
+                customerName:
+                  channelOrder.customer.name,
+
+                orderNumber:
+                  result.order.orderNumber,
+
+                language:
+                  channelOrder.language,
+
+                totalAmount:
+                  channelOrder.totalAmount,
+
+                currency:
+                  channelOrder.currency,
+
+                items:
+                  channelOrder.items.map((item) => ({
+                    productName:
+                      item.productName,
+
+                    quantity:
+                      item.quantity,
+
+                    totalPrice:
+                      item.totalPrice,
+                  })),
+
+                deliveryFee:
+                  channelOrder.woltDelivery
+                    ?.deliveryFee ?? 0,
+
+                deliveryAddress,
+
+                deliveryDate:
+                  channelOrder.delivery.date,
+
+                deliveryTime:
+                  channelOrder.delivery.time,
+
+                trackingUrl:
+                  woltState.trackingUrl ??
+                  undefined,
+              })
+
+              console.log(
+                'Consumer confirmation email processed:',
+                {
+                  orderId:
+                    result.order.id,
+                  orderNumber:
+                    result.order.orderNumber,
+                },
+              )
+            } catch (emailError) {
+              console.error(
+                'Consumer confirmation email failed:',
+                emailError,
+              )
+            }
           }
 
           break
