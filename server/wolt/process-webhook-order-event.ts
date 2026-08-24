@@ -1,88 +1,102 @@
 import {
-  supabaseAdmin,
+    supabaseAdmin,
 } from '../database/supabase.js'
 
 import type {
-  WoltDriveOrderEvent,
+    WoltDriveOrderEvent,
 } from './types.js'
 
 import {
-  mapWoltOrderEventToUpdate,
+    mapWoltOrderEventToUpdate,
 } from './webhook-event-mapper.js'
 
 export async function processWoltOrderEvent(
-  orderId: string,
-  event: WoltDriveOrderEvent,
+    orderId: string,
+    event: WoltDriveOrderEvent,
 ) {
-  const update =
-    mapWoltOrderEventToUpdate(
-      event,
-    )
+    const update =
+        mapWoltOrderEventToUpdate(
+            event,
+        )
 
-  const {
-    data: existingOrder,
-    error: loadError,
-  } = await supabaseAdmin
-    .from('orders')
-    .select(
-      `
-        id,
-        wolt_last_event_at
-      `,
-    )
-    .eq('id', orderId)
-    .single()
-
-  if (
-    loadError ||
-    !existingOrder
-  ) {
-    throw (
-      loadError ??
-      new Error(
-        'Order not found',
-      )
-    )
-  }
-
-  const previousEventAt =
-    existingOrder.wolt_last_event_at
-
-  const incomingEventAt =
-    new Date(
-      event.dispatched_at,
-    ).getTime()
-
-  if (previousEventAt) {
-    const previousEventTime =
-      new Date(
-        previousEventAt,
-      ).getTime()
+    const {
+        data: existingOrder,
+        error: loadError,
+    } = await supabaseAdmin
+        .from('orders')
+        .select(
+            `
+    id,
+    production_status,
+    wolt_last_event_at
+  `,
+        )
+        .eq('id', orderId)
+        .single()
 
     if (
-      incomingEventAt <
-      previousEventTime
+        loadError ||
+        !existingOrder
     ) {
-      return {
-        ignoredAsOlderEvent:
-          true,
-      }
+        throw (
+            loadError ??
+            new Error(
+                'Order not found',
+            )
+        )
     }
-  }
 
-  const {
-    error: updateError,
-  } = await supabaseAdmin
-    .from('orders')
-    .update(update)
-    .eq('id', orderId)
+    const previousEventAt =
+        existingOrder.wolt_last_event_at
 
-  if (updateError) {
-    throw updateError
-  }
+    const incomingEventAt =
+        new Date(
+            event.dispatched_at,
+        ).getTime()
 
-  return {
-    ignoredAsOlderEvent:
-      false,
-  }
+    if (previousEventAt) {
+        const previousEventTime =
+            new Date(
+                previousEventAt,
+            ).getTime()
+
+        if (
+            incomingEventAt <
+            previousEventTime
+        ) {
+            return {
+                ignoredAsOlderEvent:
+                    true,
+            }
+        }
+    }
+
+    const orderUpdate = {
+        ...update,
+
+        ...(event.type === 'order.picked_up' &&
+            existingOrder.production_status === 'ready'
+            ? {
+                production_status: 'collected',
+                collected_at:
+                    event.dispatched_at,
+            }
+            : {}),
+    }
+
+    const {
+        error: updateError,
+    } = await supabaseAdmin
+        .from('orders')
+        .update(orderUpdate)
+        .eq('id', orderId)
+
+    if (updateError) {
+        throw updateError
+    }
+
+    return {
+        ignoredAsOlderEvent:
+            false,
+    }
 }
