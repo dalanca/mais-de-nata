@@ -51,8 +51,23 @@ export type ChannelOrder = {
     postcode?: string
     date?: string
     time?: string
+    slotEndsAt?: string
   }
+    woltDelivery?: {
+    shipmentPromiseId: string
+    shipmentPromiseValidUntil: string
+    shipmentPromiseIsBinding: boolean
 
+    deliveryFee: number
+    deliveryFeeCurrency: string
+
+    dropoffLat: number
+    dropoffLon: number
+    dropoffFormattedAddress: string
+
+    pickupEtaMinutes: number
+    dropoffEtaMinutes: number | null
+  }
   currency: string
   totalAmount: number
 

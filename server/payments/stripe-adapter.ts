@@ -2,6 +2,9 @@ import Stripe from 'stripe'
 
 import type { ChannelOrder } from '../orders/channel-order.js'
 import { OrderSalesChannel } from '../orders/order-channel.js'
+import {
+  createDeliverySlot,
+} from '../delivery/delivery-slots.js'
 
 /**
  * Converts a paid Stripe Checkout Session and its line items
@@ -29,11 +32,11 @@ export function createChannelOrderFromStripeSession(
 
   const language = session.metadata?.language
 
-    if (language !== 'en' && language !== 'cs') {
-      throw new Error(
-        'Stripe session is missing a valid checkout language',
-      )
-    }
+  if (language !== 'en' && language !== 'cs') {
+    throw new Error(
+      'Stripe session is missing a valid checkout language',
+    )
+  }
 
   const customerEmail =
     session.customer_details?.email ??
@@ -63,55 +66,119 @@ export function createChannelOrderFromStripeSession(
     )
   }
 
-  const items = stripeLineItems.map((lineItem) => {
-    const quantity = lineItem.quantity
-    const unitPrice = lineItem.price?.unit_amount
+  const productLineItems =
+    stripeLineItems.filter(
+      (lineItem) =>
+        lineItem.description !==
+        'Wolt Drive Delivery',
+    )
 
-    if (
-      quantity == null ||
-      !Number.isInteger(quantity) ||
-      quantity <= 0
-    ) {
-      throw new Error(
-        `Stripe line item has an invalid quantity: ${lineItem.id}`,
+  const items =
+    productLineItems.map((lineItem) => {
+
+      const quantity = lineItem.quantity
+      const unitPrice = lineItem.price?.unit_amount
+
+      if (
+        quantity == null ||
+        !Number.isInteger(quantity) ||
+        quantity <= 0
+      ) {
+        throw new Error(
+          `Stripe line item has an invalid quantity: ${lineItem.id}`,
+        )
+      }
+
+      if (
+        unitPrice == null ||
+        !Number.isInteger(unitPrice) ||
+        unitPrice < 0
+      ) {
+        throw new Error(
+          `Stripe line item has an invalid unit price: ${lineItem.id}`,
+        )
+      }
+
+      const totalPrice = unitPrice * quantity
+
+      return {
+        productName:
+          lineItem.description || 'Pastéis de Nata',
+        quantity,
+        unitPrice,
+        totalPrice,
+      }
+    })
+
+  const calculatedProductTotal =
+    items.reduce(
+      (total, item) =>
+        total + item.totalPrice,
+      0,
+    )
+
+  const woltDeliveryFee =
+    salesChannel ===
+      OrderSalesChannel.ConsumerWebsite
+      ? Number(
+        session.metadata
+          ?.woltDeliveryFee ||
+        0,
       )
-    }
+      : 0
 
-    if (
-      unitPrice == null ||
-      !Number.isInteger(unitPrice) ||
-      unitPrice < 0
-    ) {
-      throw new Error(
-        `Stripe line item has an invalid unit price: ${lineItem.id}`,
-      )
-    }
-
-    const totalPrice = unitPrice * quantity
-
-    return {
-      productName:
-        lineItem.description || 'Pastéis de Nata',
-      quantity,
-      unitPrice,
-      totalPrice,
-    }
-  })
-
-  const calculatedTotal = items.reduce(
-    (total, item) => total + item.totalPrice,
-    0,
-  )
+  const calculatedTotal =
+    calculatedProductTotal +
+    woltDeliveryFee
 
   if (calculatedTotal !== amountTotal) {
     throw new Error(
       'Stripe line item total does not match the Checkout Session total',
     )
   }
+  const deliveryDate =
+    session.metadata?.deliveryDate ||
+    undefined
 
+  const deliveryTime =
+    session.metadata?.deliveryTime ||
+    undefined
+
+  let derivedSlotEndsAt:
+    string | undefined
+
+  if (
+    deliveryDate &&
+    deliveryTime
+  ) {
+    const slotMatch =
+      deliveryTime.match(
+        /^(\d{2}):00–(\d{2}):00$/,
+      )
+
+    if (slotMatch) {
+      const startHour =
+        Number(slotMatch[1])
+
+      const endHour =
+        Number(slotMatch[2])
+
+      if (
+        Number.isInteger(startHour) &&
+        Number.isInteger(endHour) &&
+        endHour === startHour + 1
+      ) {
+        derivedSlotEndsAt =
+          createDeliverySlot(
+            deliveryDate,
+            startHour,
+          ).endsAt
+      }
+    }
+  }
   return {
     salesChannel,
-     language,
+    language,
 
     externalEventId: eventId,
     externalOrderId: session.id,
@@ -146,13 +213,84 @@ export function createChannelOrderFromStripeSession(
         undefined,
 
       date:
-        session.metadata?.deliveryDate ||
-        undefined,
+        deliveryDate,
 
       time:
-        session.metadata?.deliveryTime ||
-        undefined,
+        deliveryTime,
+
+      slotEndsAt:
+        session.metadata?.deliverySlotEndsAt ||
+        derivedSlotEndsAt,
     },
+
+    ...(salesChannel ===
+      OrderSalesChannel.ConsumerWebsite
+      ? {
+        woltDelivery: {
+          shipmentPromiseId:
+            session.metadata
+              ?.woltShipmentPromiseId ||
+            '',
+
+          shipmentPromiseValidUntil:
+            session.metadata
+              ?.woltShipmentPromiseValidUntil ||
+            '',
+
+          shipmentPromiseIsBinding:
+            session.metadata
+              ?.woltShipmentPromiseIsBinding ===
+            'true',
+
+          deliveryFee:
+            Number(
+              session.metadata
+                ?.woltDeliveryFee ||
+              0,
+            ),
+
+          deliveryFeeCurrency:
+            session.metadata
+              ?.woltDeliveryFeeCurrency ||
+            '',
+
+          dropoffLat:
+            Number(
+              session.metadata
+                ?.woltDropoffLat ||
+              0,
+            ),
+
+          dropoffLon:
+            Number(
+              session.metadata
+                ?.woltDropoffLon ||
+              0,
+            ),
+
+          dropoffFormattedAddress:
+            session.metadata
+              ?.woltDropoffFormattedAddress ||
+            '',
+
+          pickupEtaMinutes:
+            Number(
+              session.metadata
+                ?.woltPickupEtaMinutes ||
+              0,
+            ),
+
+          dropoffEtaMinutes:
+            session.metadata
+              ?.woltDropoffEtaMinutes
+              ? Number(
+                session.metadata
+                  .woltDropoffEtaMinutes,
+              )
+              : null,
+        },
+      }
+      : {}),
 
     currency: session.currency,
     totalAmount: amountTotal,

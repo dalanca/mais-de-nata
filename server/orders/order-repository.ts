@@ -80,6 +80,8 @@ export async function insertOrder(
         unit_price: item.unitPrice,
         total_price: item.totalPrice,
       })),
+      p_wolt_delivery:
+        input.woltDelivery ?? null,
     },
   )
 

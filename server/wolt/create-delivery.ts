@@ -19,16 +19,18 @@ type CreateWoltDeliveryInput = {
 
   merchantOrderReferenceId: string
   orderNumber?: string
+
+  scheduledDropoffTime?: string
 }
 
 export async function createWoltDelivery(
   input: CreateWoltDeliveryInput,
 ): Promise<WoltDeliveryOrder> {
-const accessToken =
-  process.env.WOLT_DRIVE_MERCHANT_KEY
+  const accessToken =
+    process.env.WOLT_DRIVE_MERCHANT_KEY
 
-const venueId =
-  process.env.WOLT_DRIVE_VENUE_ID
+  const venueId =
+    process.env.WOLT_DRIVE_VENUE_ID
 
   if (!accessToken) {
     throw new Error(
@@ -74,6 +76,13 @@ const venueId =
 
           options: {
             is_no_contact: false,
+
+            ...(input.scheduledDropoffTime
+              ? {
+                scheduled_time:
+                  input.scheduledDropoffTime,
+              }
+              : {}),
           },
         },
 
@@ -86,9 +95,9 @@ const venueId =
 
           ...(input.recipient.email
             ? {
-                email:
-                  input.recipient.email,
-              }
+              email:
+                input.recipient.email,
+            }
             : {}),
         },
 
@@ -117,9 +126,9 @@ const venueId =
 
         ...(input.orderNumber
           ? {
-              order_number:
-                input.orderNumber,
-            }
+            order_number:
+              input.orderNumber,
+          }
           : {}),
 
         language: 'en',

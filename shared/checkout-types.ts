@@ -24,6 +24,10 @@ export interface DeliveryDetails {
   postcode: string;
   deliveryDate: string;
   preferredTime: string;
+
+  slotStartsAt: string;
+  slotEndsAt: string;
+  slotCutoffAt: string;
 }
 
 export interface CheckoutRequest {

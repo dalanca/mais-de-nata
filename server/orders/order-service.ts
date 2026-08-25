@@ -76,6 +76,42 @@ export async function createOrderFromChannel(
     deliveryTime:
       channelOrder.delivery.time?.trim() || undefined,
 
+    ...(channelOrder.woltDelivery
+      ? {
+        woltDelivery: {
+          shipmentPromiseId:
+            channelOrder.woltDelivery.shipmentPromiseId,
+
+          shipmentPromiseValidUntil:
+            channelOrder.woltDelivery.shipmentPromiseValidUntil,
+
+          shipmentPromiseIsBinding:
+            channelOrder.woltDelivery.shipmentPromiseIsBinding,
+
+          deliveryFee:
+            channelOrder.woltDelivery.deliveryFee,
+
+          deliveryFeeCurrency:
+            channelOrder.woltDelivery.deliveryFeeCurrency,
+
+          dropoffLat:
+            channelOrder.woltDelivery.dropoffLat,
+
+          dropoffLon:
+            channelOrder.woltDelivery.dropoffLon,
+
+          dropoffFormattedAddress:
+            channelOrder.woltDelivery.dropoffFormattedAddress,
+
+          pickupEtaMinutes:
+            channelOrder.woltDelivery.pickupEtaMinutes,
+
+          dropoffEtaMinutes:
+            channelOrder.woltDelivery.dropoffEtaMinutes,
+        },
+      }
+      : {}),
+
     currency: channelOrder.currency.trim().toLowerCase(),
     totalAmount: channelOrder.totalAmount,
 
@@ -162,14 +198,27 @@ function validateChannelOrder(
     }
   }
 
-  const calculatedTotal = channelOrder.items.reduce(
-    (total, item) => total + item.totalPrice,
-    0,
-  )
+  const calculatedProductTotal =
+    channelOrder.items.reduce(
+      (total, item) =>
+        total + item.totalPrice,
+      0,
+    )
 
-  if (calculatedTotal !== channelOrder.totalAmount) {
+  const deliveryFee =
+    channelOrder.woltDelivery
+      ?.deliveryFee ?? 0
+
+  const calculatedTotal =
+    calculatedProductTotal +
+    deliveryFee
+
+  if (
+    calculatedTotal !==
+    channelOrder.totalAmount
+  ) {
     throw new Error(
-      'Order total does not match the sum of its items',
+      'Order total does not match products plus delivery fee',
     )
   }
 }

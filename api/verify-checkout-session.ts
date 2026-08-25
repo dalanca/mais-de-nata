@@ -1,4 +1,7 @@
 import Stripe from 'stripe'
+import {
+  supabaseAdmin,
+} from '../server/database/supabase.js'
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
 
@@ -46,6 +49,32 @@ export default async function handler(request: any, response: any) {
         currency: item.currency,
       })) ?? []
 
+    const {
+      data: omsOrder,
+      error: omsOrderError,
+    } = await supabaseAdmin
+      .from('orders')
+      .select(
+        `
+      order_number,
+      wolt_delivery_status,
+      wolt_tracking_url,
+      wolt_pickup_eta,
+      wolt_dropoff_eta
+    `,
+      )
+      .eq(
+        'stripe_session_id',
+        session.id,
+      )
+      .maybeSingle()
+
+    if (omsOrderError) {
+      throw new Error(
+        `Unable to load OMS order: ${omsOrderError.message}`,
+      )
+    }
+
     return response.status(200).json({
       success: true,
       verified: true,
@@ -87,6 +116,23 @@ export default async function handler(request: any, response: any) {
 
           preferredTime:
             session.metadata?.deliveryTime ?? '',
+        },
+
+        tracking: {
+          orderNumber:
+            omsOrder?.order_number ?? '',
+
+          status:
+            omsOrder?.wolt_delivery_status ?? '',
+
+          url:
+            omsOrder?.wolt_tracking_url ?? '',
+
+          pickupEta:
+            omsOrder?.wolt_pickup_eta ?? '',
+
+          dropoffEta:
+            omsOrder?.wolt_dropoff_eta ?? '',
         },
 
         lineItems,

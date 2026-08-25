@@ -14,7 +14,10 @@ export type CreateShipmentPromiseInput = {
     street: string
     city: string
     postCode: string
+
     minPreparationTimeMinutes?: number
+
+    scheduledDropoffTime?: string
 }
 
 export async function createShipmentPromise(
@@ -34,9 +37,17 @@ export async function createShipmentPromise(
                 city: input.city,
                 post_code: input.postCode,
                 language: 'en',
+
                 min_preparation_time_minutes:
                     input.minPreparationTimeMinutes ??
                     20,
+
+                ...(input.scheduledDropoffTime
+                    ? {
+                        scheduled_dropoff_time:
+                            input.scheduledDropoffTime,
+                    }
+                    : {}),
             },
         )
 
