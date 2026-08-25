@@ -28,6 +28,14 @@ type VerifiedOrder = {
     preferredTime: string
   }
 
+  tracking: {
+    orderNumber: string
+    status: string
+    url: string
+    pickupEta: string
+    dropoffEta: string
+  }
+
   lineItems: VerifiedLineItem[]
 }
 
@@ -142,29 +150,29 @@ export default function PaymentSuccess() {
     verifyPayment()
   }, [])
 
-if (isLoading) {
-  return (
-    <>
-      <SiteHeader />
+  if (isLoading) {
+    return (
+      <>
+        <SiteHeader />
 
-      <main className="paymentSuccessPage">
-        <section className="paymentSuccessCard">
-          <div className="paymentSuccessSpinner" />
+        <main className="paymentSuccessPage">
+          <section className="paymentSuccessCard">
+            <div className="paymentSuccessSpinner" />
 
-          <p className="paymentSuccessEyebrow">
-            {t.paymentSuccessVerifying}
-          </p>
+            <p className="paymentSuccessEyebrow">
+              {t.paymentSuccessVerifying}
+            </p>
 
-          <h1>{t.paymentSuccessPleaseWait}</h1>
+            <h1>{t.paymentSuccessPleaseWait}</h1>
 
-          <p className="paymentSuccessIntro">
-            {t.paymentSuccessVerifyingText}
-          </p>
-        </section>
-      </main>
-    </>
-  )
-}
+            <p className="paymentSuccessIntro">
+              {t.paymentSuccessVerifyingText}
+            </p>
+          </section>
+        </main>
+      </>
+    )
+  }
 
   if (errorMessage || !order) {
     return (
@@ -186,7 +194,7 @@ if (isLoading) {
             <strong>{t.paymentSuccessAlreadyPaid}</strong>
 
             <p>
-             {t.paymentSuccessAlreadyPaidText}
+              {t.paymentSuccessAlreadyPaidText}
             </p>
           </div>
 
@@ -274,11 +282,11 @@ if (isLoading) {
           <div className="paymentSuccessDetailCard">
             <h2><h2>{t.paymentSuccessRequestedTime}</h2></h2>
 
-           <p>
-            {formatDeliveryDate(
+            <p>
+              {formatDeliveryDate(
                 order.delivery.deliveryDate,
                 language,
-            )}
+              )}
             </p>
 
             <p>
@@ -294,6 +302,29 @@ if (isLoading) {
             {t.paymentSuccessNextText}
           </p>
         </div>
+
+        {order.tracking.url && (
+          <div className="paymentSuccessTracking">
+            <strong>
+              {order.tracking.orderNumber
+                ? `Order ${order.tracking.orderNumber}`
+                : 'Track your delivery'}
+            </strong>
+
+            <p>
+              Your Wolt courier tracking is now available.
+            </p>
+
+            <a
+              href={order.tracking.url}
+              target="_blank"
+              rel="noreferrer"
+              className="paymentSuccessButton"
+            >
+              Track your delivery
+            </a>
+          </div>
+        )}
 
         <p className="paymentSuccessEmail">
           {t.paymentSuccessEmailStart}{' '}{' '}
