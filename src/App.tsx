@@ -43,7 +43,7 @@ function App() {
                 {t.navOrderFresh}
               </a>
 
-              <a href="/product-information">
+              <a href="/wholesale">
                 {t.navWholesale}
               </a>
 
@@ -52,27 +52,27 @@ function App() {
               </a>
             </div>
 
-<span
-  className="languageToggle"
-  onClick={() =>
-    setLanguage(language === "cs" ? "en" : "cs")
-  }
-  role="button"
-  tabIndex={0}
->
-  {language === "cs" ? "EN" : "CZ"}
-</span>          </div>
+            <span
+              className="languageToggle"
+              onClick={() =>
+                setLanguage(language === "cs" ? "en" : "cs")
+              }
+              role="button"
+              tabIndex={0}
+            >
+              {language === "cs" ? "EN" : "CZ"}
+            </span>          </div>
         </nav>
 
-<div className="tramHeroContent">
-  <h1>
-    {t.heroTitle1}
-    <br />
-    {t.heroTitle2}
-  </h1>
+        <div className="tramHeroContent">
+          <h1>
+            {t.heroTitle1}
+            <br />
+            {t.heroTitle2}
+          </h1>
 
-  <p>{t.heroText}</p>
-</div>
+          <p>{t.heroText}</p>
+        </div>
       </section>
 
       <section id="why-nata" className="nataStorySection">
@@ -151,7 +151,7 @@ function App() {
               {t.navOrderFresh}
             </a>
 
-            <a href="/register">
+            <a href="/wholesale">
               {t.navWholesale}
             </a>
 

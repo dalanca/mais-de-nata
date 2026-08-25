@@ -8,32 +8,35 @@ export default function SiteHeader() {
   const location = useLocation()
   const { language, setLanguage, t } = useLanguage()
   const [isSignedIn, setIsSignedIn] = useState(false)
-    const isProtectedWholesalePage =
-    location.pathname === '/wholesale-order' ||
-    location.pathname === '/wholesale-account'
 
-useEffect(() => {
-  supabase.auth.getSession().then(({ data }) => {
-    setIsSignedIn(Boolean(data.session))
-  })
+  const isWholesaleArea =
+    location.pathname === '/wholesale' ||
+    location.pathname === '/product-information' ||
+    location.pathname === '/register' ||
+    location.pathname.startsWith('/wholesale-')
 
-  const {
-    data: { subscription },
-  } = supabase.auth.onAuthStateChange(
-    (_event, session) => {
-      setIsSignedIn(Boolean(session))
-    },
-  )
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setIsSignedIn(Boolean(data.session))
+    })
 
-  return () => {
-    subscription.unsubscribe()
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setIsSignedIn(Boolean(session))
+      },
+    )
+
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [])
+
+  async function handleSignOut() {
+    await supabase.auth.signOut()
+    window.location.href = '/wholesale'
   }
-}, [])
-
-async function handleSignOut() {
-  await supabase.auth.signOut()
-  window.location.href = '/'
-}
 
   return (
     <header className="siteHeader">
@@ -46,61 +49,77 @@ async function handleSignOut() {
           <img src={logo} alt="Mais de Nata" />
         </Link>
 
-<nav className="siteHeaderNav">
-  {!isProtectedWholesalePage && (
-    <>
-      <Link to="/our-pasteis">
-        {t.navOurPasteis}
-      </Link>
+        <nav className="siteHeaderNav">
+          {isWholesaleArea ? (
+            <>
+              <Link to="/">
+                {t.navHome}
+              </Link>
 
-      <Link to="/order-fresh">
-        {t.navOrderFresh}
-      </Link>
+              <Link to="/wholesale">
+                {t.navWholesale}
+              </Link>
 
-      <Link to="/contact">
-        {t.navContact}
-      </Link>
-    </>
-  )}
+              <Link to="/product-information">
+                {t.navWholesaleProductInfo}
+              </Link>
 
-  {isSignedIn ? (
-    <>
-      <Link to="/wholesale-account">
-        {t.navMyAccount}
-      </Link>
+              {isSignedIn ? (
+                <>
+                  <Link to="/wholesale-account">
+                    {t.navMyAccount}
+                  </Link>
 
-      <button
-        type="button"
-        className="siteHeaderSignOut"
-        onClick={handleSignOut}
-      >
-        {t.navSignOut}
-      </button>
-    </>
-  ) : (
-    !isProtectedWholesalePage && (
-      <>
-        <Link to="/wholesale-sign-in">
-          {t.navSignIn}
-        </Link>
+                  <button
+                    type="button"
+                    className="siteHeaderSignOut"
+                    onClick={handleSignOut}
+                  >
+                    {t.navSignOut}
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/register">
+                    Register
+                  </Link>
 
-        <Link to="/product-information">
-          {t.navWholesaleRegister}
-        </Link>
-      </>
-    )
-  )}
+                  <Link to="/wholesale-sign-in">
+                    {t.navSignIn}
+                  </Link>
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <Link to="/our-pasteis">
+                {t.navOurPasteis}
+              </Link>
 
-  <button
-    type="button"
-    className="siteHeaderLanguage"
-    onClick={() =>
-      setLanguage(language === 'cs' ? 'en' : 'cs')
-    }
-  >
-    {language === 'cs' ? 'EN' : 'CZ'}
-  </button>
-</nav>
+              <Link to="/order-fresh">
+                {t.navOrderFresh}
+              </Link>
+
+              <Link to="/contact">
+                {t.navContact}
+              </Link>
+            </>
+          )}
+
+          <button
+            type="button"
+            className="siteHeaderLanguage"
+            onClick={() =>
+              setLanguage(
+                language === 'cs'
+                  ? 'en'
+                  : 'cs',
+              )
+            }
+          >
+            {language === 'cs' ? 'EN' : 'CZ'}
+          </button>
+        </nav>
       </div>
     </header>
   )

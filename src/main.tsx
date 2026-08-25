@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
 } from 'react-router'
-
+import Wholesale from './pages/Wholesale'
 import App from './App.tsx'
 import WholesaleOrder from './pages/WholesaleOrder'
 import Register from './pages/Register'
@@ -43,6 +43,10 @@ ReactDOM.createRoot(
           <Route
             path="/"
             element={<App />}
+          />
+          <Route
+            path="/wholesale"
+            element={<Wholesale />}
           />
           <Route
             path="/product-information"

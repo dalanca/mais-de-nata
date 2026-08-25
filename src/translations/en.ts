@@ -1,5 +1,7 @@
 const en = {
   // Navigation
+  navHome: "Home",
+  navWholesaleProductInfo: "Product Information",
   navProductInfo: "Product",
   navWholesaleOrder: "Wholesale",
   navContact: "Contact",
@@ -15,99 +17,108 @@ const en = {
   heroTitle2: "Pastéis de Nata",
 
   heroText:
-    "Handmade in Portugal using a traditional recipe. Delivered frozen, so you can bake fresh and serve warm whenever your customers want.",
-/* ==========================
-   WHOLESALE REGISTRATION
-========================== */
+    "Handmade in Portugal using a traditional recipe. Delivering the authentic pastel de nata experience to Prague.",
+  /* ==========================
+     WHOLESALE REGISTRATION
+  ========================== */
 
-wholesaleRegisterBack: "← Home",
-wholesaleRegisterEyebrow: "Wholesale",
-wholesaleRegisterTitle: "Register for Wholesale Access",
-wholesaleRegisterIntro:
-  "Register your business to access Mais de Nata wholesale product information, pricing and ordering.",
+  wholesaleRegisterBack: "← Home",
+  wholesaleRegisterEyebrow: "Wholesale",
+  wholesaleRegisterTitle: "Register for Wholesale Access",
+  wholesaleRegisterIntro:
+    "Register your business to access Mais de Nata wholesale product information, pricing and ordering.",
 
-wholesaleRegisterHowItWorks: "How It Works",
-wholesaleRegisterStep1:
-  "Submit your company and contact details.",
-wholesaleRegisterStep2:
-  "We review and verify your business registration.",
-wholesaleRegisterStep3:
-  "Once approved, your wholesale access is activated.",
-wholesaleRegisterStep4:
-  "Access wholesale products, pricing and ordering.",
+  wholesaleRegisterHowItWorks: "How It Works",
+  wholesaleRegisterStep1:
+    "Submit your company and contact details.",
+  wholesaleRegisterStep2:
+    "We review and verify your business registration.",
+  wholesaleRegisterStep3:
+    "Once approved, your wholesale access is activated.",
+  wholesaleRegisterStep4:
+    "Access wholesale products, pricing and ordering.",
 
-wholesaleRegisterFormTitle: "Wholesale Registration",
-wholesaleRegisterFormIntro:
-  "Complete the form below to request access to the Mais de Nata wholesale channel.",
+  wholesaleRegisterFormTitle: "Wholesale Registration",
+  wholesaleRegisterFormIntro:
+    "Complete the form below to request access to the Mais de Nata wholesale channel.",
 
-wholesaleRegisterCompanySection: "Company Details",
-wholesaleRegisterCompanyName: "Company Name *",
-wholesaleRegisterCompanyId: "Company ID / IČO *",
-wholesaleRegisterVat: "VAT Number / DIČ (optional)",
+  wholesaleRegisterCompanySection: "Company Details",
+  wholesaleRegisterCompanyName: "Company Name *",
+  wholesaleRegisterCompanyId: "Company ID / IČO *",
+  wholesaleRegisterVat: "VAT Number / DIČ (optional)",
 
-wholesaleRegisterCompanyAddress: "Company Address",
-wholesaleRegisterStreet: "Street *",
-wholesaleRegisterHouseNumber: "House Number *",
-wholesaleRegisterPostcode: "Postcode *",
-wholesaleRegisterCity: "City *",
-wholesaleRegisterCountry: "Country *",
-wholesaleRegisterCountryDefault: "Czech Republic",
+  wholesaleRegisterCompanyAddress: "Company Address",
+  wholesaleRegisterStreet: "Street *",
+  wholesaleRegisterHouseNumber: "House Number *",
+  wholesaleRegisterPostcode: "Postcode *",
+  wholesaleRegisterCity: "City *",
+  wholesaleRegisterCountry: "Country *",
+  wholesaleRegisterCountryDefault: "Czech Republic",
 
-wholesaleRegisterContactSection: "Contact Person",
-wholesaleRegisterContactName: "Contact Name *",
-wholesaleRegisterEmail: "Email Address *",
-wholesaleRegisterPhone: "Telephone *",
+  wholesaleRegisterContactSection: "Contact Person",
+  wholesaleRegisterContactName: "Contact Name *",
+  wholesaleRegisterEmail: "Email Address *",
+  wholesaleRegisterPhone: "Telephone *",
 
-wholesaleRegisterDeliverySection: "Delivery Address",
-wholesaleRegisterDeliverySame:
-  "Delivery address is the same as company address",
+  wholesaleRegisterDeliverySection: "Delivery Address",
+  wholesaleRegisterDeliverySame:
+    "Delivery address is the same as company address",
 
-wholesaleRegisterBusinessSection: "About Your Business",
-wholesaleRegisterBusinessPlaceholder:
-  "Tell us briefly about your business — for example café, bakery, hotel, retailer, restaurant or other operation.",
+  wholesaleRegisterBusinessSection: "About Your Business",
+  wholesaleRegisterBusinessPlaceholder:
+    "Tell us briefly about your business — for example café, bakery, hotel, retailer, restaurant or other operation.",
 
-wholesaleRegisterSubmit: "Submit Registration",
+  wholesaleRegisterSubmit: "Submit Registration",
 
-wholesaleRegisterApprovalTitle:
-  "Immediate Wholesale Access",
+  wholesaleRegisterApprovalTitle:
+    "Immediate Wholesale Access",
 
   wholesaleRegisterSubmissionSuccess:
-  "Company registration successful. You can now access wholesale pricing and place orders.",
+    "Company registration successful. You can now access wholesale pricing and place orders.",
 
-wholesaleRegisterApprovalText:
-  "Companies successfully verified through ARES receive immediate access to wholesale pricing and ordering.",
+  wholesaleRegisterApprovalText:
+    "Companies successfully verified through ARES receive immediate access to wholesale pricing and ordering.",
 
-wholesaleRegisterSubmitting: "Submitting...",
+  wholesaleRegisterSubmitting: "Submitting...",
 
   wholesaleRegisterSuccess:
-  'Company registration successful. Your wholesale access is now active.',
+    'Company registration successful. Your wholesale access is now active.',
 
-wholesaleRegisterSubmissionError:
-  "We could not complete your registration. Please try again.",
- 
-wholesaleAccountRegisterCompany:
-  'Add Company',
+  wholesaleRegisterSubmissionError:
+    "We could not complete your registration. Please try again.",
+
+  wholesaleAccountRegisterCompany:
+    'Add Company',
 
   wholesaleAccountCompanySelector:
-  'Company',
-  
-  // Product Information
-productInfoBackHome: "← Home",
-productInfoTitle: "Pastéis de Nata for Wholesale",
-productInfoIntro:
-  "Authentic Portuguese Pastéis de Nata, handmade in Portugal using a traditional recipe perfected over 80 years. Deliver your customers the same premium nata experience they remember from Lisbon.",
-productInfoFactBox: "📦 72 pcs per box",
-productInfoFactTime: "🔥 Ready in 12–15 minutes",
-productInfoImageAlt: "Freshly baked Pastéis de Nata",
+    'Company',
 
-productOverviewTitle: "Product Overview",
-productOverviewItems: [
-  "Authentic Portuguese Nata",
-  "Handmade in Portugal",
-  "Award-winning Portuguese recipe",
-  "Traditional recipe perfected over 80 years",
-  "Frozen shelf life up to 360 days",
-],
+  wholesaleLandingEyebrow: "Mais de Nata Wholesale",
+  wholesaleLandingTitle: "Authentic Pastéis de Nata for Your Business",
+  wholesaleLandingIntro:
+    "Premium Pastéis de Nata, handmade in Portugal and supplied frozen for professional baking.",
+  wholesaleLandingProductInfo: "Product Information",
+  wholesaleLandingRegister: "Register for Wholesale",
+  wholesaleLandingAlreadyAccount: "Already have a wholesale account?",
+  wholesaleLandingSignIn: "Sign in",
+
+  // Product Information
+  productInfoBackHome: "← Home",
+  productInfoTitle: "Pastéis de Nata for Wholesale",
+  productInfoIntro:
+    "Authentic Portuguese Pastéis de Nata, handmade in Portugal using a traditional recipe perfected over 80 years. Deliver your customers the same premium nata experience they remember from Lisbon.",
+  productInfoFactBox: "📦 72 pcs per box",
+  productInfoFactTime: "🔥 Ready in 12–15 minutes",
+  productInfoImageAlt: "Freshly baked Pastéis de Nata",
+
+  productOverviewTitle: "Product Overview",
+  productOverviewItems: [
+    "Authentic Portuguese Nata",
+    "Handmade in Portugal",
+    "Award-winning Portuguese recipe",
+    "Traditional recipe perfected over 80 years",
+    "Frozen shelf life up to 360 days",
+  ],
   // Why Pastel de Nata
   whyTitle: "Why Pastel de Nata",
   logoTagline: "AUTHENTIC PREMIUM PORTUGUESE",
@@ -122,31 +133,31 @@ productOverviewItems: [
   storyText:
     "A warm Pastel de Nata creates aroma, theatre and impulse demand. It gives cafés, bakeries, hotels and retailers a simple way to offer customers a memorable Portuguese experience.",
 
-    whyBusinessesTitle: "Why Businesses Choose Mais de Nata",
+  whyBusinessesTitle: "Why Businesses Choose Mais de Nata",
 
-    whyBusinessesItems: [
-      "High-margin premium product",
-      "Bake only what you need, when you need it",
-      "No thawing required",
-      "Ready in 12–15 minutes",
-      "Consistent quality in every batch",
-      "Suitable for cafés, bakeries, hotels and retailers",
-],
+  whyBusinessesItems: [
+    "High-margin premium product",
+    "Bake only what you need, when you need it",
+    "No thawing required",
+    "Ready in 12–15 minutes",
+    "Consistent quality in every batch",
+    "Suitable for cafés, bakeries, hotels and retailers",
+  ],
   // Baking Steps
 
   bakingTitle: "Baking Instructions",
 
   bakingSteps: [
-      "Preheat oven to 270°C if it allows.",
-      "Place frozen Pastéis de Nata on a tray with 1 cm spacing.",
-      "Reduce oven to 250°C once loaded.",
-      "Bake for 12–15 minutes.",
-      "Allow to cool for 20–30 minutes before serving.",
-],
+    "Preheat oven to 270°C if it allows.",
+    "Place frozen Pastéis de Nata on a tray with 1 cm spacing.",
+    "Reduce oven to 250°C once loaded.",
+    "Bake for 12–15 minutes.",
+    "Allow to cool for 20–30 minutes before serving.",
+  ],
   // Why Us
 
   whyUsHeading:
-  "Experience the Taste of Lisbon in Prague",
+    "Experience the Taste of Lisbon in Prague",
 
   authentic: "Authentic",
   authenticText:
@@ -164,20 +175,20 @@ productOverviewItems: [
   premiumText:
     "Strong visual appeal and premium positioning for attractive margins.",
 
-// Suitable For
-suitableForTitle: "Suitable For",
+  // Suitable For
+  suitableForTitle: "Suitable For",
 
-suitableForIntro:
-  "Ideal for businesses looking to offer customers an authentic Portuguese Pastel de Nata experience.",
+  suitableForIntro:
+    "Ideal for businesses looking to offer customers an authentic Portuguese Pastel de Nata experience.",
 
-businessTypes: [
-  "Cafés",
-  "Bakeries",
-  "Hotels",
-  "Petrol Stations",
-  "Online Retailers",
-  "Catering Operators",
-],
+  businessTypes: [
+    "Cafés",
+    "Bakeries",
+    "Hotels",
+    "Petrol Stations",
+    "Online Retailers",
+    "Catering Operators",
+  ],
   /* ==========================
      OUR PASTÉIS (B2C)
   ========================== */
@@ -188,516 +199,525 @@ businessTypes: [
   ourPasteisIntro:
     "Authentic Portuguese Pastéis de Nata, handmade in Portugal and baked fresh for you in Prague.",
   ourPasteisOrderButton: "Order Fresh",
+  ourPasteisHistoryEyebrow: "Our Story Begins in Lisbon",
+  ourPasteisHistoryTitle: "A Sweet Taste of Portuguese History",
+  ourPasteisHistoryText1:
+    "The story of the Pastel de Nata is rooted in Portugal’s centuries-old tradition of convent baking. Monks and nuns used large quantities of egg whites for purposes such as starching religious habits, leaving an abundance of egg yolks. Combined with sugar and other ingredients, those yolks became the foundation for the rich tradition of Portuguese convent sweets.",
+  ourPasteisHistoryText2:
+    "In Belém, beside Lisbon’s Jerónimos Monastery, this tradition would give rise to something extraordinary. Following Portugal’s Liberal Revolution, the country’s monasteries and convents were closed in 1834. Faced with difficult times, pastries made from an old monastery recipe began to be sold nearby as a means of survival.",
+  ourPasteisHistoryText3:
+    "In 1837, the famous Pastéis de Belém began to be produced according to that secret recipe. Nearly two centuries later, the Pastel de Nata has become one of Portugal’s most iconic foods — a small taste of Lisbon recognised and loved around the world.",
+  ourPasteisHistoryLocation: "Belém, Lisbon · 1837",
   /* ==========================
      Why mais de nata (B2C)
   ========================== */
   ourPasteisWhyEyebrow: "Why Mais de Nata",
-ourPasteisWhyTitle: "Authentic Portuguese craft, baked fresh for Prague.",
-ourPasteisWhyIntro:
-  "From traditional Portuguese production to the moment they come out of the oven, every detail is focused on delivering an exceptional Pastel de Nata.",
+  ourPasteisWhyTitle: "Authentic Portuguese craft, baked fresh for Prague.",
+  ourPasteisWhyIntro:
+    "From traditional Portuguese production to the moment they come out of the oven, every detail is focused on delivering an exceptional Pastel de Nata.",
 
-ourPasteisWhyPortugalTitle: "Handmade in Portugal",
-ourPasteisWhyPortugalText:
-  "Produced in Portugal using traditional methods and a recipe perfected over generations.",
+  ourPasteisWhyPortugalTitle: "Handmade in Portugal",
+  ourPasteisWhyPortugalText:
+    "Produced in Portugal using traditional methods and a recipe perfected over generations.",
 
-ourPasteisWhyFreshTitle: "Freshly Baked",
-ourPasteisWhyFreshText:
-  "Baked fresh in Prague for a crisp, flaky pastry and a warm, creamy custard centre.",
+  ourPasteisWhyFreshTitle: "Freshly Baked",
+  ourPasteisWhyFreshText:
+    "Baked fresh in Prague for a crisp, flaky pastry and a warm, creamy custard centre.",
 
-ourPasteisWhyLisbonTitle: "The Taste of Lisbon",
-ourPasteisWhyLisbonText:
-  "An authentic Portuguese experience that brings the flavour and atmosphere of Lisbon closer to home.",
+  ourPasteisWhyLisbonTitle: "The Taste of Lisbon",
+  ourPasteisWhyLisbonText:
+    "An authentic Portuguese experience that brings the flavour and atmosphere of Lisbon closer to home.",
 
   /* ==========================
      Choose Your Box (B2C)
   ========================== */
-ourPasteisBoxesEyebrow: "Choose Your Box",
-ourPasteisBoxesTitle: "Freshly baked and ready to enjoy.",
-ourPasteisBoxesIntro:
-  "Choose the box that suits the moment, from a coffee break for two to a generous taste of Lisbon for family, friends and celebrations.",
+  ourPasteisBoxesEyebrow: "Choose Your Box",
+  ourPasteisBoxesTitle: "Freshly baked and ready to enjoy.",
+  ourPasteisBoxesIntro:
+    "Choose the box that suits the moment, from a coffee break for two to a generous taste of Lisbon for family, friends and celebrations.",
 
-ourPasteisBoxFourTitle: "4 Pastéis",
-ourPasteisBoxFourText: "Perfect for sharing over coffee.",
-ourPasteisBoxFourButton: "Order Fresh →",
+  ourPasteisBoxFourTitle: "4 Pastéis",
+  ourPasteisBoxFourText: "Perfect for sharing over coffee.",
+  ourPasteisBoxFourButton: "Order Fresh →",
 
-ourPasteisBoxSixTitle: "6 Pastéis",
-ourPasteisBoxSixText: "Our most popular choice for sharing.",
-ourPasteisBoxSixButton: "Order Fresh →",
-ourPasteisBoxSixBadge: "Most Popular",
+  ourPasteisBoxSixTitle: "6 Pastéis",
+  ourPasteisBoxSixText: "Our most popular choice for sharing.",
+  ourPasteisBoxSixButton: "Order Fresh →",
+  ourPasteisBoxSixBadge: "Most Popular",
 
-ourPasteisBoxTwelveTitle: "12 Pastéis",
-ourPasteisBoxTwelveText: "Ideal for family, friends, brunch or the office.",
-ourPasteisBoxTwelveButton: "Order Fresh →",
+  ourPasteisBoxTwelveTitle: "12 Pastéis",
+  ourPasteisBoxTwelveText: "Ideal for family, friends, brunch or the office.",
+  ourPasteisBoxTwelveButton: "Order Fresh →",
 
-ourPasteisBoxEighteenTitle: "18 Pastéis",
-ourPasteisBoxEighteenText: "Perfect for celebrations, gatherings and generous gifting.",
-ourPasteisBoxEighteenButton: "Order Fresh →",
+  ourPasteisBoxEighteenTitle: "18 Pastéis",
+  ourPasteisBoxEighteenText: "Perfect for celebrations, gatherings and generous gifting.",
+  ourPasteisBoxEighteenButton: "Order Fresh →",
 
   /* ==========================
      Order Fresh (B2C)
   ========================== */
   orderFreshBackHome: "← Home",
-orderFreshEyebrow: "Order Fresh",
-orderFreshTitle: "Freshly Baked Pastéis de Nata",
-orderFreshIntro:
-  "Choose your box, delivery method and preferred time. Your Pastéis will be baked fresh for your order.",
+  orderFreshEyebrow: "Order Fresh",
+  orderFreshTitle: "Freshly Baked Pastéis de Nata",
+  orderFreshIntro:
+    "Choose your box, delivery method and preferred time. Your Pastéis will be baked fresh for your order.",
 
-orderFreshChooseBox: "Choose Your Box",
-orderFreshMostPopular: "Most Popular",
+  orderFreshChooseBox: "Choose Your Box",
+  orderFreshMostPopular: "Most Popular",
 
-orderFreshBoxFour: "4 Pastéis",
-orderFreshBoxSix: "6 Pastéis",
-orderFreshBoxTwelve: "12 Pastéis",
-orderFreshBoxEighteen: "18 Pastéis",
+  orderFreshBoxFour: "4 Pastéis",
+  orderFreshBoxSix: "6 Pastéis",
+  orderFreshBoxTwelve: "12 Pastéis",
+  orderFreshBoxEighteen: "18 Pastéis",
 
-orderFreshFulfilmentTitle: 'Delivery method',
-orderFreshDelivery: "Delivery",
+  orderFreshFulfilmentTitle: 'Delivery method',
+  orderFreshDelivery: "Delivery",
 
-orderFreshDateLabel: "Preferred Date",
-orderFreshTimeLabel: "Preferred Time",
-orderFreshTimeAsap: "As soon as possible",
-orderFreshTimeMorning: "Morning — 10:00–12:00",
-orderFreshTimeAfternoon: "Afternoon — 12:00–17:00",
-orderFreshTimeEvening: "Evening — 17:00–20:00",
+  orderFreshDateLabel: "Preferred Date",
+  orderFreshTimeLabel: "Preferred Time",
+  orderFreshTimeAsap: "As soon as possible",
+  orderFreshTimeMorning: "Morning — 10:00–12:00",
+  orderFreshTimeAfternoon: "Afternoon — 12:00–17:00",
+  orderFreshTimeEvening: "Evening — 17:00–20:00",
 
-orderFreshSummaryTitle: "Order Summary",
-orderFreshSummaryProduct: "Freshly Baked Pastéis de Nata",
-orderFreshSummaryBox: "Box",
-orderFreshSummaryMethod: "Method",
-orderFreshSummaryDate: "Date",
-orderFreshSummaryTime: "Time",
-orderFreshSummarySubtotal: "Subtotal",
-orderFreshSummaryDelivery: "Delivery",
-orderFreshSummaryTotal: "Total",
+  orderFreshSummaryTitle: "Order Summary",
+  orderFreshSummaryProduct: "Freshly Baked Pastéis de Nata",
+  orderFreshSummaryBox: "Box",
+  orderFreshSummaryMethod: "Method",
+  orderFreshSummaryDate: "Date",
+  orderFreshSummaryTime: "Time",
+  orderFreshSummarySubtotal: "Subtotal",
+  orderFreshSummaryDelivery: "Delivery",
+  orderFreshSummaryTotal: "Total",
 
-orderFreshDeliveryCalculated: "Calculated at checkout",
-orderFreshAddToCart: "Add to Cart",
-orderFreshContinueCheckout: "Continue to Checkout",
-orderFreshAddedToCart: "✓ Added to Cart",
-orderFreshUpdateCart: "Update Cart",
-orderFreshBoxInCart: "box in cart",
-orderFreshBoxesInCart: "boxes in cart",
-orderFreshCheckout: "Checkout →",
+  orderFreshDeliveryCalculated: "Calculated at checkout",
+  orderFreshAddToCart: "Add to Cart",
+  orderFreshContinueCheckout: "Continue to Checkout",
+  orderFreshAddedToCart: "✓ Added to Cart",
+  orderFreshUpdateCart: "Update Cart",
+  orderFreshBoxInCart: "box in cart",
+  orderFreshBoxesInCart: "boxes in cart",
+  orderFreshCheckout: "Checkout →",
 
-orderFreshDeliveryText: 'Freshly baked and delivered to your address',
+  orderFreshDeliveryText: 'Freshly baked and delivered to your address',
 
   /* ==========================
      CART (B2C)
   ========================== */
 
-cartTitle: "Your Cart",
+  cartTitle: "Your Cart",
 
-cartEmptyTitle: "Your cart is empty",
-cartEmptyText:
-  "Looks like you haven't added any freshly baked Pastéis de Nata yet.",
-cartEmptyButton: "Order Fresh",
+  cartEmptyTitle: "Your cart is empty",
+  cartEmptyText:
+    "Looks like you haven't added any freshly baked Pastéis de Nata yet.",
+  cartEmptyButton: "Order Fresh",
 
-cartBoxOf: "Box of",
-cartFreshProduct: "Freshly Baked Pastéis de Nata",
+  cartBoxOf: "Box of",
+  cartFreshProduct: "Freshly Baked Pastéis de Nata",
 
-cartQuantity: "Quantity",
-cartPrice: "Price",
-cartSubtotal: "Subtotal",
+  cartQuantity: "Quantity",
+  cartPrice: "Price",
+  cartSubtotal: "Subtotal",
 
-cartSummarySubtotal: "Subtotal (incl. VAT)",
-cartDelivery: "Delivery",
-cartDeliveryCalculated: "Calculated at checkout",
-cartTotal: "Total",
-cartVatNote: "All prices include 12% VAT.",
+  cartSummarySubtotal: "Subtotal (incl. VAT)",
+  cartDelivery: "Delivery",
+  cartDeliveryCalculated: "Calculated at checkout",
+  cartTotal: "Total",
+  cartVatNote: "All prices include 12% VAT.",
 
-cartContinueShopping: "← Back to Order",
-cartContinueCheckout: "Continue to Checkout",
-cartClear: "Clear Cart",
+  cartContinueShopping: "← Back to Order",
+  cartContinueCheckout: "Continue to Checkout",
+  cartClear: "Clear Cart",
 
-cartDecreaseQuantity: "Decrease quantity for box of",
-cartIncreaseQuantity: "Increase quantity for box of",
+  cartDecreaseQuantity: "Decrease quantity for box of",
+  cartIncreaseQuantity: "Increase quantity for box of",
 
-/* ==========================
-   CONTACT
-========================== */
-contactEyebrow: "Get in touch",
-contactTitle: "We'd love to hear from you.",
-contactIntro:
-  "Whether you have a question about our Pastéis de Nata, an order, or working with Mais de Nata, send us a message and we'll get back to you.",
-contactName: "Name",
-contactEmail: "Email",
-contactPhone: "Phone (optional)",
-contactSubject: "Subject",
-contactMessage: "Message",
-contactSubmit: "Send Message",
+  /* ==========================
+     CONTACT
+  ========================== */
+  contactEyebrow: "Get in touch",
+  contactTitle: "We'd love to hear from you.",
+  contactIntro:
+    "Whether you have a question about our Pastéis de Nata, an order, or working with Mais de Nata, send us a message and we'll get back to you.",
+  contactName: "Name",
+  contactEmail: "Email",
+  contactPhone: "Phone (optional)",
+  contactSubject: "Subject",
+  contactMessage: "Message",
+  contactSubmit: "Send Message",
 
-/* ==========================
-   CHECKOUT (B2C)
-========================== */
+  /* ==========================
+     CHECKOUT (B2C)
+  ========================== */
 
-checkoutTitle: "Checkout",
+  checkoutTitle: "Checkout",
 
-checkoutProgressCustomer: "Customer",
-checkoutProgressDelivery: "Delivery",
-checkoutProgressReview: "Review & Pay",
-checkoutStepOf: "Step",
-checkoutOf: "of",
+  checkoutProgressCustomer: "Customer",
+  checkoutProgressDelivery: "Delivery",
+  checkoutProgressReview: "Review & Pay",
+  checkoutStepOf: "Step",
+  checkoutOf: "of",
 
-checkoutCustomerTitle: "Customer Details",
-checkoutCustomerIntro:
-  "We will use these details to confirm your order.",
-checkoutFirstName: "First Name",
-checkoutLastName: "Last Name",
-checkoutEmail: "Email",
-checkoutPhone: "Mobile Number",
-checkoutContinueDelivery: "Continue to Delivery →",
+  checkoutCustomerTitle: "Customer Details",
+  checkoutCustomerIntro:
+    "We will use these details to confirm your order.",
+  checkoutFirstName: "First Name",
+  checkoutLastName: "Last Name",
+  checkoutEmail: "Email",
+  checkoutPhone: "Mobile Number",
+  checkoutContinueDelivery: "Continue to Delivery →",
 
-checkoutDeliveryTitle: "Delivery Details",
-checkoutDeliveryIntro:
-  "Tell us where and when you would like your freshly baked Pastéis delivered.",
-checkoutStreet: "Street",
-checkoutHouseNumber: "House Number",
-checkoutApartment: "Apartment, Floor or Doorbell Name",
-checkoutOptional: "Optional",
-checkoutCity: "City",
-checkoutPostcode: "Postcode",
-checkoutPreferredDelivery: "Preferred Delivery",
-checkoutDeliveryDate: "Delivery Date",
-checkoutPreferredTime: "Preferred Time",
+  checkoutDeliveryTitle: "Delivery Details",
+  checkoutDeliveryIntro:
+    "Tell us where and when you would like your freshly baked Pastéis delivered.",
+  checkoutStreet: "Street",
+  checkoutHouseNumber: "House Number",
+  checkoutApartment: "Apartment, Floor or Doorbell Name",
+  checkoutOptional: "Optional",
+  checkoutCity: "City",
+  checkoutPostcode: "Postcode",
+  checkoutPreferredDelivery: "Preferred Delivery",
+  checkoutDeliveryDate: "Delivery Date",
+  checkoutPreferredTime: "Preferred Time",
 
-checkoutTimeAsap: "As soon as possible",
-checkoutTimeMorning: "Morning",
-checkoutTimeAfternoon: "Afternoon",
-checkoutTimeEvening: "Evening",
+  checkoutTimeAsap: "As soon as possible",
+  checkoutTimeMorning: "Morning",
+  checkoutTimeAfternoon: "Afternoon",
+  checkoutTimeEvening: "Evening",
 
-checkoutDeliveryAvailability: "Delivery availability",
-checkoutDeliveryAvailabilityText:
-  "The delivery charge and final delivery time will be confirmed before payment.",
+  checkoutDeliveryAvailability: "Delivery availability",
+  checkoutDeliveryAvailabilityText:
+    "The delivery charge and final delivery time will be confirmed before payment.",
 
-checkoutBack: "← Back",
-checkoutContinueReview: "Continue to Review & Pay →",
+  checkoutBack: "← Back",
+  checkoutContinueReview: "Continue to Review & Pay →",
 
-checkoutReviewTitle: "Review & Pay",
-checkoutReviewIntro:
-  "Please check your order and delivery details before continuing to payment.",
+  checkoutReviewTitle: "Review & Pay",
+  checkoutReviewIntro:
+    "Please check your order and delivery details before continuing to payment.",
 
-checkoutChangeTitle: "Need to make a change?",
-checkoutChangeText:
-  "You can edit your customer details, delivery details or cart before completing your payment.",
+  checkoutChangeTitle: "Need to make a change?",
+  checkoutChangeText:
+    "You can edit your customer details, delivery details or cart before completing your payment.",
 
-checkoutFreshTitle: "Freshly baked in Prague",
-checkoutFreshText:
-  "Your Pastéis de Nata will be baked fresh on the day of delivery to ensure the best taste and quality.",
+  checkoutFreshTitle: "Freshly baked in Prague",
+  checkoutFreshText:
+    "Your Pastéis de Nata will be baked fresh on the day of delivery to ensure the best taste and quality.",
 
-checkoutCustomerCard: "Customer",
-checkoutDeliveryCard: "Delivery",
-checkoutOrderCard: "Your Order",
-checkoutEdit: "Edit",
-checkoutEditCart: "Edit Cart",
+  checkoutCustomerCard: "Customer",
+  checkoutDeliveryCard: "Delivery",
+  checkoutOrderCard: "Your Order",
+  checkoutEdit: "Edit",
+  checkoutEditCart: "Edit Cart",
 
-checkoutDate: "Date",
-checkoutTime: "Time",
+  checkoutDate: "Date",
+  checkoutTime: "Time",
 
-checkoutBoxOf: "Box of",
-checkoutBox: "box",
-checkoutBoxes: "boxes",
-checkoutEach: "each",
+  checkoutBoxOf: "Box of",
+  checkoutBox: "box",
+  checkoutBoxes: "boxes",
+  checkoutEach: "each",
 
-checkoutEmptyCart: "Your cart is empty.",
-checkoutReturnOrderFresh: "Return to Order Fresh",
+  checkoutEmptyCart: "Your cart is empty.",
+  checkoutReturnOrderFresh: "Return to Order Fresh",
 
-checkoutSubtotal: "Subtotal",
-checkoutDelivery: "Delivery",
-checkoutDeliveryCalculated: "Calculated before payment",
-checkoutTotalBeforeDelivery: "Total before delivery",
-checkoutVatIncluded: "Product prices include 12% VAT",
+  checkoutSubtotal: "Subtotal",
+  checkoutDelivery: "Delivery",
+  checkoutDeliveryCalculated: "Calculated before payment",
+  checkoutTotalBeforeDelivery: "Total before delivery",
+  checkoutVatIncluded: "Product prices include 12% VAT",
 
-checkoutTermsStart:
-  "I have reviewed my order and accept the",
-checkoutTermsConditions: "Terms & Conditions",
-checkoutTermsAnd: "and",
-checkoutPrivacyPolicy: "Privacy Policy",
+  checkoutTermsStart:
+    "I have reviewed my order and accept the",
+  checkoutTermsConditions: "Terms & Conditions",
+  checkoutTermsAnd: "and",
+  checkoutPrivacyPolicy: "Privacy Policy",
 
-checkoutSecurePayment: "Secure payment",
-checkoutSecurePaymentText:
-  "Your payment will be processed securely through Stripe.",
+  checkoutSecurePayment: "Secure payment",
+  checkoutSecurePaymentText:
+    "Your payment will be processed securely through Stripe.",
 
-checkoutContinuePayment: "Continue to Payment",
-checkoutTermsReminder:
-  "Please accept the Terms & Conditions to continue.",
+  checkoutContinuePayment: "Continue to Payment",
+  checkoutTermsReminder:
+    "Please accept the Terms & Conditions to continue.",
 
-/* ==========================
-   PAYMENT SUCCESS (B2C)
-========================== */
+  /* ==========================
+     PAYMENT SUCCESS (B2C)
+  ========================== */
 
-paymentSuccessVerifying: "Verifying payment",
-paymentSuccessPleaseWait: "Please wait",
-paymentSuccessVerifyingText:
-  "We are confirming your payment and retrieving your order details.",
+  paymentSuccessVerifying: "Verifying payment",
+  paymentSuccessPleaseWait: "Please wait",
+  paymentSuccessVerifyingText:
+    "We are confirming your payment and retrieving your order details.",
 
-paymentSuccessNotVerified: "Payment not verified",
-paymentSuccessCouldNotConfirm: "We could not confirm your order",
-paymentSuccessAlreadyPaid: "Have you already paid?",
-paymentSuccessAlreadyPaidText:
-  "Please check your Stripe payment confirmation. If the payment was successful, contact Mais de Nata and include the email address used during checkout.",
-paymentSuccessReturnHome: "Return to Home",
+  paymentSuccessNotVerified: "Payment not verified",
+  paymentSuccessCouldNotConfirm: "We could not confirm your order",
+  paymentSuccessAlreadyPaid: "Have you already paid?",
+  paymentSuccessAlreadyPaidText:
+    "Please check your Stripe payment confirmation. If the payment was successful, contact Mais de Nata and include the email address used during checkout.",
+  paymentSuccessReturnHome: "Return to Home",
 
-paymentSuccessSuccessful: "Payment successful",
-paymentSuccessThankYou: "Thank you for your order",
-paymentSuccessConfirmed: "Your payment has been confirmed",
+  paymentSuccessSuccessful: "Payment successful",
+  paymentSuccessThankYou: "Thank you for your order",
+  paymentSuccessConfirmed: "Your payment has been confirmed",
 
-paymentSuccessOrderSummary: "Order summary",
-paymentSuccessQuantity: "Quantity",
+  paymentSuccessOrderSummary: "Order summary",
+  paymentSuccessQuantity: "Quantity",
 
-paymentSuccessDelivery: "Delivery",
-paymentSuccessRequestedTime: "Requested time",
-paymentSuccessNotSpecified: "Not specified",
-paymentSuccessApartment: "Apartment",
+  paymentSuccessDelivery: "Delivery",
+  paymentSuccessRequestedTime: "Requested time",
+  paymentSuccessNotSpecified: "Not specified",
+  paymentSuccessApartment: "Apartment",
 
-paymentSuccessNextTitle: "What happens next?",
-paymentSuccessNextText:
-  "We will contact you using the details provided to confirm the final delivery time.",
+  paymentSuccessNextTitle: "What happens next?",
+  paymentSuccessNextText:
+    "We will contact you using the details provided to confirm the final delivery time.",
 
-paymentSuccessEmailStart:
-  "A payment confirmation has been sent to",
+  paymentSuccessEmailStart:
+    "A payment confirmation has been sent to",
 
-paymentSuccessMissingReference:
-  "We could not find a payment reference for this order.",
-paymentSuccessVerificationFailed:
-  "The payment could not be verified.",
+  paymentSuccessMissingReference:
+    "We could not find a payment reference for this order.",
+  paymentSuccessVerificationFailed:
+    "The payment could not be verified.",
 
   // Product Information
 
-technicalInfoTitle: "Product Information",
+  technicalInfoTitle: "Product Information",
 
-technicalInfoItems: [
-  "72 units per wholesale box",
-  "Box weight: 5.625 kg",
-  "Box dimensions: 33.3 × 22.5 × 19 cm",
-  "Frozen and unbaked",
-  "360-day shelf life when stored frozen",
-  "Storage temperature: -18°C or below",
-  "Bake directly from frozen",
-  "No thawing required",
-],
-// Wholesale Order
-wholesaleBackHome: "← Home",
-wholesaleHeroTitle: "Order Frozen Nata Boxes",
-wholesaleHeroText:
-  "Authentic Portuguese Pastéis de Nata, produced in Portugal and delivered frozen throughout the Czech Republic.",
-wholesaleBadgeUnits: "72 units / box",
-wholesaleBadgeMinimum: "Minimum 5 boxes",
-wholesaleBadgeFrozen: "Frozen delivery",
+  technicalInfoItems: [
+    "72 units per wholesale box",
+    "Box weight: 5.625 kg",
+    "Box dimensions: 33.3 × 22.5 × 19 cm",
+    "Frozen and unbaked",
+    "360-day shelf life when stored frozen",
+    "Storage temperature: -18°C or below",
+    "Bake directly from frozen",
+    "No thawing required",
+  ],
+  // Wholesale Order
+  wholesaleBackHome: "← Home",
+  wholesaleHeroTitle: "Order Frozen Nata Boxes",
+  wholesaleHeroText:
+    "Authentic Portuguese Pastéis de Nata, produced in Portugal and delivered frozen throughout the Czech Republic.",
+  wholesaleBadgeUnits: "72 units / box",
+  wholesaleBadgeMinimum: "Minimum 5 boxes",
+  wholesaleBadgeFrozen: "Frozen delivery",
 
-wholesaleProcessTitle: "Ordering Process",
-wholesaleStep1: "Submit Order",
-wholesaleStep2: "We Confirm Availability",
-wholesaleStep3: "Secure Payment",
-wholesaleStep4: "Frozen Delivery",
+  wholesaleProcessTitle: "Ordering Process",
+  wholesaleStep1: "Submit Order",
+  wholesaleStep2: "We Confirm Availability",
+  wholesaleStep3: "Secure Payment",
+  wholesaleStep4: "Frozen Delivery",
 
-wholesalePricingTitle: "Wholesale Pricing",
-wholesalePricingTier1: "5–9 boxes",
-wholesalePricingTier2: "10–24 boxes",
-wholesalePricingTier3: "25+ boxes",
-wholesaleCustomQuote: "Custom quote",
+  wholesalePricingTitle: "Wholesale Pricing",
+  wholesalePricingTier1: "5–9 boxes",
+  wholesalePricingTier2: "10–24 boxes",
+  wholesalePricingTier3: "25+ boxes",
+  wholesaleCustomQuote: "Custom quote",
 
-wholesaleDeliveryTitle: 'Delivery & Collection',
-wholesaleDeliveryMessage1:
-  'Every wholesale order is individually reviewed by our team.',
-wholesaleDeliveryMessage2:
-  'Once your order has been confirmed, we will contact you to arrange the most suitable collection or delivery option.',
+  wholesaleDeliveryTitle: 'Delivery & Collection',
+  wholesaleDeliveryMessage1:
+    'Every wholesale order is individually reviewed by our team.',
+  wholesaleDeliveryMessage2:
+    'Once your order has been confirmed, we will contact you to arrange the most suitable collection or delivery option.',
 
- // Company Details
- wholesaleDetailsTitle: 'Company & Delivery Details',
-wholesaleDetailsMessage:
-  'Please review your company details and provide any delivery instructions for this order.',
+  // Company Details
+  wholesaleDetailsTitle: 'Company & Delivery Details',
+  wholesaleDetailsMessage:
+    'Please review your company details and provide any delivery instructions for this order.',
 
-// Order Summary
-boxUnit: "boxes",
-orderSummaryTitle: "Order Summary",
+  // Order Summary
+  boxUnit: "boxes",
+  orderSummaryTitle: "Order Summary",
 
-orderSummaryBoxes: "Boxes",
-orderSummaryNatas: "Pastéis de Nata",
-orderSummaryPricePerBox: "Price per box",
-orderSummaryTotal: "Total Product Cost",
+  orderSummaryBoxes: "Boxes",
+  orderSummaryNatas: "Pastéis de Nata",
+  orderSummaryPricePerBox: "Price per box",
+  orderSummaryTotal: "Total Product Cost",
 
-orderSummaryNote1: "Product prices exclude VAT.",
-orderSummaryNote2: "VAT will be calculated on the final invoice where applicable.",
-orderSummaryNote3: "Delivery costs are charged separately.",
-orderSummaryNote4: "72 Pastéis de Nata per box • 6-month frozen shelf life",
-pricePerUnit: "/ box",
-submitOrderButton: "Submit Order Request",
+  orderSummaryNote1: "Product prices exclude VAT.",
+  orderSummaryNote2: "VAT will be calculated on the final invoice where applicable.",
+  orderSummaryNote3: "Delivery costs are charged separately.",
+  orderSummaryNote4: "72 Pastéis de Nata per box • 6-month frozen shelf life",
+  pricePerUnit: "/ box",
+  submitOrderButton: "Submit Order Request",
 
-wholesaleAccountLoading: 'Loading your wholesale account...',
-wholesaleAccountLoadError: 'Unable to load your wholesale account.',
+  wholesaleAccountLoading: 'Loading your wholesale account...',
+  wholesaleAccountLoadError: 'Unable to load your wholesale account.',
 
-wholesaleAccountEyebrow: 'WHOLESALE ACCOUNT',
-wholesaleAccountTitle: 'My Account',
-wholesaleAccountPlaceOrder: 'Place New Order',
+  wholesaleAccountEyebrow: 'WHOLESALE ACCOUNT',
+  wholesaleAccountTitle: 'My Account',
+  wholesaleAccountPlaceOrder: 'Place New Order',
 
-wholesaleAccountDetailsTitle: 'Account Details',
-wholesaleAccountCompany: 'Company',
-wholesaleAccountCompanyId: 'Company ID / IČO',
-wholesaleAccountVatNumber: 'VAT number',
-wholesaleAccountContact: 'Contact',
-wholesaleAccountEmail: 'Email',
-wholesaleAccountPhone: 'Phone',
-wholesaleAccountCompanyAddress: 'Company address',
-wholesaleAccountDeliveryAddress: 'Delivery address',
+  wholesaleAccountDetailsTitle: 'Account Details',
+  wholesaleAccountCompany: 'Company',
+  wholesaleAccountCompanyId: 'Company ID / IČO',
+  wholesaleAccountVatNumber: 'VAT number',
+  wholesaleAccountContact: 'Contact',
+  wholesaleAccountEmail: 'Email',
+  wholesaleAccountPhone: 'Phone',
+  wholesaleAccountCompanyAddress: 'Company address',
+  wholesaleAccountDeliveryAddress: 'Delivery address',
 
-wholesaleAccountOrderHistory: 'Order History',
-wholesaleAccountNoOrders: 'You have not placed any wholesale orders yet.',
+  wholesaleAccountOrderHistory: 'Order History',
+  wholesaleAccountNoOrders: 'You have not placed any wholesale orders yet.',
 
-wholesaleAccountCartons: 'Cartons',
-wholesaleAccountPayment: 'Payment',
-wholesaleAccountOrderStatus: 'Order status',
+  wholesaleAccountCartons: 'Cartons',
+  wholesaleAccountPayment: 'Payment',
+  wholesaleAccountOrderStatus: 'Order status',
 
-wholesaleAccountPaymentPending: 'Payment Pending',
-wholesaleAccountPaymentPaid: 'Paid',
-wholesaleAccountPaymentFailed: 'Payment Failed',
-wholesaleAccountPaymentRefunded: 'Refunded',
+  wholesaleAccountPaymentPending: 'Payment Pending',
+  wholesaleAccountPaymentPaid: 'Paid',
+  wholesaleAccountPaymentFailed: 'Payment Failed',
+  wholesaleAccountPaymentRefunded: 'Refunded',
 
-wholesaleAccountOrderReceived: 'Order Received',
-wholesaleAccountOrderConfirmed: 'Order Confirmed',
-wholesaleAccountOrderPreparing: 'Preparing',
-wholesaleAccountOrderFulfilled: 'Fulfilled',
-wholesaleAccountOrderCancelled: 'Cancelled',
+  wholesaleAccountOrderReceived: 'Order Received',
+  wholesaleAccountOrderConfirmed: 'Order Confirmed',
+  wholesaleAccountOrderPreparing: 'Preparing',
+  wholesaleAccountOrderFulfilled: 'Fulfilled',
+  wholesaleAccountOrderCancelled: 'Cancelled',
 
-wholesaleAccountOrderDelivered: 'Delivered',
+  wholesaleAccountOrderDelivered: 'Delivered',
 
   /* ==========================
      Sign in keys(B2B)
   ========================== */
-wholesaleSignInEyebrow: 'WHOLESALE ACCOUNT',
-wholesaleSignInTitle: 'Sign in',
-wholesaleSignInIntro:
-  'Sign in to access wholesale pricing and place your Mais de Nata orders.',
+  wholesaleSignInEyebrow: 'WHOLESALE ACCOUNT',
+  wholesaleSignInTitle: 'Sign in',
+  wholesaleSignInIntro:
+    'Sign in to access wholesale pricing and place your Mais de Nata orders.',
 
-wholesaleSignInEmail: 'Email',
-wholesaleSignInPassword: 'Password',
-wholesaleSignInForgotPassword: 'Forgot password?',
+  wholesaleSignInEmail: 'Email',
+  wholesaleSignInPassword: 'Password',
+  wholesaleSignInForgotPassword: 'Forgot password?',
 
-wholesaleSignInSubmitting: 'Signing in...',
-wholesaleSignInSubmit: 'Sign In',
+  wholesaleSignInSubmitting: 'Signing in...',
+  wholesaleSignInSubmit: 'Sign In',
 
-wholesaleSignInNoAccount:
-  "Don't have a wholesale account?",
-wholesaleSignInRegister: 'Register for Wholesale',
+  wholesaleSignInNoAccount:
+    "Don't have a wholesale account?",
+  wholesaleSignInRegister: 'Register for Wholesale',
 
-wholesaleSignInUnable: 'Unable to sign in.',
-wholesaleSignInInactive:
-  'Your wholesale account is not active.',
+  wholesaleSignInUnable: 'Unable to sign in.',
+  wholesaleSignInInactive:
+    'Your wholesale account is not active.',
 
   /* ==========================
    Forgot Password (B2B)
 ========================== */
 
-wholesaleForgotEyebrow:
-  'WHOLESALE ACCOUNT',
+  wholesaleForgotEyebrow:
+    'WHOLESALE ACCOUNT',
 
-wholesaleForgotTitle:
-  'Forgot your password?',
+  wholesaleForgotTitle:
+    'Forgot your password?',
 
-wholesaleForgotIntro:
-  'Enter the email address associated with your wholesale account and we’ll send you a link to reset your password.',
+  wholesaleForgotIntro:
+    'Enter the email address associated with your wholesale account and we’ll send you a link to reset your password.',
 
-wholesaleForgotSuccessTitle:
-  'Check your email',
+  wholesaleForgotSuccessTitle:
+    'Check your email',
 
-wholesaleForgotSuccessText:
-  'If an account exists for this email address, we’ve sent you a password reset link.',
+  wholesaleForgotSuccessText:
+    'If an account exists for this email address, we’ve sent you a password reset link.',
 
-wholesaleForgotReturnSignIn:
-  'Return to Sign In',
+  wholesaleForgotReturnSignIn:
+    'Return to Sign In',
 
-wholesaleForgotEmail:
-  'Email',
+  wholesaleForgotEmail:
+    'Email',
 
-wholesaleForgotSending:
-  'Sending...',
+  wholesaleForgotSending:
+    'Sending...',
 
-wholesaleForgotSendLink:
-  'Send Reset Link',
+  wholesaleForgotSendLink:
+    'Send Reset Link',
 
-wholesaleForgotSendError:
-  'We could not send the reset email. Please try again.',
+  wholesaleForgotSendError:
+    'We could not send the reset email. Please try again.',
 
-/* ==========================
-   Reset Password (B2B)
-========================== */
+  /* ==========================
+     Reset Password (B2B)
+  ========================== */
 
-wholesaleResetEyebrow: 'WHOLESALE ACCOUNT',
+  wholesaleResetEyebrow: 'WHOLESALE ACCOUNT',
 
-wholesaleResetExpiredTitle: 'Reset link expired',
-wholesaleResetExpiredText:
-  'This password reset link is invalid or has expired. Please request a new password reset link.',
-wholesaleResetRequestNewLink:
-  'Request New Reset Link',
+  wholesaleResetExpiredTitle: 'Reset link expired',
+  wholesaleResetExpiredText:
+    'This password reset link is invalid or has expired. Please request a new password reset link.',
+  wholesaleResetRequestNewLink:
+    'Request New Reset Link',
 
-wholesaleResetSuccessTitle: 'Password updated',
-wholesaleResetSuccessText:
-  'Your password has been updated successfully. You can now sign in to your wholesale account.',
-wholesaleResetContinue:
-  'Continue to Sign In',
+  wholesaleResetSuccessTitle: 'Password updated',
+  wholesaleResetSuccessText:
+    'Your password has been updated successfully. You can now sign in to your wholesale account.',
+  wholesaleResetContinue:
+    'Continue to Sign In',
 
-wholesaleResetTitle: 'Set a New Password',
-wholesaleResetIntro:
-  'Enter a new password for your wholesale account.',
+  wholesaleResetTitle: 'Set a New Password',
+  wholesaleResetIntro:
+    'Enter a new password for your wholesale account.',
 
-wholesaleResetNewPassword:
-  'New Password',
+  wholesaleResetNewPassword:
+    'New Password',
 
-wholesaleResetConfirmPassword:
-  'Confirm New Password',
+  wholesaleResetConfirmPassword:
+    'Confirm New Password',
 
-wholesaleResetPasswordHint:
-  'At least 8 characters including one number and one special character.',
+  wholesaleResetPasswordHint:
+    'At least 8 characters including one number and one special character.',
 
-wholesaleResetUpdate:
-  'Update Password',
+  wholesaleResetUpdate:
+    'Update Password',
 
-wholesaleResetUpdating:
-  'Updating...',
+  wholesaleResetUpdating:
+    'Updating...',
 
-wholesaleResetPasswordInvalid:
-  'Password must contain at least 8 characters, including one number and one special character.',
+  wholesaleResetPasswordInvalid:
+    'Password must contain at least 8 characters, including one number and one special character.',
 
-wholesaleResetPasswordsMismatch:
-  'Passwords do not match.',
+  wholesaleResetPasswordsMismatch:
+    'Passwords do not match.',
 
-wholesaleResetUpdateFailed:
-  'Unable to update your password.',
+  wholesaleResetUpdateFailed:
+    'Unable to update your password.',
 
   /* ==========================
      Wholesale ARES Lookup (B2B)
   ========================== */
-wholesaleRegisterAresVerify: "Verify company",
-wholesaleRegisterAresVerifying: "Verifying...",
-wholesaleRegisterAresVerified: "Company verified via ARES",
-wholesaleRegisterAresInvalidIco:
-  "Please enter a valid 8-digit IČO.",
-wholesaleRegisterAresNotFound:
-  "We could not find this company in ARES.",
-wholesaleRegisterAresError:
-  "We could not verify the company at this time.",
+  wholesaleRegisterAresVerify: "Verify company",
+  wholesaleRegisterAresVerifying: "Verifying...",
+  wholesaleRegisterAresVerified: "Company verified via ARES",
+  wholesaleRegisterAresInvalidIco:
+    "Please enter a valid 8-digit IČO.",
+  wholesaleRegisterAresNotFound:
+    "We could not find this company in ARES.",
+  wholesaleRegisterAresError:
+    "We could not verify the company at this time.",
 
-// Company Details
-companyName: "Company Name",
-companyId: "Company ID Number",
-vatNumber: "VAT Number (optional)",
-emailAddress: "Email Address",
-phoneNumber: "Phone Number",
-deliveryAddress: "Delivery Address",
+  // Company Details
+  companyName: "Company Name",
+  companyId: "Company ID Number",
+  vatNumber: "VAT Number (optional)",
+  emailAddress: "Email Address",
+  phoneNumber: "Phone Number",
+  deliveryAddress: "Delivery Address",
 
-notesPlaceholder:
-  "Opening hours, delivery instructions, contact name and phone number, special requirements...",
+  notesPlaceholder:
+    "Opening hours, delivery instructions, contact name and phone number, special requirements...",
 
-companyDetailsTitle: "Company Details",
-wholesaleRegisterAresRequired:
-  "Please verify your company with ARES before submitting the registration.",
+  companyDetailsTitle: "Company Details",
+  wholesaleRegisterAresRequired:
+    "Please verify your company with ARES before submitting the registration.",
 
-// Footer
-footerBrand: "Authentic Portuguese Pastéis de Nata",
+  // Footer
+  footerBrand: "Authentic Portuguese Pastéis de Nata",
 
-footerTagline:
-  "Handmade in Portugal for cafés, bakeries, hotels and retailers.",
+  footerTagline:
+    "Handmade in Portugal for cafés, bakeries, hotels and retailers.",
 
-footerBackToTop: "↑ Back to top",
+  footerBackToTop: "↑ Back to top",
 }
 //B2C Why Mais de Nata
 
