@@ -44,6 +44,15 @@ type ProductionOrder = {
     createdAt: string
 }
 
+type DeliveryBlackout = {
+    id: string
+    starts_at: string
+    ends_at: string | null
+    reason: string | null
+    created_at: string
+    updated_at: string
+}
+
 type StatusDefinition = {
     status: ProductionStatus
     label: string
@@ -265,6 +274,61 @@ export default function AdminProduction() {
     const [error, setError] =
         useState('')
 
+    const [blackouts, setBlackouts] =
+        useState<DeliveryBlackout[]>([])
+
+    const [blackoutsLoading, setBlackoutsLoading] =
+        useState(true)
+
+    const activeOpenEndedBlackout =
+        blackouts.find(
+            (blackout) =>
+                blackout.ends_at === null,
+        ) ?? null
+
+    const [showBlackoutForm, setShowBlackoutForm] =
+        useState(false)
+
+    const [blackoutDate, setBlackoutDate] =
+        useState('')
+
+    const [blackoutStartTime, setBlackoutStartTime] =
+        useState('')
+
+    const [blackoutEndTime, setBlackoutEndTime] =
+        useState('')
+
+    const [blackoutReason, setBlackoutReason] =
+        useState('')
+
+    const [savingBlackout, setSavingBlackout] =
+        useState(false)
+
+    const [
+        firstSlotStartHour,
+        setFirstSlotStartHour,
+    ] = useState(12)
+
+    const [
+        lastSlotEndHour,
+        setLastSlotEndHour,
+    ] = useState(20)
+
+    const [
+        immediateDeliveryMinutes,
+        setImmediateDeliveryMinutes,
+    ] = useState(90)
+
+    const [
+        deliverySettingsLoading,
+        setDeliverySettingsLoading,
+    ] = useState(true)
+
+    const [
+        savingDeliverySettings,
+        setSavingDeliverySettings,
+    ] = useState(false)
+
     const [now, setNow] =
         useState(Date.now())
 
@@ -327,6 +391,313 @@ export default function AdminProduction() {
                 setLoading(false)
             }
         }, [])
+
+    const loadBlackouts =
+        useCallback(async () => {
+            try {
+                const {
+                    data: { session },
+                } =
+                    await supabase.auth.getSession()
+
+                if (!session) {
+                    setError(
+                        'Your admin session has expired.',
+                    )
+
+                    setBlackoutsLoading(false)
+                    return
+                }
+
+                const response =
+                    await fetch(
+                        '/api/admin/delivery-blackouts',
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ${session.access_token}`,
+                            },
+                        },
+                    )
+
+                const json =
+                    await response.json()
+
+                if (
+                    !response.ok ||
+                    !json.success
+                ) {
+                    throw new Error(
+                        json.error ??
+                        'Unable to load delivery blackouts',
+                    )
+                }
+
+                setBlackouts(
+                    json.blackouts ?? [],
+                )
+            } catch (loadError) {
+                setError(
+                    loadError instanceof Error
+                        ? loadError.message
+                        : 'Unable to load delivery blackouts',
+                )
+            } finally {
+                setBlackoutsLoading(false)
+            }
+        }, [])
+    const loadDeliverySettings =
+        useCallback(async () => {
+            try {
+                const {
+                    data: { session },
+                } =
+                    await supabase.auth.getSession()
+
+                if (!session) {
+                    throw new Error(
+                        'Your admin session has expired.',
+                    )
+                }
+
+                const response =
+                    await fetch(
+                        '/api/admin/delivery-settings',
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ${session.access_token}`,
+                            },
+                        },
+                    )
+
+                const json =
+                    await response.json()
+
+                if (
+                    !response.ok ||
+                    !json.success ||
+                    !json.settings
+                ) {
+                    throw new Error(
+                        json.error ??
+                        'Unable to load delivery settings',
+                    )
+                }
+
+                setFirstSlotStartHour(
+                    json.settings.first_slot_start_hour,
+                )
+
+                setLastSlotEndHour(
+                    json.settings.last_slot_end_hour,
+                )
+
+                setImmediateDeliveryMinutes(
+                    json.settings.immediate_delivery_minutes,
+                )
+            } catch (loadError) {
+                setError(
+                    loadError instanceof Error
+                        ? loadError.message
+                        : 'Unable to load delivery settings',
+                )
+            } finally {
+                setDeliverySettingsLoading(false)
+            }
+        }, [])
+
+    async function saveDeliverySettings() {
+        try {
+            setSavingDeliverySettings(true)
+            setError('')
+
+            const {
+                data: { session },
+            } =
+                await supabase.auth.getSession()
+
+            if (!session) {
+                throw new Error(
+                    'Your admin session has expired.',
+                )
+            }
+
+            const response =
+                await fetch(
+                    '/api/admin/delivery-settings',
+                    {
+                        method: 'PATCH',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json',
+
+                            Authorization:
+                                `Bearer ${session.access_token}`,
+                        },
+
+                        body: JSON.stringify({
+                            firstSlotStartHour,
+                            lastSlotEndHour,
+                        }),
+                    },
+                )
+
+            const json =
+                await response.json()
+
+            if (
+                !response.ok ||
+                !json.success
+            ) {
+                throw new Error(
+                    json.error ??
+                    'Unable to save delivery settings',
+                )
+            }
+
+            await loadDeliverySettings()
+        } catch (saveError) {
+            setError(
+                saveError instanceof Error
+                    ? saveError.message
+                    : 'Unable to save delivery settings',
+            )
+        } finally {
+            setSavingDeliverySettings(false)
+        }
+    }
+    async function deleteBlackout(
+        blackoutId: string,
+    ) {
+        try {
+            setError('')
+
+            const {
+                data: { session },
+            } =
+                await supabase.auth.getSession()
+
+            if (!session) {
+                throw new Error(
+                    'Your admin session has expired.',
+                )
+            }
+
+            const response =
+                await fetch(
+                    `/api/admin/delivery-blackouts?id=${encodeURIComponent(
+                        blackoutId,
+                    )}`,
+                    {
+                        method: 'DELETE',
+
+                        headers: {
+                            Authorization:
+                                `Bearer ${session.access_token}`,
+                        },
+                    },
+                )
+
+            const json =
+                await response.json()
+
+            if (
+                !response.ok ||
+                !json.success
+            ) {
+                throw new Error(
+                    json.error ??
+                    'Unable to remove delivery blackout',
+                )
+            }
+
+            await loadBlackouts()
+        } catch (deleteError) {
+            setError(
+                deleteError instanceof Error
+                    ? deleteError.message
+                    : 'Unable to remove delivery blackout',
+            )
+        }
+    }
+
+    async function pauseDeliveriesNow() {
+        try {
+            setError('')
+
+            const {
+                data: { session },
+            } =
+                await supabase.auth.getSession()
+
+            if (!session) {
+                throw new Error(
+                    'Your admin session has expired.',
+                )
+            }
+
+            const response =
+                await fetch(
+                    '/api/admin/delivery-blackouts',
+                    {
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json',
+
+                            Authorization:
+                                `Bearer ${session.access_token}`,
+                        },
+
+                        body: JSON.stringify({
+                            startsAt:
+                                new Date().toISOString(),
+
+                            endsAt:
+                                null,
+
+                            reason:
+                                'Emergency pause',
+                        }),
+                    },
+                )
+
+            const json =
+                await response.json()
+
+            if (
+                !response.ok ||
+                !json.success
+            ) {
+                throw new Error(
+                    json.error ??
+                    'Unable to pause deliveries',
+                )
+            }
+
+            await loadBlackouts()
+        } catch (pauseError) {
+            setError(
+                pauseError instanceof Error
+                    ? pauseError.message
+                    : 'Unable to pause deliveries',
+            )
+        }
+    }
+
+    async function resumeDeliveries() {
+        if (!activeOpenEndedBlackout) {
+            return
+        }
+
+        await deleteBlackout(
+            activeOpenEndedBlackout.id,
+        )
+    }
+
     async function advanceOrder(
         order: ProductionOrder,
     ) {
@@ -419,6 +790,14 @@ export default function AdminProduction() {
     }, [loadOrders])
 
     useEffect(() => {
+        void loadBlackouts()
+    }, [loadBlackouts])
+
+    useEffect(() => {
+        void loadDeliverySettings()
+    }, [loadDeliverySettings])
+
+    useEffect(() => {
         const timerInterval =
             window.setInterval(
                 () => {
@@ -477,6 +856,423 @@ export default function AdminProduction() {
                     {error}
                 </div>
             )}
+
+            <section className="deliveryAvailabilityCard">
+                <div className="deliveryHoursSection">
+                    <div className="deliveryHoursHeader">
+                        <div>
+                            <p className="productionEyebrow">
+                                Delivery Hours
+                            </p>
+
+                            <h2>
+                                Operating Hours
+                            </h2>
+                        </div>
+                    </div>
+
+                    {deliverySettingsLoading ? (
+                        <p>
+                            Loading delivery hours...
+                        </p>
+                    ) : (
+                        <>
+                            <div className="deliveryHoursControls">
+                                <label>
+                                    <span>Start</span>
+
+                                    <select
+                                        value={firstSlotStartHour}
+                                        onChange={(event) =>
+                                            setFirstSlotStartHour(
+                                                Number(
+                                                    event.target.value,
+                                                ),
+                                            )
+                                        }
+                                    >
+                                        {Array.from(
+                                            { length: 24 },
+                                            (_, index) => index,
+                                        ).map((hour) => (
+                                            <option
+                                                key={hour}
+                                                value={hour}
+                                            >
+                                                {String(hour).padStart(
+                                                    2,
+                                                    '0',
+                                                )}
+                                                :00
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
+
+                                <label>
+                                    <span>Finish</span>
+
+                                    <select
+                                        value={lastSlotEndHour}
+                                        onChange={(event) =>
+                                            setLastSlotEndHour(
+                                                Number(
+                                                    event.target.value,
+                                                ),
+                                            )
+                                        }
+                                    >
+                                        {Array.from(
+                                            { length: 24 },
+                                            (_, index) => index + 1,
+                                        ).map((hour) => (
+                                            <option
+                                                key={hour}
+                                                value={hour}
+                                                disabled={
+                                                    hour <=
+                                                    firstSlotStartHour
+                                                }
+                                            >
+                                                {String(hour).padStart(
+                                                    2,
+                                                    '0',
+                                                )}
+                                                :00
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
+                            </div>
+
+                            <p className="deliveryHoursCutoff">
+                                Within {immediateDeliveryMinutes}{' '}
+                                minutes available until:{' '}
+                                <strong>
+                                    {(() => {
+                                        const cutoffMinutes =
+                                            lastSlotEndHour *
+                                            60 -
+                                            immediateDeliveryMinutes
+
+                                        const cutoffHour =
+                                            Math.floor(
+                                                cutoffMinutes / 60,
+                                            )
+
+                                        const cutoffMinute =
+                                            cutoffMinutes % 60
+
+                                        return `${String(
+                                            cutoffHour,
+                                        ).padStart(
+                                            2,
+                                            '0',
+                                        )}:${String(
+                                            cutoffMinute,
+                                        ).padStart(
+                                            2,
+                                            '0',
+                                        )}`
+                                    })()}
+                                </strong>
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    void saveDeliverySettings()
+                                }
+                                disabled={savingDeliverySettings}
+                            >
+                                {savingDeliverySettings
+                                    ? 'Saving...'
+                                    : 'Save Hours'}
+                            </button>
+                        </>
+                    )}
+                </div>
+                <div className="deliveryAvailabilityHeader">
+                    <div>
+                        <p className="productionEyebrow">
+                            Delivery Availability
+                        </p>
+
+                        <h2>
+                            Delivery Blackouts
+                        </h2>
+                    </div>
+
+                    <div className="deliveryAvailabilityActions">
+                        {activeOpenEndedBlackout ? (
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    void resumeDeliveries()
+                                }
+                            >
+                                Resume Deliveries
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    void pauseDeliveriesNow()
+                                }
+                            >
+                                Pause Deliveries Now
+                            </button>
+                        )}
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setShowBlackoutForm(
+                                    !showBlackoutForm,
+                                )
+                            }
+                        >
+                            {showBlackoutForm
+                                ? 'Cancel'
+                                : '+ Block Delivery Period'}
+                        </button>
+                    </div>
+                </div>
+                {showBlackoutForm && (
+                    <form
+                        className="deliveryBlackoutForm"
+                        onSubmit={async (event) => {
+                            event.preventDefault()
+
+                            if (
+                                !blackoutDate ||
+                                !blackoutStartTime ||
+                                !blackoutEndTime
+                            ) {
+                                setError(
+                                    'Please select a date, start time and end time.',
+                                )
+                                return
+                            }
+
+                            try {
+                                setSavingBlackout(true)
+                                setError('')
+
+                                const {
+                                    data: { session },
+                                } =
+                                    await supabase.auth.getSession()
+
+                                if (!session) {
+                                    throw new Error(
+                                        'Your admin session has expired.',
+                                    )
+                                }
+
+                                const startsAt =
+                                    new Date(
+                                        `${blackoutDate}T${blackoutStartTime}:00`,
+                                    )
+
+                                const endsAt =
+                                    new Date(
+                                        `${blackoutDate}T${blackoutEndTime}:00`,
+                                    )
+
+                                if (
+                                    endsAt.getTime() <=
+                                    startsAt.getTime()
+                                ) {
+                                    throw new Error(
+                                        'End time must be after start time.',
+                                    )
+                                }
+
+                                const response =
+                                    await fetch(
+                                        '/api/admin/delivery-blackouts',
+                                        {
+                                            method: 'POST',
+
+                                            headers: {
+                                                'Content-Type':
+                                                    'application/json',
+
+                                                Authorization:
+                                                    `Bearer ${session.access_token}`,
+                                            },
+
+                                            body: JSON.stringify({
+                                                startsAt:
+                                                    startsAt.toISOString(),
+
+                                                endsAt:
+                                                    endsAt.toISOString(),
+
+                                                reason:
+                                                    blackoutReason,
+                                            }),
+                                        },
+                                    )
+
+                                const json =
+                                    await response.json()
+
+                                if (
+                                    !response.ok ||
+                                    !json.success
+                                ) {
+                                    throw new Error(
+                                        json.error ??
+                                        'Unable to create delivery blackout',
+                                    )
+                                }
+
+                                setBlackoutDate('')
+                                setBlackoutStartTime('')
+                                setBlackoutEndTime('')
+                                setBlackoutReason('')
+                                setShowBlackoutForm(false)
+
+                                await loadBlackouts()
+                            } catch (saveError) {
+                                setError(
+                                    saveError instanceof Error
+                                        ? saveError.message
+                                        : 'Unable to create delivery blackout',
+                                )
+                            } finally {
+                                setSavingBlackout(false)
+                            }
+                        }}
+                    >
+                        <div>
+                            <label>
+                                Date
+
+                                <input
+                                    type="date"
+                                    value={blackoutDate}
+                                    onChange={(event) =>
+                                        setBlackoutDate(
+                                            event.target.value,
+                                        )
+                                    }
+                                    required
+                                />
+                            </label>
+
+                            <label>
+                                From
+
+                                <input
+                                    type="time"
+                                    value={blackoutStartTime}
+                                    onChange={(event) =>
+                                        setBlackoutStartTime(
+                                            event.target.value,
+                                        )
+                                    }
+                                    required
+                                />
+                            </label>
+
+                            <label>
+                                Until
+
+                                <input
+                                    type="time"
+                                    value={blackoutEndTime}
+                                    onChange={(event) =>
+                                        setBlackoutEndTime(
+                                            event.target.value,
+                                        )
+                                    }
+                                    required
+                                />
+                            </label>
+
+                            <label>
+                                Reason
+
+                                <input
+                                    type="text"
+                                    value={blackoutReason}
+                                    onChange={(event) =>
+                                        setBlackoutReason(
+                                            event.target.value,
+                                        )
+                                    }
+                                    placeholder="Optional"
+                                />
+                            </label>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={savingBlackout}
+                        >
+                            {savingBlackout
+                                ? 'Saving...'
+                                : 'Block Deliveries'}
+                        </button>
+                    </form>
+                )}
+
+                {blackoutsLoading ? (
+                    <p>
+                        Loading delivery availability...
+                    </p>
+                ) : blackouts.length === 0 ? (
+                    <p>
+                        No delivery blackout periods scheduled.
+                    </p>
+                ) : (
+                    <div className="deliveryBlackoutList">
+                        {blackouts.map((blackout) => (
+                            <div
+                                key={blackout.id}
+                                className="deliveryBlackoutItem"
+                            >
+                                <strong>
+                                    {new Date(
+                                        blackout.starts_at,
+                                    ).toLocaleString()}
+                                </strong>
+
+                                <span>
+                                    {' → '}
+
+                                    {blackout.ends_at
+                                        ? new Date(
+                                            blackout.ends_at,
+                                        ).toLocaleString()
+                                        : 'Until reopened'}
+                                </span>
+
+                                {blackout.reason && (
+                                    <p>
+                                        {blackout.reason}
+                                    </p>
+                                )}
+                                {blackout.ends_at !== null && (
+                                    <button
+                                        type="button"
+                                        onClick={() =>
+                                            void deleteBlackout(
+                                                blackout.id,
+                                            )
+                                        }
+                                    >
+                                        Remove Blackout
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </section>
 
             <div className="productionBoard">
                 {statusDefinitions.map(
