@@ -1,4 +1,7 @@
 import Stripe from 'stripe'
+import {
+  supabaseAdmin,
+} from '../server/database/supabase.js'
 import { OrderSalesChannel } from '../server/orders/order-channel.js'
 import { createOrderFromChannel } from '../server/orders/order-service.js'
 import { createChannelOrderFromStripeSession } from '../server/payments/stripe-adapter.js'
@@ -170,6 +173,52 @@ export default {
           }
 
           if (
+            session.metadata?.launchClaim === 'true' &&
+            session.metadata?.launchClaimRegistrationId
+          ) {
+            const {
+              error: claimUpdateError,
+            } = await supabaseAdmin
+              .from('launch_registrations')
+              .update({
+                claimed_at:
+                  new Date().toISOString(),
+              })
+              .eq(
+                'id',
+                session.metadata
+                  .launchClaimRegistrationId,
+              )
+              .eq(
+                'is_winner',
+                true,
+              )
+              .is(
+                'claimed_at',
+                null,
+              )
+
+            if (claimUpdateError) {
+              throw claimUpdateError
+            }
+
+            console.log(
+              'Launch prize marked as claimed:',
+              {
+                registrationId:
+                  session.metadata
+                    .launchClaimRegistrationId,
+
+                orderId:
+                  result.order.id,
+
+                orderNumber:
+                  result.order.orderNumber,
+              },
+            )
+          }
+
+          if (
             salesChannel ===
             OrderSalesChannel.ConsumerWebsite &&
             channelOrder.woltDelivery
@@ -233,8 +282,6 @@ export default {
                   merchantOrderReferenceId:
                     result.order.id,
 
-                  orderNumber:
-                    result.order.orderNumber,
                 })
 
               await saveDeliveryToOrder(

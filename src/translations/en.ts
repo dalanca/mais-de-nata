@@ -302,6 +302,101 @@ const en = {
   orderFreshDeliveryText: 'Freshly baked and delivered to your address',
 
   /* ==========================
+   LAUNCH PRIZE CLAIM
+========================== */
+
+  claimValidating:
+    "Validating your prize...",
+
+  claimUnavailableTitle:
+    "Prize unavailable",
+
+  claimInvalid:
+    "This prize claim link is not valid.",
+
+  claimAlreadyClaimed:
+    "This prize has already been claimed.",
+
+  claimExpired:
+    "This prize claim link has expired.",
+
+  claimUnableToValidate:
+    "Unable to validate your prize.",
+
+  claimEyebrow:
+    "YOUR MAIS DE NATA PRIZE",
+
+  claimWaiting:
+    "your free box is waiting.",
+
+  claimWonBox:
+    "You’ve won a box of 4 freshly baked Pastéis de Nata.",
+
+  claimBox:
+    "Box",
+
+  claimPrice:
+    "Price",
+
+  claimDeliveryNote:
+    "You pay only the Wolt delivery charge.",
+
+  claimChooseDelivery:
+    "CHOOSE DELIVERY",
+
+  /* ==========================
+   COMING SOON / LAUNCH
+========================== */
+
+  comingSoonEyebrow:
+    "MAIS DE NATA IS COMING TO PRAGUE",
+
+  comingSoonTitle:
+    "Lisbon is coming to Prague.",
+
+  comingSoonIntro:
+    "Authentic Pastéis de Nata. Handmade in Portugal. Freshly baked in Prague.",
+
+  comingSoonOfferEyebrow:
+    "WIN FREE PASTÉIS DE NATA",
+
+  comingSoonOfferTitle:
+    "Every 10th registration wins.",
+
+  comingSoonOfferText:
+    "To celebrate our Prague launch, we’re giving away a box of 4 freshly baked Pastéis de Nata to every 10th person who registers — for our first 100 registrations.",
+
+  comingSoonDeliveryNote:
+    "Winners pay only the Wolt delivery charge.",
+
+  comingSoonFirstName:
+    "First name",
+
+  comingSoonEmail:
+    "Email address",
+
+  comingSoonSubmitting:
+    "Registering...",
+
+  comingSoonSubmit:
+    "REGISTER TO WIN",
+
+  comingSoonSuccess:
+    "You’re registered! Welcome to the Mais de Nata launch list.",
+
+  comingSoonAlreadyRegistered:
+    "This email is already on the Mais de Nata launch list.",
+
+  comingSoonError:
+    "Unable to complete your registration. Please try again.",
+
+  comingSoonTerms:
+    "One registration per valid email address. Winners will be contacted by email with a link to claim their prize. Giveaway available for delivery in Prague.",
+
+  comingSoonVisualLabel:
+    "Freshly baked in Prague",
+
+  /* ==========================
      CART (B2C)
   ========================== */
 
@@ -444,6 +539,21 @@ const en = {
   /* ==========================
      PAYMENT SUCCESS (B2C)
   ========================== */
+
+  paymentSuccessReceived:
+    "PAYMENT RECEIVED",
+
+  paymentSuccessConfirmingOrder:
+    "We’re confirming your order",
+
+  paymentSuccessConfirmingOrderText:
+    "Your payment was successful. We’re completing your Mais de Nata order and delivery confirmation.",
+
+  paymentSuccessDoNotPayAgain:
+    "Please do not place another order.",
+
+  paymentSuccessDoNotPayAgainText:
+    "Your payment has already been received. If confirmation takes longer than expected, we’ll contact you using the details you provided.",
 
   paymentSuccessVerifying: "Verifying payment",
   paymentSuccessPleaseWait: "Please wait",

@@ -59,6 +59,34 @@ function formatDisplayDate(date: string) {
 
 export default function Checkout() {
   const { t, language } = useLanguage()
+  const launchClaim = useMemo(() => {
+    const savedClaim =
+      sessionStorage.getItem(
+        'maisDeNataLaunchClaim',
+      )
+
+    if (!savedClaim) {
+      return null
+    }
+
+    try {
+      const parsedClaim =
+        JSON.parse(savedClaim)
+
+      if (
+        !parsedClaim ||
+        parsedClaim.valid !== true ||
+        parsedClaim.prizeBoxSize !== 4 ||
+        !parsedClaim.token
+      ) {
+        return null
+      }
+
+      return parsedClaim
+    } catch {
+      return null
+    }
+  }, [])
   const [currentStep, setCurrentStep] =
     useState<CheckoutStep>(1)
 
@@ -418,8 +446,39 @@ export default function Checkout() {
       return []
     }
   }, [])
+  const checkoutCartItems =
+    useMemo<CartItem[]>(() => {
+      if (launchClaim) {
+        return [
+          {
+            product:
+              'fresh-pasteis-de-nata',
 
-  const subtotal = cartItems.reduce((total, item) => {
+            boxSize:
+              launchClaim.prizeBoxSize,
+
+            quantity: 1,
+
+            unitPriceIncVat: 0,
+
+            vatRate: 12,
+
+            fulfilmentMethod:
+              'delivery',
+
+            preferredDate: '',
+
+            preferredTime: '',
+          },
+        ]
+      }
+
+      return cartItems
+    }, [
+      launchClaim,
+      cartItems,
+    ])
+  const subtotal = checkoutCartItems.reduce((total, item) => {
     return total + item.unitPriceIncVat * item.quantity
   }, 0)
 
@@ -604,9 +663,13 @@ export default function Checkout() {
           selectedDeliverySlot?.cutoffAt ?? '',
       },
 
-      cartItems,
+      cartItems:
+        checkoutCartItems,
 
       language,
+
+      claimToken:
+        launchClaim?.token ?? '',
     }
 
     console.log(checkoutRequest)
@@ -1113,9 +1176,9 @@ export default function Checkout() {
                     </div>
 
                     <div className="checkoutPremiumCardContent">
-                      {cartItems.length > 0 ? (
+                      {checkoutCartItems.length > 0 ? (
                         <div className="checkoutPremiumOrderItems">
-                          {cartItems.map((item) => (
+                          {checkoutCartItems.map((item) => (
                             <div
                               key={item.boxSize}
                               className="checkoutPremiumOrderItem"
@@ -1256,7 +1319,7 @@ export default function Checkout() {
                   type="button"
                   className="checkoutButton"
                   onClick={handlePayment}
-                  disabled={cartItems.length === 0}
+                  disabled={checkoutCartItems.length === 0}
                 >
                   {t.checkoutContinuePayment}
                 </button>

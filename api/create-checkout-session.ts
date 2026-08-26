@@ -7,7 +7,9 @@ import {
 import {
   isImmediateDeliveryAvailable,
 } from '../server/delivery/delivery-slots.js'
-
+import {
+  hashLaunchClaimToken,
+} from '../server/launch/claim-token.js'
 import {
   supabaseAdmin,
 } from '../server/database/supabase.js'
@@ -54,7 +56,13 @@ export default async function handler(
       });
     }
 
-    const { customer, delivery, cartItems, language } = body;
+    const {
+      customer,
+      delivery,
+      cartItems,
+      language,
+      claimToken,
+    } = body;
 
     if (!customer || !delivery || !Array.isArray(cartItems)) {
       return response.status(400).json({
@@ -69,8 +77,72 @@ export default async function handler(
         message: 'Invalid checkout language',
       })
     }
+    let validLaunchClaim:
+      | {
+        id: string
+        prizeBoxSize: number
+      }
+      | null = null
 
-    if (cartItems.length === 0) {
+    if (
+      typeof claimToken === 'string' &&
+      claimToken.trim()
+    ) {
+      const tokenHash =
+        hashLaunchClaimToken(
+          claimToken.trim(),
+        )
+
+      const {
+        data: registration,
+        error: claimError,
+      } = await supabaseAdmin
+        .from('launch_registrations')
+        .select(`
+      id,
+      is_winner,
+      prize_box_size,
+      claim_expires_at,
+      claimed_at
+    `)
+        .eq(
+          'claim_token_hash',
+          tokenHash,
+        )
+        .maybeSingle()
+
+      if (claimError) {
+        throw claimError
+      }
+
+      if (
+        !registration ||
+        !registration.is_winner ||
+        registration.prize_box_size !== 4 ||
+        registration.claimed_at ||
+        !registration.claim_expires_at ||
+        Date.now() >=
+        new Date(
+          registration.claim_expires_at,
+        ).getTime()
+      ) {
+        return response.status(403).json({
+          success: false,
+          message:
+            'This prize claim is not valid.',
+        })
+      }
+
+      validLaunchClaim = {
+        id: registration.id,
+        prizeBoxSize:
+          registration.prize_box_size,
+      }
+    }
+    if (
+      !validLaunchClaim &&
+      cartItems.length === 0
+    ) {
       return response.status(400).json({
         success: false,
         message: 'Cart is empty',
@@ -78,23 +150,25 @@ export default async function handler(
     }
     console.log('Received cartItems:', cartItems)
 
-    const hasInvalidCartItem = cartItems.some((item) => {
+    const hasInvalidCartItem =
+      !validLaunchClaim &&
+      cartItems.some((item) => {
 
-      console.log('Validating item:', item)
+        console.log('Validating item:', item)
 
-      console.log('product valid:', item.product === 'fresh-pasteis-de-nata')
-      console.log('boxSize:', item.boxSize, typeof item.boxSize)
-      console.log('allowed:', allowedBoxSizes.includes(item.boxSize as BoxSize))
-      console.log('quantity:', item.quantity)
-      console.log('integer:', Number.isInteger(item.quantity))
+        console.log('product valid:', item.product === 'fresh-pasteis-de-nata')
+        console.log('boxSize:', item.boxSize, typeof item.boxSize)
+        console.log('allowed:', allowedBoxSizes.includes(item.boxSize as BoxSize))
+        console.log('quantity:', item.quantity)
+        console.log('integer:', Number.isInteger(item.quantity))
 
-      return (
-        item.product !== 'fresh-pasteis-de-nata' ||
-        !allowedBoxSizes.includes(item.boxSize as BoxSize) ||
-        !Number.isInteger(item.quantity) ||
-        item.quantity < 1
-      )
-    })
+        return (
+          item.product !== 'fresh-pasteis-de-nata' ||
+          !allowedBoxSizes.includes(item.boxSize as BoxSize) ||
+          !Number.isInteger(item.quantity) ||
+          item.quantity < 1
+        )
+      })
 
     if (hasInvalidCartItem) {
       return response.status(400).json({
@@ -256,6 +330,15 @@ export default async function handler(
     const origin =
       request.headers.origin || 'http://localhost:3000';
 
+    const stripeDeliveryAmount =
+      validLaunchClaim &&
+        process.env.NODE_ENV !== 'production'
+        ? Math.max(
+          shipmentPromise.price.amount,
+          1500,
+        )
+        : shipmentPromise.price.amount
+
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       customer_email: customer.email,
@@ -274,6 +357,14 @@ export default async function handler(
         deliveryTime: delivery.preferredTime,
         deliverySlotEndsAt:
           delivery.slotEndsAt,
+
+        launchClaimRegistrationId:
+          validLaunchClaim?.id ?? '',
+
+        launchClaim:
+          validLaunchClaim
+            ? 'true'
+            : 'false',
 
         woltShipmentPromiseId:
           shipmentPromise.id,
@@ -320,30 +411,47 @@ export default async function handler(
             ),
       },
       line_items: [
-        ...cartItems.map((item) => {
-          const boxSize =
-            item.boxSize as BoxSize
+        ...(validLaunchClaim
+          ? [
+            {
+              price_data: {
+                currency: 'czk',
 
-          const trustedPrice =
-            trustedBoxPrices[boxSize]
+                product_data: {
+                  name:
+                    'Box of 4 Pastéis de Nata — Launch Prize',
+                },
 
-          return {
-            price_data: {
-              currency: 'czk',
-
-              product_data: {
-                name:
-                  `Box of ${boxSize} Pastéis de Nata`,
+                unit_amount: 0,
               },
 
-              unit_amount:
-                trustedPrice * 100,
+              quantity: 1,
             },
+          ]
+          : cartItems.map((item) => {
+            const boxSize =
+              item.boxSize as BoxSize
 
-            quantity:
-              item.quantity,
-          }
-        }),
+            const trustedPrice =
+              trustedBoxPrices[boxSize]
+
+            return {
+              price_data: {
+                currency: 'czk',
+
+                product_data: {
+                  name:
+                    `Box of ${boxSize} Pastéis de Nata`,
+                },
+
+                unit_amount:
+                  trustedPrice * 100,
+              },
+
+              quantity:
+                item.quantity,
+            }
+          })),
 
         {
           price_data: {
@@ -356,7 +464,7 @@ export default async function handler(
             },
 
             unit_amount:
-              shipmentPromise.price.amount,
+              stripeDeliveryAmount,
           },
 
           quantity: 1,
@@ -379,11 +487,15 @@ export default async function handler(
       checkoutUrl: session.url,
     });
   } catch (error) {
-    console.error('Checkout Session creation failed:', error);
+    console.error(
+      'Checkout Session creation failed:',
+      error,
+    )
 
     return response.status(500).json({
       success: false,
-      message: 'Unable to create Checkout Session',
-    });
+      message:
+        'Unable to create Checkout Session',
+    })
   }
 }

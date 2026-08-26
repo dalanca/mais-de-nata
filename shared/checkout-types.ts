@@ -35,4 +35,5 @@ export interface CheckoutRequest {
   delivery: DeliveryDetails;
   cartItems: CartItem[];
   language: 'en' | 'cs';
+  claimToken?: string;
 }

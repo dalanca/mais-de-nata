@@ -42,6 +42,7 @@ type VerifiedOrder = {
 type VerificationResponse = {
   success: boolean
   verified?: boolean
+  orderConfirmed?: boolean
   order?: VerifiedOrder
   error?: string
 }
@@ -92,6 +93,10 @@ export default function PaymentSuccess() {
 
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
+  const [
+    isOrderProcessing,
+    setIsOrderProcessing,
+  ] = useState(false)
 
   useEffect(() => {
     async function verifyPayment() {
@@ -126,14 +131,25 @@ export default function PaymentSuccess() {
           !data.order
         ) {
           throw new Error(
-            data.error || t.paymentSuccessVerificationFailed,
+            data.error ||
+            t.paymentSuccessVerificationFailed,
           )
         }
 
-        setOrder(data.order)
+        localStorage.removeItem(
+          'maisDeNataCart',
+        )
 
-        localStorage.removeItem('maisDeNataCart')
-        sessionStorage.removeItem('maisDeNataCheckout')
+        sessionStorage.removeItem(
+          'maisDeNataCheckout',
+        )
+
+        if (!data.orderConfirmed) {
+          setIsOrderProcessing(true)
+          return
+        }
+
+        setOrder(data.order)
       } catch (error) {
         console.error('Payment verification failed:', error)
 
@@ -168,6 +184,51 @@ export default function PaymentSuccess() {
             <p className="paymentSuccessIntro">
               {t.paymentSuccessVerifyingText}
             </p>
+          </section>
+        </main>
+      </>
+    )
+  }
+
+  if (isOrderProcessing) {
+    return (
+      <>
+        <SiteHeader />
+
+        <main className="paymentSuccessPage">
+          <section className="paymentSuccessCard">
+            <div className="paymentSuccessIcon">
+              ✓
+            </div>
+
+            <p className="paymentSuccessEyebrow">
+              {t.paymentSuccessReceived}
+            </p>
+
+            <h1>
+              {t.paymentSuccessConfirmingOrder}
+            </h1>
+
+            <p className="paymentSuccessIntro">
+              {t.paymentSuccessConfirmingOrderText}
+            </p>
+
+            <div className="paymentSuccessNotice">
+              <strong>
+                {t.paymentSuccessDoNotPayAgain}
+              </strong>
+
+              <p>
+                {t.paymentSuccessDoNotPayAgainText}
+              </p>
+            </div>
+
+            <a
+              href="/"
+              className="paymentSuccessButton"
+            >
+              {t.paymentSuccessReturnHome}
+            </a>
           </section>
         </main>
       </>
@@ -272,7 +333,9 @@ export default function PaymentSuccess() {
 
         <div className="paymentSuccessDetails">
           <div className="paymentSuccessDetailCard">
-            <h2><h2>{t.paymentSuccessDelivery}</h2></h2>
+            <h2>
+              {t.paymentSuccessDelivery}
+            </h2>
 
             {deliveryAddress.map((line) => (
               <p key={line}>{line}</p>
@@ -280,7 +343,9 @@ export default function PaymentSuccess() {
           </div>
 
           <div className="paymentSuccessDetailCard">
-            <h2><h2>{t.paymentSuccessRequestedTime}</h2></h2>
+            <h2>
+              {t.paymentSuccessRequestedTime}
+            </h2>
 
             <p>
               {formatDeliveryDate(

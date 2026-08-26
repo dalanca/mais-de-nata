@@ -159,6 +159,101 @@ const cs = {
   orderFreshCheckout: "Pokladna →",
 
   /* ==========================
+   LAUNCH PRIZE CLAIM
+========================== */
+
+  claimValidating:
+    "Ověřujeme vaši výhru...",
+
+  claimUnavailableTitle:
+    "Výhru nelze vyzvednout",
+
+  claimInvalid:
+    "Tento odkaz pro vyzvednutí výhry není platný.",
+
+  claimAlreadyClaimed:
+    "Tato výhra již byla vyzvednuta.",
+
+  claimExpired:
+    "Platnost odkazu pro vyzvednutí výhry vypršela.",
+
+  claimUnableToValidate:
+    "Výhru se nepodařilo ověřit.",
+
+  claimEyebrow:
+    "VAŠE VÝHRA MAIS DE NATA",
+
+  claimWaiting:
+    "vaše krabička čeká.",
+
+  claimWonBox:
+    "Vyhráli jste krabičku 4 čerstvě upečených Pastéis de Nata.",
+
+  claimBox:
+    "Krabička",
+
+  claimPrice:
+    "Cena",
+
+  claimDeliveryNote:
+    "Hradíte pouze cenu doručení prostřednictvím Wolt.",
+
+  claimChooseDelivery:
+    "VYBRAT DORUČENÍ",
+
+  /* ==========================
+   COMING SOON / LAUNCH
+========================== */
+
+  comingSoonEyebrow:
+    "MAIS DE NATA PŘICHÁZÍ DO PRAHY",
+
+  comingSoonTitle:
+    "Lisabon přichází do Prahy.",
+
+  comingSoonIntro:
+    "Autentické Pastéis de Nata. Ručně vyráběné v Portugalsku. Čerstvě upečené v Praze.",
+
+  comingSoonOfferEyebrow:
+    "VYHRAJTE PASTÉIS DE NATA ZDARMA",
+
+  comingSoonOfferTitle:
+    "Každá 10. registrace vyhrává.",
+
+  comingSoonOfferText:
+    "U příležitosti zahájení prodeje v Praze rozdáváme každému desátému registrovanému účastníkovi krabici 4 čerstvě upečených Pastéis de Nata – pro prvních 100 registrací.",
+
+  comingSoonDeliveryNote:
+    "Výherci hradí pouze doručení prostřednictvím Wolt.",
+
+  comingSoonFirstName:
+    "Křestní jméno",
+
+  comingSoonEmail:
+    "E-mail",
+
+  comingSoonSubmitting:
+    "Registruji...",
+
+  comingSoonSubmit:
+    "REGISTROVAT SE A VYHRÁT",
+
+  comingSoonSuccess:
+    "Jste registrováni! Vítejte na launch seznamu Mais de Nata.",
+
+  comingSoonAlreadyRegistered:
+    "Tento e-mail je již na seznamu Mais de Nata.",
+
+  comingSoonError:
+    "Registraci se nepodařilo dokončit. Zkuste to prosím znovu.",
+
+  comingSoonTerms:
+    "Jedna registrace na jednu platnou e-mailovou adresu. Výherce kontaktujeme e-mailem s odkazem pro vyzvednutí výhry. Soutěž je dostupná pro doručení v Praze.",
+
+  comingSoonVisualLabel:
+    "Čerstvě upečené v Praze",
+
+  /* ==========================
      CART (B2C)
   ========================== */
 
@@ -548,6 +643,21 @@ const cs = {
   /* ==========================
      PAYMENT SUCCESS (B2C)
   ========================== */
+
+  paymentSuccessReceived:
+    "PLATBA PŘIJATA",
+
+  paymentSuccessConfirmingOrder:
+    "Potvrzujeme vaši objednávku",
+
+  paymentSuccessConfirmingOrderText:
+    "Vaše platba proběhla úspěšně. Dokončujeme potvrzení objednávky Mais de Nata a doručení.",
+
+  paymentSuccessDoNotPayAgain:
+    "Nevytvářejte prosím další objednávku.",
+
+  paymentSuccessDoNotPayAgainText:
+    "Vaše platba již byla přijata. Pokud potvrzení potrvá déle, kontaktujeme vás pomocí údajů, které jste zadali.",
 
   paymentSuccessVerifying: "Ověřujeme platbu",
   paymentSuccessPleaseWait: "Prosím čekejte",

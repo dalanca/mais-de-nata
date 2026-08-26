@@ -127,15 +127,37 @@ export function createChannelOrderFromStripeSession(
       )
       : 0
 
+  const isLaunchClaim =
+    session.metadata?.launchClaim ===
+    'true'
+
+  const isNonProduction =
+    process.env.NODE_ENV !==
+    'production'
+
   const calculatedTotal =
     calculatedProductTotal +
     woltDeliveryFee
 
-  if (calculatedTotal !== amountTotal) {
+  if (
+    calculatedTotal !== amountTotal &&
+    !(
+      isLaunchClaim &&
+      isNonProduction &&
+      amountTotal >= calculatedTotal
+    )
+  ) {
     throw new Error(
       'Stripe line item total does not match the Checkout Session total',
     )
   }
+
+  const normalizedTotalAmount =
+    isLaunchClaim &&
+      isNonProduction
+      ? calculatedTotal
+      : amountTotal
+
   const deliveryDate =
     session.metadata?.deliveryDate ||
     undefined
@@ -176,6 +198,7 @@ export function createChannelOrderFromStripeSession(
       }
     }
   }
+
   return {
     salesChannel,
     language,
@@ -293,7 +316,7 @@ export function createChannelOrderFromStripeSession(
       : {}),
 
     currency: session.currency,
-    totalAmount: amountTotal,
+    totalAmount: normalizedTotalAmount,
     items,
   }
 }

@@ -18,19 +18,50 @@ type CreateWoltDeliveryInput = {
   }
 
   merchantOrderReferenceId: string
-  orderNumber?: string
 
   scheduledDropoffTime?: string
+}
+function createCourierOrderNumber(
+  merchantOrderReferenceId: string,
+) {
+  let hash = 0
+
+  for (
+    let index = 0;
+    index < merchantOrderReferenceId.length;
+    index += 1
+  ) {
+    hash =
+      (
+        hash * 31 +
+        merchantOrderReferenceId.charCodeAt(
+          index,
+        )
+      ) >>> 0
+  }
+
+  return String(
+    hash % 100000,
+  ).padStart(
+    5,
+    '0',
+  )
 }
 
 export async function createWoltDelivery(
   input: CreateWoltDeliveryInput,
+
 ): Promise<WoltDeliveryOrder> {
   const accessToken =
     process.env.WOLT_DRIVE_MERCHANT_KEY
 
   const venueId =
     process.env.WOLT_DRIVE_VENUE_ID
+
+  const courierOrderNumber =
+    createCourierOrderNumber(
+      input.merchantOrderReferenceId,
+    )
 
   if (!accessToken) {
     throw new Error(
@@ -107,7 +138,7 @@ export async function createWoltDelivery(
               'Pastéis de Nata',
 
             identifier:
-              input.merchantOrderReferenceId,
+              'PASTEIS',
 
             count: 1,
           },
@@ -124,12 +155,8 @@ export async function createWoltDelivery(
         merchant_order_reference_id:
           input.merchantOrderReferenceId,
 
-        ...(input.orderNumber
-          ? {
-            order_number:
-              input.orderNumber,
-          }
-          : {}),
+        order_number:
+          courierOrderNumber,
 
         language: 'en',
       }),

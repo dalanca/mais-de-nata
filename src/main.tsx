@@ -33,6 +33,9 @@ import AdminProduction from './pages/AdminProduction'
 import AdminSignIn from './pages/AdminSignIn'
 import AdminForgotPassword from './pages/AdminForgotPassword'
 import AdminResetPassword from './pages/AdminResetPassword'
+import Claim from './pages/Claim'
+
+import ComingSoon from './pages/ComingSoon'
 ReactDOM.createRoot(
   document.getElementById('root')!,
 ).render(
@@ -94,6 +97,17 @@ ReactDOM.createRoot(
             path="/product-information"
             element={<ProductInformation />}
           />
+
+          <Route
+            path="/coming-soon"
+            element={<ComingSoon />}
+          />
+
+          <Route
+            path="/claim"
+            element={<Claim />}
+          />
+
 
           <Route
             path="/our-pasteis"

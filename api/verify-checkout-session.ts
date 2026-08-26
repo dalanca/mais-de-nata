@@ -75,9 +75,15 @@ export default async function handler(request: any, response: any) {
       )
     }
 
+    const orderConfirmed =
+      Boolean(
+        omsOrder?.order_number,
+      )
+
     return response.status(200).json({
       success: true,
       verified: true,
+      orderConfirmed,
 
       order: {
         sessionId: session.id,

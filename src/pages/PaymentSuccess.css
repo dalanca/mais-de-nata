@@ -74,6 +74,10 @@
   line-height: 1.6;
 }
 
+.paymentSuccessTracking {
+  margin-top: 32px;
+}
+
 .paymentSuccessEmail {
   margin: 28px auto 0;
   color: #756764;

@@ -1,0 +1,298 @@
+.comingSoonPage {
+  min-height: calc(100vh - 90px);
+  background: #f7f1eb;
+}
+
+.comingSoonHero {
+  padding: 54px 5% 80px;
+}
+
+.comingSoonGrid {
+  width: min(1380px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(420px, 0.95fr);
+  overflow: hidden;
+  border: 1px solid rgba(78, 49, 45, 0.12);
+  border-radius: 30px;
+  background: #fffdf9;
+  box-shadow:
+    0 28px 70px
+    rgba(78, 49, 45, 0.1);
+}
+
+.comingSoonContent {
+  padding: 64px 58px;
+}
+
+.comingSoonEyebrow {
+  margin: 0 0 14px;
+  color: #9b6c32;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.comingSoonContent h1 {
+  max-width: 720px;
+  margin: 0;
+  color: #4e312d;
+  font-family:
+    "Playfair Display",
+    serif;
+  font-size:
+    clamp(
+      3.4rem,
+      5.5vw,
+      6rem
+    );
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.comingSoonIntro {
+  max-width: 620px;
+  margin: 26px 0 0;
+  color: #70564f;
+  font-size: 1.12rem;
+  line-height: 1.72;
+}
+
+.comingSoonOffer {
+  margin-top: 38px;
+  padding: 30px;
+  border-radius: 22px;
+  background: #f3e9df;
+}
+
+.comingSoonOfferEyebrow {
+  margin: 0 0 10px !important;
+  color: #9b6c32 !important;
+  font-size: 0.76rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.comingSoonOffer h2 {
+  margin: 0 0 12px;
+  color: #4e312d;
+  font-family:
+    "Playfair Display",
+    serif;
+  font-size: 1.75rem;
+  line-height: 1.18;
+}
+
+.comingSoonOffer p {
+  margin: 0;
+  color: #624943;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.comingSoonDeliveryNote {
+  margin-top: 12px !important;
+  font-weight: 700;
+}
+
+.comingSoonForm {
+  display: grid;
+  grid-template-columns:
+    1fr 1fr;
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.comingSoonForm label {
+  display: grid;
+  gap: 8px;
+  color: #4e312d;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.comingSoonForm input {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  border:
+    1px solid
+    rgba(78, 49, 45, 0.22);
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2b1d16;
+  font: inherit;
+}
+
+.comingSoonForm input:focus {
+  outline:
+    2px solid
+    rgba(155, 108, 50, 0.24);
+  border-color: #9b6c32;
+}
+
+.comingSoonForm button {
+  grid-column: 1 / -1;
+  min-height: 54px;
+  margin-top: 2px;
+  border: 0;
+  border-radius: 999px;
+  background: #4e312d;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.comingSoonForm button:hover {
+  background: #68443e;
+}
+
+.comingSoonForm button:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+
+.comingSoonSuccess,
+.comingSoonError {
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.comingSoonSuccess {
+  background: #edf4ea;
+  color: #385138;
+}
+
+.comingSoonError {
+  background: #f8e9e6;
+  color: #7a3d35;
+}
+
+.comingSoonTerms {
+  margin: 22px 0 0;
+  color: #7c6a63;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.comingSoonVisual {
+  position: relative;
+  min-height: 760px;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(43, 29, 22, 0.02),
+      rgba(43, 29, 22, 0.2)
+    ),
+    url("../assets/images/hero-nata.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.comingSoonVisualOverlay {
+  position: absolute;
+  inset:
+    auto 28px
+    28px 28px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comingSoonVisualOverlay span {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background:
+    rgba(255, 250, 246, 0.92);
+  color: #4e312d;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 1050px) {
+  .comingSoonGrid {
+    grid-template-columns:
+      1fr 0.9fr;
+  }
+
+  .comingSoonContent {
+    padding: 48px 38px;
+  }
+
+  .comingSoonVisual {
+    min-height: 680px;
+  }
+}
+
+@media (max-width: 820px) {
+  .comingSoonHero {
+    padding:
+      28px 18px
+      60px;
+  }
+
+  .comingSoonGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .comingSoonVisual {
+    order: -1;
+    min-height: 380px;
+  }
+
+  .comingSoonContent {
+    padding: 38px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .comingSoonHero {
+    padding:
+      18px 12px
+      48px;
+  }
+
+  .comingSoonGrid {
+    border-radius: 22px;
+  }
+
+  .comingSoonVisual {
+    min-height: 300px;
+  }
+
+  .comingSoonContent {
+    padding: 30px 22px;
+  }
+
+  .comingSoonContent h1 {
+    font-size:
+      clamp(
+        2.8rem,
+        14vw,
+        4rem
+      );
+  }
+
+  .comingSoonOffer {
+    padding: 22px;
+  }
+
+  .comingSoonForm {
+    grid-template-columns: 1fr;
+  }
+
+  .comingSoonForm button {
+    grid-column: auto;
+  }
+}
