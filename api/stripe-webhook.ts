@@ -6,18 +6,12 @@ import { OrderSalesChannel } from '../server/orders/order-channel.js'
 import { createOrderFromChannel } from '../server/orders/order-service.js'
 import { createChannelOrderFromStripeSession } from '../server/payments/stripe-adapter.js'
 import {
-  createWoltDelivery,
-} from '../server/wolt/create-delivery.js'
-
-import {
-  saveDeliveryToOrder,
-} from '../server/wolt/save-delivery.js'
-
-import {
   getOrderWoltDeliveryState,
 } from '../server/wolt/get-order-delivery-state.js'
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
-
+import {
+  createDeliveryForOrder,
+} from '../server/wolt/create-delivery-for-order.js'
 import {
   sendConsumerOrderConfirmationOnce,
 } from '../server/email/send-consumer-order-confirmation-once.js'
@@ -220,100 +214,18 @@ export default {
 
           if (
             salesChannel ===
-            OrderSalesChannel.ConsumerWebsite &&
+              OrderSalesChannel.ConsumerWebsite &&
             channelOrder.woltDelivery
           ) {
-            const existingWoltDelivery =
-              await getOrderWoltDeliveryState(
+            await createDeliveryForOrder({
+              orderId:
                 result.order.id,
-              )
 
-            if (!existingWoltDelivery.deliveryId) {
-              const customerPhone =
-                channelOrder.customer.phone
+              orderNumber:
+                result.order.orderNumber,
 
-              if (!customerPhone) {
-                throw new Error(
-                  'Consumer order is missing customer phone for Wolt delivery',
-                )
-              }
-
-              const woltDelivery =
-                await createWoltDelivery({
-                  shipmentPromiseId:
-                    channelOrder.woltDelivery
-                      .shipmentPromiseId,
-                  scheduledDropoffTime:
-                    channelOrder.delivery.slotEndsAt
-                      ? new Date(
-                        new Date(
-                          channelOrder.delivery.slotEndsAt,
-                        ).getTime() -
-                        30 * 60 * 1000,
-                      ).toISOString()
-                      : undefined,
-
-                  recipient: {
-                    name:
-                      channelOrder.customer.name,
-
-                    phoneNumber:
-                      customerPhone,
-
-                    email:
-                      channelOrder.customer.email,
-                  },
-
-                  dropoff: {
-                    lat:
-                      channelOrder.woltDelivery
-                        .dropoffLat,
-
-                    lon:
-                      channelOrder.woltDelivery
-                        .dropoffLon,
-
-                    comment:
-                      channelOrder.delivery.apartment
-                        ? `Apartment ${channelOrder.delivery.apartment}`
-                        : '',
-                  },
-
-                  merchantOrderReferenceId:
-                    result.order.id,
-
-                })
-
-              await saveDeliveryToOrder(
-                result.order.id,
-                woltDelivery,
-              )
-
-              console.log(
-                'Wolt delivery created successfully:',
-                {
-                  orderId:
-                    result.order.id,
-                  orderNumber:
-                    result.order.orderNumber,
-                  woltDeliveryId:
-                    woltDelivery.id,
-                  woltOrderReferenceId:
-                    woltDelivery
-                      .wolt_order_reference_id,
-                },
-              )
-            } else {
-              console.log(
-                'Wolt delivery already exists:',
-                {
-                  orderId:
-                    result.order.id,
-                  woltDeliveryId:
-                    existingWoltDelivery.deliveryId,
-                },
-              )
-            }
+              channelOrder,
+            })
           }
 
           if (
