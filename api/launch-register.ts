@@ -36,6 +36,11 @@ export default async function handler(
                 ? req.body.email.trim().toLowerCase()
                 : ''
 
+        const language =
+            req.body?.language === 'en'
+                ? 'en'
+                : 'cs'
+
         if (!firstName) {
             return res.status(400).json({
                 success: false,
@@ -108,6 +113,7 @@ export default async function handler(
             await sendLaunchWinnerNotification({
                 registrationId:
                     registration.registration_id,
+                language,
             })
         }
 

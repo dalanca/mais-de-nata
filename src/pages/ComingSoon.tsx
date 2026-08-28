@@ -4,7 +4,7 @@ import { useLanguage } from '../LanguageContext'
 import './ComingSoon.css'
 
 export default function ComingSoon() {
-    const { t } = useLanguage()
+    const { t, language } = useLanguage()
 
     const [firstName, setFirstName] =
         useState('')
@@ -43,6 +43,7 @@ export default function ComingSoon() {
                     body: JSON.stringify({
                         firstName,
                         email,
+                        language,
                     }),
                 })
 
