@@ -56,12 +56,13 @@ export default async function handler(request: any, response: any) {
       .from('orders')
       .select(
         `
-      order_number,
-      wolt_delivery_status,
-      wolt_tracking_url,
-      wolt_pickup_eta,
-      wolt_dropoff_eta
-    `,
+    order_number,
+    production_status,
+    wolt_delivery_status,
+    wolt_tracking_url,
+    wolt_pickup_eta,
+    wolt_dropoff_eta
+  `,
       )
       .eq(
         'stripe_session_id',
@@ -110,6 +111,9 @@ export default async function handler(request: any, response: any) {
 
           apartment:
             session.metadata?.deliveryApartment ?? '',
+          
+          instructions:
+            session.metadata?.deliveryInstructions ?? '',
 
           city:
             session.metadata?.deliveryCity ?? '',
@@ -127,6 +131,9 @@ export default async function handler(request: any, response: any) {
         tracking: {
           orderNumber:
             omsOrder?.order_number ?? '',
+
+          productionStatus:
+            omsOrder?.production_status ?? '',
 
           status:
             omsOrder?.wolt_delivery_status ?? '',

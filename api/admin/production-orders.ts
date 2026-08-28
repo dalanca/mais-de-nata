@@ -89,6 +89,14 @@ export default async function handler(
           ready_at,
           collected_at,
           delivered_at,
+
+          wolt_delivery_status,
+          wolt_pickup_eta,
+          wolt_pickup_eta_updated_at,
+          wolt_courier_id,
+          wolt_courier_vehicle_type,
+          wolt_tracking_url,
+
           created_at
         `,
       )
@@ -108,97 +116,97 @@ export default async function handler(
       throw ordersError
     }
 
-const orderIds =
-  (orderRows ?? []).map(
-    (row) => row.id,
-  )
+    const orderIds =
+      (orderRows ?? []).map(
+        (row) => row.id,
+      )
 
-let orderItemRows: {
-  order_id: string
-  product_name: string
-  quantity: number
-}[] = []
+    let orderItemRows: {
+      order_id: string
+      product_name: string
+      quantity: number
+    }[] = []
 
-if (orderIds.length > 0) {
-  const {
-    data: itemRows,
-    error: itemsError,
-  } = await supabaseAdmin
-    .from('order_items')
-    .select(
-      `
+    if (orderIds.length > 0) {
+      const {
+        data: itemRows,
+        error: itemsError,
+      } = await supabaseAdmin
+        .from('order_items')
+        .select(
+          `
         order_id,
         product_name,
         quantity
       `,
-    )
-    .in(
-      'order_id',
-      orderIds,
-    )
-    .order(
-      'created_at',
+        )
+        .in(
+          'order_id',
+          orderIds,
+        )
+        .order(
+          'created_at',
+          {
+            ascending: true,
+          },
+        )
+
+      if (itemsError) {
+        throw itemsError
+      }
+
+      orderItemRows =
+        (itemRows ?? []) as {
+          order_id: string
+          product_name: string
+          quantity: number
+        }[]
+    }
+
+    const itemsByOrder = new Map<
+      string,
       {
-        ascending: true,
-      },
-    )
+        productName: string
+        quantity: number
+      }[]
+    >()
 
-  if (itemsError) {
-    throw itemsError
-  }
-
-  orderItemRows =
-    (itemRows ?? []) as {
-      order_id: string
-      product_name: string
-      quantity: number
-    }[]
-}
-
-const itemsByOrder = new Map<
-  string,
-  {
-    productName: string
-    quantity: number
-  }[]
->()
-
-for (const item of orderItemRows) {
-  const existingItems =
-    itemsByOrder.get(
-      item.order_id,
-    ) ?? []
-
-  existingItems.push({
-    productName:
-      item.product_name,
-
-    quantity:
-      item.quantity,
-  })
-
-  itemsByOrder.set(
-    item.order_id,
-    existingItems,
-  )
-}
-
-const orders =
-  (orderRows ?? []).map(
-    (row) => ({
-      ...mapProductionOrder(row),
-
-      items:
+    for (const item of orderItemRows) {
+      const existingItems =
         itemsByOrder.get(
-          row.id,
-        ) ?? [],
-    }),
-  )
+          item.order_id,
+        ) ?? []
 
-return res.status(200).json({
-  success: true,
-  orders,
-})
+      existingItems.push({
+        productName:
+          item.product_name,
+
+        quantity:
+          item.quantity,
+      })
+
+      itemsByOrder.set(
+        item.order_id,
+        existingItems,
+      )
+    }
+
+    const orders =
+      (orderRows ?? []).map(
+        (row) => ({
+          ...mapProductionOrder(row),
+
+          items:
+            itemsByOrder.get(
+              row.id,
+            ) ?? [],
+        }),
+      )
+
+    return res.status(200).json({
+      success: true,
+      orders,
+    })
   } catch (error) {
     console.error(
       'Unable to load production orders:',

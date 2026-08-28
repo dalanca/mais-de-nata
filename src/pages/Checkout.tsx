@@ -102,6 +102,10 @@ export default function Checkout() {
   const [street, setStreet] = useState('')
   const [houseNumber, setHouseNumber] = useState('')
   const [apartment, setApartment] = useState('')
+  const [
+    deliveryInstructions,
+    setDeliveryInstructions,
+  ] = useState('')
   const [city, setCity] = useState('')
   const [postcode, setPostcode] = useState('')
 
@@ -416,6 +420,9 @@ export default function Checkout() {
       setStreet(checkout.street || '')
       setHouseNumber(checkout.houseNumber || '')
       setApartment(checkout.apartment || '')
+      setDeliveryInstructions(
+        checkout.deliveryInstructions || '',
+      )
       setCity(checkout.city || '')
       setPostcode(checkout.postcode || '')
 
@@ -540,6 +547,7 @@ export default function Checkout() {
         street,
         houseNumber,
         apartment,
+        deliveryInstructions,
         city,
         postcode,
         deliveryDate,
@@ -648,6 +656,7 @@ export default function Checkout() {
         street,
         houseNumber,
         apartment,
+        deliveryInstructions,
         city,
         postcode,
         deliveryDate,
@@ -769,7 +778,27 @@ export default function Checkout() {
                     <p>{t.checkoutCustomerIntro}</p>
                   </div>
                 </div>
+                <label>
+                  {language === 'cs'
+                    ? 'Pokyny k doručení'
+                    : 'Delivery instructions'}
 
+                  <textarea
+                    value={deliveryInstructions}
+                    onChange={(event) =>
+                      setDeliveryInstructions(
+                        event.target.value,
+                      )
+                    }
+                    maxLength={250}
+                    rows={3}
+                    placeholder={
+                      language === 'cs'
+                        ? 'Volitelné – např. nechte na recepci, zazvoňte na byt 12'
+                        : 'Optional – e.g. leave at reception, ring apartment 12'
+                    }
+                  />
+                </label>
                 <div className="checkoutTwoColumnGrid">
                   <label>
                     {t.checkoutFirstName}
@@ -1151,6 +1180,21 @@ export default function Checkout() {
                           <strong>{selectedTimeLabel}</strong>
                         </p>
                       </div>
+                      {deliveryInstructions && (
+                        <div className="checkoutPremiumCardDetails">
+                          <p>
+                            <span>
+                              {language === 'cs'
+                                ? 'Pokyny k doručení'
+                                : 'Delivery instructions'}
+                            </span>
+
+                            <strong>
+                              {deliveryInstructions}
+                            </strong>
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </article>
 

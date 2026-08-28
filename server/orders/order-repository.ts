@@ -67,6 +67,8 @@ export async function insertOrder(
         input.deliveryHouseNumber ?? null,
       p_delivery_apartment:
         input.deliveryApartment ?? null,
+      p_delivery_instructions:
+        input.deliveryInstructions ?? null,
       p_delivery_city: input.deliveryCity ?? null,
       p_delivery_postcode:
         input.deliveryPostcode ?? null,

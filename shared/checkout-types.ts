@@ -20,6 +20,7 @@ export interface DeliveryDetails {
   street: string;
   houseNumber: string;
   apartment: string;
+  deliveryInstructions: string;
   city: string;
   postcode: string;
   deliveryDate: string;

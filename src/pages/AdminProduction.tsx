@@ -41,6 +41,13 @@ type ProductionOrder = {
     collectedAt: string | null
     deliveredAt: string | null
 
+    woltDeliveryStatus: string | null
+    woltPickupEta: string | null
+    woltPickupEtaUpdatedAt: string | null
+    woltCourierId: string | null
+    woltCourierVehicleType: string | null
+    woltTrackingUrl: string | null
+
     createdAt: string
 }
 
@@ -771,6 +778,90 @@ export default function AdminProduction() {
             setUpdatingOrderId(null)
         }
     }
+    async function cancelOrder(
+        order: ProductionOrder,
+    ) {
+        const reason =
+            window.prompt(
+                'Please enter the cancellation reason:',
+            )
+
+        if (!reason?.trim()) {
+            return
+        }
+
+        const confirmed =
+            window.confirm(
+                `Cancel order ${order.orderNumber}?`,
+            )
+
+        if (!confirmed) {
+            return
+        }
+
+        try {
+            setUpdatingOrderId(order.id)
+            setError('')
+
+            const {
+                data: { session },
+            } =
+                await supabase.auth.getSession()
+
+            if (!session) {
+                throw new Error(
+                    'Your admin session has expired.',
+                )
+            }
+
+            const response =
+                await fetch(
+                    '/api/admin/cancel-production-order',
+                    {
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json',
+
+                            Authorization:
+                                `Bearer ${session.access_token}`,
+                        },
+
+                        body: JSON.stringify({
+                            orderId:
+                                order.id,
+
+                            reason:
+                                reason.trim(),
+                        }),
+                    },
+                )
+
+            const json =
+                await response.json()
+
+            if (
+                !response.ok ||
+                !json.success
+            ) {
+                throw new Error(
+                    json.error ??
+                    'Unable to cancel order',
+                )
+            }
+
+            await loadOrders()
+        } catch (cancelError) {
+            setError(
+                cancelError instanceof Error
+                    ? cancelError.message
+                    : 'Unable to cancel order',
+            )
+        } finally {
+            setUpdatingOrderId(null)
+        }
+    }
     useEffect(() => {
         void loadOrders()
 
@@ -1363,6 +1454,62 @@ export default function AdminProduction() {
                                                             )
                                                         )}
                                                     </div>
+                                                    {(
+                                                        order.productionStatus === 'ready' ||
+                                                        order.productionStatus === 'collected'
+                                                    ) && (
+                                                            <div className="productionCourierPanel">
+                                                                <strong>
+                                                                    Wolt courier
+                                                                </strong>
+
+                                                                {order.productionStatus === 'ready' && (
+                                                                    <>
+                                                                        <p>
+                                                                            {order.woltDeliveryStatus ===
+                                                                                'order.pickup_arrival'
+                                                                                ? 'Courier has arrived for collection'
+                                                                                : order.woltPickupEta
+                                                                                    ? `Pickup ETA: ${new Intl.DateTimeFormat(
+                                                                                        'en-GB',
+                                                                                        {
+                                                                                            hour: '2-digit',
+                                                                                            minute: '2-digit',
+                                                                                        },
+                                                                                    ).format(
+                                                                                        new Date(
+                                                                                            order.woltPickupEta,
+                                                                                        ),
+                                                                                    )}`
+                                                                                    : 'Courier requested'}
+                                                                        </p>
+
+                                                                        {order.woltCourierVehicleType && (
+                                                                            <p>
+                                                                                Vehicle:{' '}
+                                                                                {order.woltCourierVehicleType}
+                                                                            </p>
+                                                                        )}
+                                                                    </>
+                                                                )}
+
+                                                                {order.productionStatus === 'collected' && (
+                                                                    <p>
+                                                                        Courier has collected the order
+                                                                    </p>
+                                                                )}
+
+                                                                {order.woltTrackingUrl && (
+                                                                    <a
+                                                                        href={order.woltTrackingUrl}
+                                                                        target="_blank"
+                                                                        rel="noreferrer"
+                                                                    >
+                                                                        View courier tracking
+                                                                    </a>
+                                                                )}
+                                                            </div>
+                                                        )}
                                                     {nextActionByStatus[
                                                         order.productionStatus
                                                     ] && (
@@ -1381,6 +1528,28 @@ export default function AdminProduction() {
                                                                     : nextActionByStatus[
                                                                         order.productionStatus
                                                                     ]?.label}
+                                                            </button>
+                                                        )}
+                                                    {[
+                                                        'new',
+                                                        'accepted',
+                                                        'baking',
+                                                        'packing',
+                                                        'ready',
+                                                    ].includes(
+                                                        order.productionStatus,
+                                                    ) && (
+                                                            <button
+                                                                type="button"
+                                                                className="productionCancelButton"
+                                                                disabled={
+                                                                    updatingOrderId === order.id
+                                                                }
+                                                                onClick={() =>
+                                                                    void cancelOrder(order)
+                                                                }
+                                                            >
+                                                                Cancel order
                                                             </button>
                                                         )}
                                                 </article>

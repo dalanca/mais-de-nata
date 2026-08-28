@@ -47,6 +47,7 @@ export type ChannelOrder = {
     street?: string
     houseNumber?: string
     apartment?: string
+    instructions?: string
     city?: string
     postcode?: string
     date?: string

@@ -27,6 +27,7 @@ type Props = {
     deliveryAddress: string
     deliveryDate?: string
     deliveryTime?: string
+    deliveryInstructions?: string
 
     trackingUrl?: string
 }

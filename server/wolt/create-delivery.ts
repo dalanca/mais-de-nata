@@ -16,7 +16,15 @@ type CreateWoltDeliveryInput = {
     lon: number
     comment?: string
   }
+  parcel: {
+    priceAmount: number
+    priceCurrency: string
 
+    weightGram: number
+    widthCm: number
+    heightCm: number
+    depthCm: number
+  }
   merchantOrderReferenceId: string
 
   scheduledDropoffTime?: string
@@ -141,6 +149,34 @@ export async function createWoltDelivery(
               'PASTEIS',
 
             count: 1,
+
+            price: {
+              amount:
+                input.parcel
+                  .priceAmount,
+
+              currency:
+                input.parcel
+                  .priceCurrency,
+            },
+
+            dimensions: {
+              weight_gram:
+                input.parcel
+                  .weightGram,
+
+              width_cm:
+                input.parcel
+                  .widthCm,
+
+              height_cm:
+                input.parcel
+                  .heightCm,
+
+              depth_cm:
+                input.parcel
+                  .depthCm,
+            },
           },
         ],
 

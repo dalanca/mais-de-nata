@@ -227,6 +227,10 @@ export function createChannelOrderFromStripeSession(
         session.metadata?.deliveryApartment ||
         undefined,
 
+      instructions:
+        session.metadata?.deliveryInstructions ||
+        undefined,
+
       city:
         session.metadata?.deliveryCity ||
         undefined,

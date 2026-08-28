@@ -2,172 +2,174 @@ import path from 'node:path'
 import { readFile } from 'node:fs/promises'
 
 import {
-  resend,
-  EMAIL_FROM,
-  EMAIL_REPLY_TO,
+    resend,
+    EMAIL_FROM,
+    EMAIL_REPLY_TO,
 } from './resend.js'
 
 import {
-  createBrandedEmailLayout,
-  createEmailButton,
+    createBrandedEmailLayout,
+    createEmailButton,
 } from './layout.js'
 
 type OrderItem = {
-  productName: string
-  quantity: number
-  totalPrice: number
+    productName: string
+    quantity: number
+    totalPrice: number
 }
 
 type Props = {
-  to: string
-  customerName: string
-  orderNumber: string
-  language: 'en' | 'cs'
+    to: string
+    customerName: string
+    orderNumber: string
+    language: 'en' | 'cs'
 
-  totalAmount: number
-  currency: string
+    totalAmount: number
+    currency: string
 
-  items: OrderItem[]
-  deliveryFee: number
+    items: OrderItem[]
+    deliveryFee: number
 
-  deliveryAddress: string
-  deliveryDate?: string
-  deliveryTime?: string
+    deliveryAddress: string
+    deliveryDate?: string
+    deliveryTime?: string
+    deliveryInstructions?: string
 
-  trackingUrl?: string
+    trackingUrl?: string
 }
 
 function formatMoney(
-  amount: number,
-  currency: string,
-  language: 'en' | 'cs',
+    amount: number,
+    currency: string,
+    language: 'en' | 'cs',
 ) {
-  return new Intl.NumberFormat(
-    language === 'cs'
-      ? 'cs-CZ'
-      : 'en-GB',
-    {
-      style: 'currency',
-      currency:
-        currency.toUpperCase(),
-    },
-  ).format(amount / 100)
+    return new Intl.NumberFormat(
+        language === 'cs'
+            ? 'cs-CZ'
+            : 'en-GB',
+        {
+            style: 'currency',
+            currency:
+                currency.toUpperCase(),
+        },
+    ).format(amount / 100)
 }
 
 function formatDeliveryDate(
-  value: string | undefined,
-  language: 'en' | 'cs',
+    value: string | undefined,
+    language: 'en' | 'cs',
 ) {
-  if (!value) {
-    return ''
-  }
+    if (!value) {
+        return ''
+    }
 
-  const date =
-    new Date(`${value}T12:00:00`)
+    const date =
+        new Date(`${value}T12:00:00`)
 
-  if (Number.isNaN(date.getTime())) {
-    return value
-  }
+    if (Number.isNaN(date.getTime())) {
+        return value
+    }
 
-  return new Intl.DateTimeFormat(
-    language === 'cs'
-      ? 'cs-CZ'
-      : 'en-GB',
-    {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    },
-  ).format(date)
+    return new Intl.DateTimeFormat(
+        language === 'cs'
+            ? 'cs-CZ'
+            : 'en-GB',
+        {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        },
+    ).format(date)
 }
 
 function formatDeliveryTime(
-  value: string | undefined,
-  language: 'en' | 'cs',
+    value: string | undefined,
+    language: 'en' | 'cs',
 ) {
-  if (!value) {
-    return ''
-  }
+    if (!value) {
+        return ''
+    }
 
-  if (value === 'asap') {
-    return language === 'cs'
-      ? 'Co nejdříve'
-      : 'As soon as possible'
-  }
+    if (value === 'asap') {
+        return language === 'cs'
+            ? 'Co nejdříve'
+            : 'As soon as possible'
+    }
 
-  if (value === 'morning') {
-    return language === 'cs'
-      ? 'Dopoledne'
-      : 'Morning'
-  }
+    if (value === 'morning') {
+        return language === 'cs'
+            ? 'Dopoledne'
+            : 'Morning'
+    }
 
-  if (value === 'afternoon') {
-    return language === 'cs'
-      ? 'Odpoledne'
-      : 'Afternoon'
-  }
+    if (value === 'afternoon') {
+        return language === 'cs'
+            ? 'Odpoledne'
+            : 'Afternoon'
+    }
 
-  if (value === 'evening') {
-    return language === 'cs'
-      ? 'Večer'
-      : 'Evening'
-  }
+    if (value === 'evening') {
+        return language === 'cs'
+            ? 'Večer'
+            : 'Evening'
+    }
 
-  return value
+    return value
 }
 
 export async function sendConsumerOrderConfirmationEmail({
-  to,
-  customerName,
-  orderNumber,
-  language,
-  totalAmount,
-  currency,
-  items,
-  deliveryFee,
-  deliveryAddress,
-  deliveryDate,
-  deliveryTime,
-  trackingUrl,
+    to,
+    customerName,
+    orderNumber,
+    language,
+    totalAmount,
+    currency,
+    items,
+    deliveryFee,
+    deliveryAddress,
+    deliveryDate,
+    deliveryTime,
+    deliveryInstructions,
+    trackingUrl,
 }: Props) {
-  const isCzech =
-    language === 'cs'
+    const isCzech =
+        language === 'cs'
 
-  const firstName =
-    customerName
-      .trim()
-      .split(/\s+/)[0] || ''
+    const firstName =
+        customerName
+            .trim()
+            .split(/\s+/)[0] || ''
 
-  const formattedTotal =
-    formatMoney(
-      totalAmount,
-      currency,
-      language,
-    )
+    const formattedTotal =
+        formatMoney(
+            totalAmount,
+            currency,
+            language,
+        )
 
-  const formattedDeliveryFee =
-    formatMoney(
-      deliveryFee,
-      currency,
-      language,
-    )
+    const formattedDeliveryFee =
+        formatMoney(
+            deliveryFee,
+            currency,
+            language,
+        )
 
-  const formattedDeliveryDate =
-    formatDeliveryDate(
-      deliveryDate,
-      language,
-    )
+    const formattedDeliveryDate =
+        formatDeliveryDate(
+            deliveryDate,
+            language,
+        )
 
-  const formattedDeliveryTime =
-    formatDeliveryTime(
-      deliveryTime,
-      language,
-    )
+    const formattedDeliveryTime =
+        formatDeliveryTime(
+            deliveryTime,
+            language,
+        )
 
-  const orderItemsHtml =
-    items
-      .map(
-        (item) => `
+    const orderItemsHtml =
+        items
+            .map(
+                (item) => `
           <tr>
             <td
               style="
@@ -189,49 +191,48 @@ export async function sendConsumerOrderConfirmationEmail({
               "
             >
               ${formatMoney(
-                item.totalPrice,
-                currency,
-                language,
-              )}
+                    item.totalPrice,
+                    currency,
+                    language,
+                )}
             </td>
           </tr>
         `,
-      )
-      .join('')
+            )
+            .join('')
 
-  const trackingSection =
-    trackingUrl
-      ? `
+    const trackingSection =
+        trackingUrl
+            ? `
         <p style="margin: 24px 0 10px;">
-          ${
-            isCzech
-              ? 'Průběh doručení můžete sledovat živě:'
-              : 'You can follow your delivery live:'
-          }
+          ${isCzech
+                ? 'Průběh doručení můžete sledovat živě:'
+                : 'You can follow your delivery live:'
+            }
         </p>
 
         ${createEmailButton(
-          isCzech
-            ? 'Sledovat doručení'
-            : 'Track your delivery',
-          trackingUrl,
-        )}
+                isCzech
+                    ? 'Sledovat doručení'
+                    : 'Track your delivery',
+                trackingUrl,
+            )}
       `
-      : ''
+            : ''
 
-  const emailTitle =
-    isCzech
-      ? 'Vaše objednávka je potvrzena'
-      : 'Your order is confirmed'
+    const emailTitle =
+        isCzech
+            ? 'Vaše objednávka je potvrzena'
+            : 'Your order is confirmed'
 
-  const emailSubject =
-    isCzech
-      ? `Objednávka ${orderNumber} potvrzena`
-      : `Order ${orderNumber} confirmed`
+    const emailSubject =
+        isCzech
+            ? `Objednávka ${orderNumber} potvrzena`
+            : `Order ${orderNumber} confirmed`
 
-  const emailContent =
-    isCzech
-      ? `
+    const emailContent =
+        isCzech
+            ? `
         <p style="margin: 0 0 18px;">
           Dobrý den ${firstName},
         </p>
@@ -271,23 +272,29 @@ export async function sendConsumerOrderConfirmationEmail({
               <strong>Doručení:</strong>
               ${deliveryAddress}<br />
 
-              ${
-                formattedDeliveryDate
-                  ? `
+              ${formattedDeliveryDate
+                ? `
                     <strong>Datum:</strong>
                     ${formattedDeliveryDate}<br />
                   `
-                  : ''
-              }
+                : ''
+            }
 
-              ${
-                formattedDeliveryTime
-                  ? `
-                    <strong>Čas:</strong>
-                    ${formattedDeliveryTime}
-                  `
-                  : ''
-              }
+${formattedDeliveryTime
+                ? `
+      <strong>Čas:</strong>
+      ${formattedDeliveryTime}<br />
+    `
+                : ''
+            }
+
+${deliveryInstructions
+                ? `
+      <strong>Pokyny k doručení:</strong>
+      ${deliveryInstructions}
+    `
+                : ''
+            }
             </td>
           </tr>
         </table>
@@ -374,7 +381,7 @@ export async function sendConsumerOrderConfirmationEmail({
           <strong>Mais de Nata</strong>
         </p>
       `
-      : `
+            : `
         <p style="margin: 0 0 18px;">
           Dear ${firstName},
         </p>
@@ -414,23 +421,28 @@ export async function sendConsumerOrderConfirmationEmail({
               <strong>Delivery:</strong>
               ${deliveryAddress}<br />
 
-              ${
-                formattedDeliveryDate
-                  ? `
+              ${formattedDeliveryDate
+                ? `
                     <strong>Date:</strong>
                     ${formattedDeliveryDate}<br />
                   `
-                  : ''
-              }
+                : ''
+            }
+${formattedDeliveryTime
+                ? `
+      <strong>Requested time:</strong>
+      ${formattedDeliveryTime}<br />
+    `
+                : ''
+            }
 
-              ${
-                formattedDeliveryTime
-                  ? `
-                    <strong>Requested time:</strong>
-                    ${formattedDeliveryTime}
-                  `
-                  : ''
-              }
+${deliveryInstructions
+                ? `
+      <strong>Delivery instructions:</strong>
+      ${deliveryInstructions}
+    `
+                : ''
+            }
             </td>
           </tr>
         </table>
@@ -518,57 +530,57 @@ export async function sendConsumerOrderConfirmationEmail({
         </p>
       `
 
-  const emailHtml =
-    createBrandedEmailLayout({
-      title:
-        emailTitle,
+    const emailHtml =
+        createBrandedEmailLayout({
+            title:
+                emailTitle,
 
-      previewText:
-        isCzech
-          ? `Objednávka ${orderNumber} byla potvrzena.`
-          : `Order ${orderNumber} has been confirmed.`,
+            previewText:
+                isCzech
+                    ? `Objednávka ${orderNumber} byla potvrzena.`
+                    : `Order ${orderNumber} has been confirmed.`,
 
-      content:
-        emailContent,
+            content:
+                emailContent,
 
-      language,
+            language,
+        })
+
+    const logoContent =
+        await readFile(
+            path.join(
+                process.cwd(),
+                'public',
+                'mais-de-nata-logo.png',
+            ),
+        )
+
+    return resend.emails.send({
+        from:
+            EMAIL_FROM,
+
+        replyTo:
+            EMAIL_REPLY_TO,
+
+        to,
+
+        subject:
+            emailSubject,
+
+        html:
+            emailHtml,
+
+        attachments: [
+            {
+                filename:
+                    'mais-de-nata-logo.png',
+
+                content:
+                    logoContent.toString('base64'),
+
+                contentId:
+                    'mais-de-nata-logo',
+            },
+        ],
     })
-
-  const logoContent =
-    await readFile(
-      path.join(
-        process.cwd(),
-        'public',
-        'mais-de-nata-logo.png',
-      ),
-    )
-
-  return resend.emails.send({
-    from:
-      EMAIL_FROM,
-
-    replyTo:
-      EMAIL_REPLY_TO,
-
-    to,
-
-    subject:
-      emailSubject,
-
-    html:
-      emailHtml,
-
-    attachments: [
-      {
-        filename:
-          'mais-de-nata-logo.png',
-
-        content:
-          logoContent.toString('base64'),
-
-        contentId:
-          'mais-de-nata-logo',
-      },
-    ],
-  })
 }

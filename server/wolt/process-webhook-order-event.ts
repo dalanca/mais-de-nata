@@ -83,14 +83,19 @@ export async function processWoltOrderEvent(
             }
             : {}),
 
-        ...(event.type === 'order.delivered' &&
-            existingOrder.production_status === 'collected'
-            ? {
-                production_status: 'delivered',
-                delivered_at:
-                    event.dispatched_at,
-            }
-            : {}),
+        ...(
+            (
+                event.type === 'order.dropoff_completed' ||
+                event.type === 'order.delivered'
+            ) &&
+                existingOrder.production_status === 'collected'
+                ? {
+                    production_status: 'delivered',
+                    delivered_at:
+                        event.dispatched_at,
+                }
+                : {}
+        ),
     }
 
     const {

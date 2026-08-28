@@ -24,6 +24,13 @@ type ProductionOrderRow = {
   collected_at: string | null
   delivered_at: string | null
 
+  wolt_delivery_status: string | null
+  wolt_pickup_eta: string | null
+  wolt_pickup_eta_updated_at: string | null
+  wolt_courier_id: string | null
+  wolt_courier_vehicle_type: string | null
+  wolt_tracking_url: string | null
+
   created_at: string
 }
 
@@ -81,7 +88,23 @@ export function mapProductionOrder(
 
     deliveredAt:
       row.delivered_at,
+        woltDeliveryStatus:
+      row.wolt_delivery_status,
 
+    woltPickupEta:
+      row.wolt_pickup_eta,
+
+    woltPickupEtaUpdatedAt:
+      row.wolt_pickup_eta_updated_at,
+
+    woltCourierId:
+      row.wolt_courier_id,
+
+    woltCourierVehicleType:
+      row.wolt_courier_vehicle_type,
+
+    woltTrackingUrl:
+      row.wolt_tracking_url,
     createdAt:
       row.created_at,
   }

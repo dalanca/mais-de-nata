@@ -9,9 +9,7 @@ import {
   getOrderWoltDeliveryState,
 } from '../server/wolt/get-order-delivery-state.js'
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY
-import {
-  createDeliveryForOrder,
-} from '../server/wolt/create-delivery-for-order.js'
+
 import {
   sendConsumerOrderConfirmationOnce,
 } from '../server/email/send-consumer-order-confirmation-once.js'
@@ -210,22 +208,6 @@ export default {
                   result.order.orderNumber,
               },
             )
-          }
-
-          if (
-            salesChannel ===
-              OrderSalesChannel.ConsumerWebsite &&
-            channelOrder.woltDelivery
-          ) {
-            await createDeliveryForOrder({
-              orderId:
-                result.order.id,
-
-              orderNumber:
-                result.order.orderNumber,
-
-              channelOrder,
-            })
           }
 
           if (

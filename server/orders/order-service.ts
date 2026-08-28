@@ -67,6 +67,8 @@ export async function createOrderFromChannel(
       channelOrder.delivery.houseNumber?.trim() || undefined,
     deliveryApartment:
       channelOrder.delivery.apartment?.trim() || undefined,
+    deliveryInstructions:
+      channelOrder.delivery.instructions?.trim() || undefined,
     deliveryCity:
       channelOrder.delivery.city?.trim() || undefined,
     deliveryPostcode:

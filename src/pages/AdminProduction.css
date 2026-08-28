@@ -308,6 +308,49 @@
   font-size: 11px;
 }
 
+.productionCourierPanel {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #fff8e6;
+  color: #4e312d;
+}
+
+.productionCourierPanel strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.productionCourierPanel p {
+  margin: 4px 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.productionCourierPanel a {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.productionCancelButton {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 42px;
+  border-radius: 10px;
+  border: 1px solid #b42318;
+  background: #ffffff;
+  color: #b42318;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.productionCancelButton:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
 /* Delivery availability */
 
 .deliveryAvailabilityCard {

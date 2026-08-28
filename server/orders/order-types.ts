@@ -62,6 +62,7 @@ export type CreateOrderInput = {
   deliveryStreet?: string
   deliveryHouseNumber?: string
   deliveryApartment?: string
+  deliveryInstructions?: string
   deliveryCity?: string
   deliveryPostcode?: string
   deliveryDate?: string

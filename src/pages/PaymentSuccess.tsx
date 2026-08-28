@@ -22,6 +22,7 @@ type VerifiedOrder = {
     street: string
     houseNumber: string
     apartment: string
+    instructions: string
     city: string
     postcode: string
     deliveryDate: string
@@ -30,6 +31,7 @@ type VerifiedOrder = {
 
   tracking: {
     orderNumber: string
+    productionStatus: string
     status: string
     url: string
     pickupEta: string
@@ -99,30 +101,38 @@ export default function PaymentSuccess() {
   ] = useState(false)
 
   useEffect(() => {
-    async function verifyPayment() {
-      const searchParams = new URLSearchParams(
+    const searchParams =
+      new URLSearchParams(
         window.location.search,
       )
 
-      const sessionId = searchParams.get('session_id')
+    const sessionId =
+      searchParams.get('session_id')
 
-      if (!sessionId) {
-        setErrorMessage(
-          t.paymentSuccessMissingReference,
-        )
-        setIsLoading(false)
-        return
-      }
+    if (!sessionId) {
+      setErrorMessage(
+        t.paymentSuccessMissingReference,
+      )
+      setIsLoading(false)
+      return
+    }
 
+    let cancelled = false
+
+    async function verifyPayment(
+      initialLoad = false,
+    ) {
       try {
-        const response = await fetch(
-          `/api/verify-checkout-session?session_id=${encodeURIComponent(
-            sessionId,
-          )}`,
-        )
+        const response =
+          await fetch(
+            `/api/verify-checkout-session?session_id=${encodeURIComponent(
+              sessionId!,
+            )}`,
+          )
 
         const data =
-          (await response.json()) as VerificationResponse
+          (await response.json()) as
+          VerificationResponse
 
         if (
           !response.ok ||
@@ -136,6 +146,10 @@ export default function PaymentSuccess() {
           )
         }
 
+        if (cancelled) {
+          return
+        }
+
         localStorage.removeItem(
           'maisDeNataCart',
         )
@@ -144,26 +158,59 @@ export default function PaymentSuccess() {
           'maisDeNataCheckout',
         )
 
+        setErrorMessage('')
+
         if (!data.orderConfirmed) {
           setIsOrderProcessing(true)
+          setOrder(null)
           return
         }
 
+        setIsOrderProcessing(false)
         setOrder(data.order)
       } catch (error) {
-        console.error('Payment verification failed:', error)
+        if (
+          !cancelled &&
+          initialLoad
+        ) {
+          console.error(
+            'Payment verification failed:',
+            error,
+          )
 
-        setErrorMessage(
-          error instanceof Error
-            ? error.message
-            : t.paymentSuccessVerificationFailed,
-        )
+          setErrorMessage(
+            error instanceof Error
+              ? error.message
+              : t.paymentSuccessVerificationFailed,
+          )
+        }
       } finally {
-        setIsLoading(false)
+        if (
+          !cancelled &&
+          initialLoad
+        ) {
+          setIsLoading(false)
+        }
       }
     }
 
-    verifyPayment()
+    void verifyPayment(true)
+
+    const intervalId =
+      window.setInterval(
+        () => {
+          void verifyPayment(false)
+        },
+        10_000,
+      )
+
+    return () => {
+      cancelled = true
+
+      window.clearInterval(
+        intervalId,
+      )
+    }
   }, [])
 
   if (isLoading) {
@@ -359,7 +406,19 @@ export default function PaymentSuccess() {
             </p>
           </div>
         </div>
+        {order.delivery.instructions && (
+          <div className="paymentSuccessNotice">
+            <strong>
+              {language === 'cs'
+                ? 'Pokyny k doručení'
+                : 'Delivery instructions'}
+            </strong>
 
+            <p>
+              {order.delivery.instructions}
+            </p>
+          </div>
+        )}
         <div className="paymentSuccessNotice">
           <strong>{t.paymentSuccessNextTitle}</strong>
 

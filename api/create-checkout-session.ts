@@ -351,6 +351,8 @@ export default async function handler(
         deliveryStreet: delivery.street,
         deliveryHouseNumber: delivery.houseNumber,
         deliveryApartment: delivery.apartment || '',
+        deliveryInstructions:
+          delivery.deliveryInstructions || '',
         deliveryCity: delivery.city,
         deliveryPostcode: delivery.postcode,
         deliveryDate: delivery.deliveryDate,

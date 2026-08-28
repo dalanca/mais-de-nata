@@ -1,36 +1,16 @@
-import { supabaseAdmin } from '../../server/database/supabase.js'
 import {
-  createDeliveryForOrder,
-} from '../../server/wolt/create-delivery-for-order.js'
-const allowedTransitions: Record<
-  string,
-  string
-> = {
-  new: 'accepted',
-  accepted: 'baking',
-  baking: 'packing',
-  packing: 'ready',
-  ready: 'collected',
-  collected: 'delivered',
-}
+  supabaseAdmin,
+} from '../../server/database/supabase.js'
 
-const timestampColumnByStatus: Record<
-  string,
-  string
-> = {
-  accepted: 'accepted_at',
-  baking: 'baking_started_at',
-  packing: 'packing_started_at',
-  ready: 'ready_at',
-  collected: 'collected_at',
-  delivered: 'delivered_at',
-}
+import {
+  cancelWoltDelivery,
+} from '../../server/wolt/cancel-delivery.js'
 
 export default async function handler(
   req: any,
   res: any,
 ) {
-  if (req.method !== 'PATCH') {
+  if (req.method !== 'POST') {
     return res.status(405).json({
       success: false,
       error: 'Method not allowed',
@@ -52,14 +32,17 @@ export default async function handler(
     }
 
     const accessToken =
-      authorization.slice('Bearer '.length)
+      authorization.slice(
+        'Bearer '.length,
+      )
 
     const {
       data: { user },
       error: authError,
-    } = await supabaseAdmin.auth.getUser(
-      accessToken,
-    )
+    } =
+      await supabaseAdmin.auth.getUser(
+        accessToken,
+      )
 
     if (authError || !user) {
       return res.status(401).json({
@@ -91,13 +74,28 @@ export default async function handler(
 
     const {
       orderId,
-      nextStatus,
+      reason,
     } = req.body ?? {}
 
-    if (!orderId || !nextStatus) {
+    if (
+      !orderId ||
+      typeof orderId !== 'string'
+    ) {
       return res.status(400).json({
         success: false,
-        error: 'Missing request data',
+        error: 'Order ID is required',
+      })
+    }
+
+    const cancellationReason =
+      typeof reason === 'string'
+        ? reason.trim()
+        : ''
+
+    if (!cancellationReason) {
+      return res.status(400).json({
+        success: false,
+        error: 'Cancellation reason is required',
       })
     }
 
@@ -108,11 +106,11 @@ export default async function handler(
       .from('orders')
       .select(
         `
-    id,
-    order_number,
-    sales_channel,
-    production_status
-  `,
+          id,
+          production_status,
+          wolt_order_reference_id,
+          wolt_delivery_id
+        `,
       )
       .eq('id', orderId)
       .single()
@@ -124,60 +122,60 @@ export default async function handler(
       })
     }
 
-    const expectedNextStatus =
-      allowedTransitions[
-      order.production_status
-      ]
-
     if (
-      expectedNextStatus !==
-      nextStatus
+      order.production_status ===
+        'delivered' ||
+      order.production_status ===
+        'cancelled'
     ) {
       return res.status(400).json({
         success: false,
         error:
-          'Invalid status transition',
+          'This order can no longer be cancelled',
       })
-    }
-
-    const timestampColumn =
-      timestampColumnByStatus[
-      nextStatus
-      ]
-
-    const updateData: Record<
-      string,
-      any
-    > = {
-      production_status:
-        nextStatus,
-    }
-
-    if (timestampColumn) {
-      updateData[
-        timestampColumn
-      ] = new Date().toISOString()
     }
 
     if (
-      nextStatus === 'ready' &&
-      order.sales_channel ===
-      'ConsumerWebsite'
+      order.production_status ===
+      'collected'
     ) {
-      await createDeliveryForOrder({
-        orderId:
-          order.id,
-
-        orderNumber:
-          order.order_number,
+      return res.status(409).json({
+        success: false,
+        error:
+          'The courier has already collected this order. Contact Wolt support to cancel it.',
       })
+    }
+
+    if (
+      order.production_status ===
+        'ready' &&
+      order.wolt_delivery_id
+    ) {
+      if (
+        !order.wolt_order_reference_id
+      ) {
+        throw new Error(
+          'Wolt order reference is missing',
+        )
+      }
+
+      await cancelWoltDelivery(
+        order.wolt_order_reference_id,
+        cancellationReason,
+      )
     }
 
     const {
       error: updateError,
     } = await supabaseAdmin
       .from('orders')
-      .update(updateData)
+      .update({
+        production_status:
+          'cancelled',
+
+        fulfilment_status:
+          'Cancelled',
+      })
       .eq('id', orderId)
 
     if (updateError) {
@@ -188,12 +186,17 @@ export default async function handler(
       success: true,
     })
   } catch (error) {
-    console.error(error)
+    console.error(
+      'Unable to cancel production order:',
+      error,
+    )
 
     return res.status(500).json({
       success: false,
       error:
-        'Unable to update production status',
+        error instanceof Error
+          ? error.message
+          : 'Unable to cancel order',
     })
   }
 }
