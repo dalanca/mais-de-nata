@@ -19,6 +19,7 @@ export type ProductionOrder = {
 
   currency: string
   totalAmount: number
+  paymentStatus: string
 
   productionStatus: ProductionStatus
 
@@ -28,6 +29,11 @@ export type ProductionOrder = {
   readyAt: string | null
   collectedAt: string | null
   deliveredAt: string | null
-
+  woltDeliveryStatus: string | null
+  woltPickupEta: string | null
+  woltPickupEtaUpdatedAt: string | null
+  woltCourierId: string | null
+  woltCourierVehicleType: string | null
+  woltTrackingUrl: string | null
   createdAt: string
 }

@@ -43,9 +43,11 @@ function App() {
                 {t.navOrderFresh}
               </a>
 
-              <a href="/wholesale">
-                {t.navWholesale}
-              </a>
+{/* PHASE 2 - RESTORE WHOLESALE LINK AFTER CONSUMER LAUNCH
+<a href="/wholesale">
+  {t.navWholesale}
+</a>
+*/}
 
               <a href="/contact">
                 {t.navContact}
@@ -151,9 +153,11 @@ function App() {
               {t.navOrderFresh}
             </a>
 
-            <a href="/wholesale">
-              {t.navWholesale}
-            </a>
+{/* PHASE 2 - RESTORE WHOLESALE LINK AFTER CONSUMER LAUNCH
+<a href="/wholesale">
+  {t.navWholesale}
+</a>
+*/}
 
             <a href="/contact">
               {t.navContact}

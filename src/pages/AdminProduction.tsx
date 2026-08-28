@@ -26,6 +26,7 @@ type ProductionOrder = {
 
     totalAmount: number
     currency: string
+    paymentStatus: string
 
     productionStatus: ProductionStatus
 
@@ -862,6 +863,90 @@ export default function AdminProduction() {
             setUpdatingOrderId(null)
         }
     }
+    async function refundOrder(
+        order: ProductionOrder,
+    ) {
+        const reason =
+            window.prompt(
+                'Please enter the refund reason:',
+            )
+
+        if (!reason?.trim()) {
+            return
+        }
+
+        const confirmed =
+            window.confirm(
+                `Refund the full payment for order ${order.orderNumber}?`,
+            )
+
+        if (!confirmed) {
+            return
+        }
+
+        try {
+            setUpdatingOrderId(order.id)
+            setError('')
+
+            const {
+                data: { session },
+            } =
+                await supabase.auth.getSession()
+
+            if (!session) {
+                throw new Error(
+                    'Your admin session has expired.',
+                )
+            }
+
+            const response =
+                await fetch(
+                    '/api/admin/refund-order',
+                    {
+                        method: 'POST',
+
+                        headers: {
+                            'Content-Type':
+                                'application/json',
+
+                            Authorization:
+                                `Bearer ${session.access_token}`,
+                        },
+
+                        body: JSON.stringify({
+                            orderId:
+                                order.id,
+
+                            reason:
+                                reason.trim(),
+                        }),
+                    },
+                )
+
+            const json =
+                await response.json()
+
+            if (
+                !response.ok ||
+                !json.success
+            ) {
+                throw new Error(
+                    json.error ||
+                    'Unable to refund order',
+                )
+            }
+
+            await loadOrders()
+        } catch (refundError) {
+            setError(
+                refundError instanceof Error
+                    ? refundError.message
+                    : 'Unable to refund order',
+            )
+        } finally {
+            setUpdatingOrderId(null)
+        }
+    }
     useEffect(() => {
         void loadOrders()
 
@@ -1512,7 +1597,11 @@ export default function AdminProduction() {
                                                         )}
                                                     {nextActionByStatus[
                                                         order.productionStatus
-                                                    ] && (
+                                                    ] &&
+                                                        !(
+                                                            order.salesChannel === 'ConsumerWebsite' &&
+                                                            order.productionStatus === 'ready'
+                                                        ) && (
                                                             <button
                                                                 type="button"
                                                                 className="productionActionButton"
@@ -1528,6 +1617,21 @@ export default function AdminProduction() {
                                                                     : nextActionByStatus[
                                                                         order.productionStatus
                                                                     ]?.label}
+                                                            </button>
+                                                        )}
+                                                    {order.salesChannel === 'ConsumerWebsite' &&
+                                                        order.paymentStatus === 'Paid' && (
+                                                            <button
+                                                                type="button"
+                                                                className="productionActionButton"
+                                                                disabled={
+                                                                    updatingOrderId === order.id
+                                                                }
+                                                                onClick={() =>
+                                                                    void refundOrder(order)
+                                                                }
+                                                            >
+                                                                Refund customer
                                                             </button>
                                                         )}
                                                     {[

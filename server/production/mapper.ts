@@ -14,6 +14,7 @@ type ProductionOrderRow = {
 
   currency: string
   total_amount: number
+  payment_status: string
 
   production_status: ProductionStatus | null
 
@@ -68,6 +69,9 @@ export function mapProductionOrder(
     totalAmount:
       row.total_amount,
 
+    paymentStatus:
+      row.payment_status,
+
     productionStatus:
       row.production_status,
 
@@ -88,7 +92,7 @@ export function mapProductionOrder(
 
     deliveredAt:
       row.delivered_at,
-        woltDeliveryStatus:
+    woltDeliveryStatus:
       row.wolt_delivery_status,
 
     woltPickupEta:

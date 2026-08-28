@@ -6,7 +6,11 @@ const en = {
   navWholesaleOrder: "Wholesale",
   navContact: "Contact",
   navOurPasteis: "Our Pastéis",
-  navOrderFresh: "Order Fresh",
+  // PHASE 2 - ENABLE WHEN CONSUMER ORDERING OPENS
+// navOrderFresh: "Order Fresh",
+
+// PHASE 1 - OPENING SOON
+navOrderFresh: "Opening Soon",
   navWholesale: "Wholesale",
   navSignIn: "Sign In",
   navMyAccount: "My Account",

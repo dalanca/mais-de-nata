@@ -6,7 +6,11 @@ const cs = {
   navWholesaleOrder: "Velkoobchod",
   navContact: "Kontakt",
   navOurPasteis: "Naše Pastéis",
-  navOrderFresh: "Objednat čerstvé",
+  // PHASE 2 - ENABLE WHEN CONSUMER ORDERING OPENS
+// navOrderFresh: "Objednat čerstvé",
+
+// PHASE 1 - OPENING SOON
+navOrderFresh: "Již brzy",
   navWholesale: "Velkoobchod",
   navSignIn: "Přihlásit se",
   navMyAccount: "Můj účet",

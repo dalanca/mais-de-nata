@@ -82,6 +82,7 @@ export default async function handler(
           customer_phone,
           currency,
           total_amount,
+          payment_status,
           production_status,
           accepted_at,
           baking_started_at,

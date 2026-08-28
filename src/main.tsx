@@ -11,9 +11,9 @@ import WholesaleOrder from './pages/WholesaleOrder'
 import Register from './pages/Register'
 import ProductInformation from './pages/ProductInformation'
 import OurPasteis from './pages/OurPasteis'
-import OrderFresh from './pages/OrderFresh'
-import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
+// import OrderFresh from './pages/OrderFresh'
+// import Cart from './pages/Cart'
+// import Checkout from './pages/Checkout'
 import WholesaleAccount from './pages/WholesaleAccount'
 import { LanguageProvider } from './LanguageContext'
 import './App.css'
@@ -114,19 +114,43 @@ ReactDOM.createRoot(
             element={<OurPasteis />}
           />
 
+          {/* =========================================
+    PHASE 2 - ENABLE WHEN CONSUMER ORDERING OPENS
+
+<Route
+  path="/order-fresh"
+  element={<OrderFresh />}
+/>
+
+<Route
+  path="/cart"
+  element={<Cart />}
+/>
+
+<Route
+  path="/checkout"
+  element={<Checkout />}
+/>
+
+========================================= */}
+
+          {/* =========================================
+    PHASE 1 - OPENING SOON
+========================================= */}
+
           <Route
             path="/order-fresh"
-            element={<OrderFresh />}
+            element={<ComingSoon />}
           />
 
           <Route
             path="/cart"
-            element={<Cart />}
+            element={<ComingSoon />}
           />
 
           <Route
             path="/checkout"
-            element={<Checkout />}
+            element={<ComingSoon />}
           />
 
           <Route
