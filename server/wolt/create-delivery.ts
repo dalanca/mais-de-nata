@@ -1,7 +1,9 @@
 import type {
   WoltDeliveryOrder,
 } from './types.js'
-
+import {
+  woltClient,
+} from './client.js'
 type CreateWoltDeliveryInput = {
   shipmentPromiseId: string
 
@@ -60,8 +62,6 @@ export async function createWoltDelivery(
   input: CreateWoltDeliveryInput,
 
 ): Promise<WoltDeliveryOrder> {
-  const accessToken =
-    process.env.WOLT_DRIVE_MERCHANT_KEY
 
   const venueId =
     process.env.WOLT_DRIVE_VENUE_ID
@@ -71,32 +71,16 @@ export async function createWoltDelivery(
       input.merchantOrderReferenceId,
     )
 
-  if (!accessToken) {
-    throw new Error(
-      'WOLT_DRIVE_MERCHANT_KEY is not configured'
-    )
-  }
-
   if (!venueId) {
     throw new Error(
       'WOLT_DRIVE_VENUE_ID is not configured'
     )
   }
 
-  const response = await fetch(
-    `https://daas-public-api.development.dev.woltapi.com/v1/venues/${venueId}/deliveries`,
-    {
-      method: 'POST',
-
-      headers: {
-        'Content-Type':
-          'application/json',
-
-        Authorization:
-          `Bearer ${accessToken}`,
-      },
-
-      body: JSON.stringify({
+  const response =
+    await woltClient.post(
+      `/v1/venues/${venueId}/deliveries`,
+      {
         pickup: {
           comment:
             'Mais de Nata order',
@@ -195,9 +179,8 @@ export async function createWoltDelivery(
           courierOrderNumber,
 
         language: 'en',
-      }),
-    },
-  )
+      },
+    )
 
   const data =
     await response.json()

@@ -181,7 +181,7 @@ export async function createDeliveryForOrder({
                     order.delivery_postcode,
 
                 minPreparationTimeMinutes:
-                    0,
+                    20,
 
                 scheduledDropoffTime,
             })
