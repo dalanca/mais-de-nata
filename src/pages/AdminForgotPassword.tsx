@@ -25,8 +25,8 @@ function AdminForgotPassword() {
         await supabase.auth.resetPasswordForEmail(
           email.trim().toLowerCase(),
           {
-            redirectTo:
-              'http://localhost:5173/admin/reset-password',
+redirectTo:
+  `${window.location.origin}/admin/reset-password`,
           },
         )
 
