@@ -576,6 +576,7 @@ export default function AdminProduction() {
             setSavingDeliverySettings(false)
         }
     }
+
     async function deleteBlackout(
         blackoutId: string,
     ) {
