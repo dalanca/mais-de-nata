@@ -10,7 +10,7 @@ const cs = {
 // navOrderFresh: "Objednat čerstvé",
 
 // PHASE 1 - OPENING SOON
-navOrderFresh: "Již brzy",
+navOrderFresh: "Objednat",
   navWholesale: "Velkoobchod",
   navSignIn: "Přihlásit se",
   navMyAccount: "Můj účet",

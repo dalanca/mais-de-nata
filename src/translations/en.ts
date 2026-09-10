@@ -10,7 +10,7 @@ const en = {
 // navOrderFresh: "Order Fresh",
 
 // PHASE 1 - OPENING SOON
-navOrderFresh: "Opening Soon",
+navOrderFresh: "Order",
   navWholesale: "Wholesale",
   navSignIn: "Sign In",
   navMyAccount: "My Account",
