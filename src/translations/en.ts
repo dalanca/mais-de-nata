@@ -523,7 +523,7 @@ navOrderFresh: "Order",
   checkoutSubtotal: "Subtotal",
   checkoutDelivery: "Delivery",
   checkoutDeliveryCalculated: "Calculated before payment",
-  checkoutTotalBeforeDelivery: "Total before delivery",
+  checkoutTotalBeforeDelivery: "Total",
   checkoutVatIncluded: "Product prices include 12% VAT",
 
   checkoutTermsStart:

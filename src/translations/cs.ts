@@ -366,7 +366,7 @@ navOrderFresh: "Objednat",
   checkoutSubtotal: "Mezisoučet",
   checkoutDelivery: "Doručení",
   checkoutDeliveryCalculated: "Vypočítá se před platbou",
-  checkoutTotalBeforeDelivery: "Celkem bez dopravy",
+  checkoutTotalBeforeDelivery: "Celkem",
   checkoutVatIncluded: "Ceny produktů zahrnují 12 % DPH",
 
   checkoutTermsStart:
