@@ -9,9 +9,9 @@ import SiteHeader from '../components/SiteHeader'
 type BoxSize = 4 | 6 | 12 | 18
 const boxPrices: Record<BoxSize, number> = {
   4: 240,
-  6: 348,
+  6: 350,
   12: 660,
-  18: 936,
+  18: 940,
 }
 const boxSizes: BoxSize[] = [4, 6, 12, 18]
 export default function OrderFresh() {

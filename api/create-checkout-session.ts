@@ -28,9 +28,9 @@ type BoxSize = 4 | 6 | 12 | 18
 
 const trustedBoxPrices: Record<BoxSize, number> = {
   4: 240,
-  6: 348,
+  6: 350,
   12: 660,
-  18: 936,
+  18: 940,
 }
 
 const allowedBoxSizes: BoxSize[] = [4, 6, 12, 18]
