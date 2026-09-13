@@ -44,10 +44,22 @@ function formatCurrency(
   amountInMinorUnits: number,
   currency: string,
 ) {
-  return new Intl.NumberFormat('en-IE', {
-    style: 'currency',
-    currency: currency.toUpperCase(),
-  }).format(amountInMinorUnits / 100)
+  const normalizedCurrency =
+    currency.toUpperCase()
+
+  return new Intl.NumberFormat(
+    normalizedCurrency === 'CZK'
+      ? 'cs-CZ'
+      : 'en-IE',
+    {
+      style: 'currency',
+      currency: normalizedCurrency,
+      minimumFractionDigits:
+        normalizedCurrency === 'CZK'
+          ? 0
+          : 2,
+    },
+  ).format(amountInMinorUnits / 100)
 }
 
 function addDays(
@@ -235,7 +247,27 @@ export default async function handler(
       fulfilmentStatus === 'fulfilled' &&
       existingOrder.fulfilment_status ===
       'confirmed'
+    if (
+      paymentStatus === 'paid' &&
+      existingOrder.fulfilment_status !== 'confirmed'
+    ) {
+      return res.status(400).json({
+        success: false,
+        error:
+          'The order must be confirmed before it can be marked as paid.',
+      })
+    }
 
+    if (
+      fulfilmentStatus === 'fulfilled' &&
+      existingOrder.payment_status !== 'paid'
+    ) {
+      return res.status(400).json({
+        success: false,
+        error:
+          'The order must be paid before it can be marked as delivered.',
+      })
+    }
     let proformaNumber =
       existingOrder.proforma_number
 
@@ -564,7 +596,18 @@ export default async function handler(
               itemsResult.data.map(
                 (item) => ({
                   description:
-                    item.product_name,
+                    updatedOrder.document_language === 'cs'
+                      ? `${item.quantity} ${item.quantity === 1
+                        ? 'karton'
+                        : item.quantity >= 2 &&
+                          item.quantity <= 4
+                          ? 'kartony'
+                          : 'kartonů'
+                      } — ${item.quantity * 72} Pastéis de Nata`
+                      : `${item.quantity} ${item.quantity === 1
+                        ? 'carton'
+                        : 'cartons'
+                      } — ${item.quantity * 72} Pastéis de Nata`,
 
                   quantity:
                     item.quantity,
@@ -1009,7 +1052,18 @@ export default async function handler(
               itemsResult.data.map(
                 (item) => ({
                   description:
-                    item.product_name,
+                    updatedOrder.document_language === 'cs'
+                      ? `${item.quantity} ${item.quantity === 1
+                        ? 'karton'
+                        : item.quantity >= 2 &&
+                          item.quantity <= 4
+                          ? 'kartony'
+                          : 'kartonů'
+                      } — ${item.quantity * 72} Pastéis de Nata`
+                      : `${item.quantity} ${item.quantity === 1
+                        ? 'carton'
+                        : 'cartons'
+                      } — ${item.quantity * 72} Pastéis de Nata`,
 
                   quantity:
                     item.quantity,
@@ -1114,7 +1168,7 @@ export default async function handler(
               ${safeInvoiceNumber}<br />
 
               <strong>Zbývá uhradit:</strong>
-              €0.00
+              ${formatCurrency(0, updatedOrder.currency)}
             </td>
           </tr>
         </table>
@@ -1181,7 +1235,7 @@ export default async function handler(
               ${safeInvoiceNumber}<br />
 
               <strong>Balance due:</strong>
-              €0.00
+              ${formatCurrency(0, updatedOrder.currency)}
             </td>
           </tr>
         </table>

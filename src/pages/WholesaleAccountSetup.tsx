@@ -75,7 +75,7 @@ const { error: profileError } = await supabase
     account_status: 'active',
     updated_at: new Date().toISOString(),
   })
-  .eq('id', user.id)
+    .eq('auth_user_id', user.id)
 
 if (profileError) {
   throw profileError

@@ -553,20 +553,21 @@ function AdminOrders() {
                           ) && (
 
                               <div className="adminOrderActions">
-                                {order.payment_status === 'pending' && (
-                                  <button
-                                    type="button"
-                                    className="adminOrderConfirmButton adminOrderActionButton"
-                                    disabled={updatingOrderId === order.id}
-                                    onClick={() =>
-                                      handleMarkPaid(order.id)
-                                    }
-                                  >
-                                    {updatingOrderId === order.id
-                                      ? 'Updating...'
-                                      : 'Mark as Paid'}
-                                  </button>
-                                )}
+                                {order.payment_status === 'pending' &&
+                                  order.fulfilment_status === 'confirmed' && (
+                                    <button
+                                      type="button"
+                                      className="adminOrderConfirmButton adminOrderActionButton"
+                                      disabled={updatingOrderId === order.id}
+                                      onClick={() =>
+                                        handleMarkPaid(order.id)
+                                      }
+                                    >
+                                      {updatingOrderId === order.id
+                                        ? 'Updating...'
+                                        : 'Mark as Paid'}
+                                    </button>
+                                  )}
 
                                 {order.fulfilment_status === 'pending' && (
                                   <button
@@ -582,20 +583,21 @@ function AdminOrders() {
                                       : 'Confirm Order'}
                                   </button>
                                 )}
-                                {order.fulfilment_status === 'confirmed' && (
-                                  <button
-                                    type="button"
-                                    className="adminOrderConfirmButton adminOrderActionButton"
-                                    disabled={updatingOrderId === order.id}
-                                    onClick={() =>
-                                      handleMarkDelivered(order.id)
-                                    }
-                                  >
-                                    {updatingOrderId === order.id
-                                      ? 'Updating...'
-                                      : 'Mark as Delivered'}
-                                  </button>
-                                )}
+                                {order.fulfilment_status === 'confirmed' &&
+                                  order.payment_status === 'paid' && (
+                                    <button
+                                      type="button"
+                                      className="adminOrderConfirmButton adminOrderActionButton"
+                                      disabled={updatingOrderId === order.id}
+                                      onClick={() =>
+                                        handleMarkDelivered(order.id)
+                                      }
+                                    >
+                                      {updatingOrderId === order.id
+                                        ? 'Updating...'
+                                        : 'Mark as Delivered'}
+                                    </button>
+                                  )}
                               </div>
                             )}
                         </div>

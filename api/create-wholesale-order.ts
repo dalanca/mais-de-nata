@@ -56,8 +56,7 @@ export default async function handler(
     if (
       !wholesaleCustomerId ||
       !Number.isInteger(boxes) ||
-      boxes < 5 ||
-      boxes > 24 ||
+      boxes < 1 ||
       !contactName?.trim() ||
       !email?.trim() ||
       !deliveryAddress?.trim()
@@ -175,8 +174,17 @@ export default async function handler(
         ? customer.company_city
         : customer.delivery_city
 
+    const pricePerNata =
+      boxes >= 25
+        ? 28
+        : boxes >= 10
+          ? 30
+          : boxes >= 5
+            ? 32
+            : 34
+
     const pricePerBox =
-      boxes >= 10 ? 75 : 79
+      pricePerNata * 72
 
     const totalAmount =
       boxes * pricePerBox * 100
@@ -219,7 +227,7 @@ export default async function handler(
 
         payment_status: 'pending',
         fulfilment_status: 'pending',
-        currency: 'EUR',
+        currency: 'CZK',
         total_amount: totalAmount,
         sales_channel: 'WholesaleWebsite',
 
@@ -273,7 +281,7 @@ export default async function handler(
       safeDocumentLanguage === 'cs'
 
     const formattedTotal =
-      `€${(totalAmount / 100).toFixed(2)}`
+      `${(totalAmount / 100).toLocaleString('cs-CZ')} Kč`
 
     const emailSubject = isCzech
       ? `Velkoobchodní objednávka přijata — ${order.order_number}`

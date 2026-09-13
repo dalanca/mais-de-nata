@@ -26,8 +26,7 @@ function WholesaleForgotPassword() {
         await supabase.auth.resetPasswordForEmail(
           email.trim().toLowerCase(),
           {
-            redirectTo:
-              'http://localhost:5173/wholesale-reset-password',
+            redirectTo: `${window.location.origin}/wholesale-reset-password`,
           },
         )
 
@@ -42,7 +41,7 @@ function WholesaleForgotPassword() {
         err,
       )
 
-     setError(t.wholesaleForgotSendError)
+      setError(t.wholesaleForgotSendError)
     } finally {
       setIsSending(false)
     }
@@ -55,22 +54,22 @@ function WholesaleForgotPassword() {
       <main className="wholesaleForgotPage">
         <section className="wholesaleForgotCard">
           <p className="wholesaleForgotEyebrow">
-              {t.wholesaleForgotEyebrow}
+            {t.wholesaleForgotEyebrow}
           </p>
 
           <h1>{t.wholesaleForgotTitle}</h1>
 
-         <p className="wholesaleForgotIntro">
-          {t.wholesaleForgotIntro}
-        </p>
+          <p className="wholesaleForgotIntro">
+            {t.wholesaleForgotIntro}
+          </p>
 
           {emailSent ? (
             <div className="wholesaleForgotSuccess">
               <h2>{t.wholesaleForgotSuccessTitle}</h2>
 
-             <p>
+              <p>
                 {t.wholesaleForgotSuccessText}
-            </p>
+              </p>
 
               <a
                 href="/wholesale-sign-in"

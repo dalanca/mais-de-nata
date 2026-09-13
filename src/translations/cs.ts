@@ -7,10 +7,10 @@ const cs = {
   navContact: "Kontakt",
   navOurPasteis: "Naše Pastéis",
   // PHASE 2 - ENABLE WHEN CONSUMER ORDERING OPENS
-// navOrderFresh: "Objednat čerstvé",
+  // navOrderFresh: "Objednat čerstvé",
 
-// PHASE 1 - OPENING SOON
-navOrderFresh: "Objednat",
+  // PHASE 1 - OPENING SOON
+  navOrderFresh: "Objednat",
   navWholesale: "Velkoobchod",
   navSignIn: "Přihlásit se",
   navMyAccount: "Můj účet",
@@ -777,9 +777,10 @@ navOrderFresh: "Objednat",
   wholesaleStep4: "Mražená dodávka",
 
   wholesalePricingTitle: "Velkoobchodní ceny",
-  wholesalePricingTier1: "5–9 ks",
-  wholesalePricingTier2: "10–24 ks",
-  wholesalePricingTier3: "25+ ks",
+  wholesalePricingTier0: "1–4 kartony",
+  wholesalePricingTier1: "5–9 kartonů",
+  wholesalePricingTier2: "10–24 kartonů",
+  wholesalePricingTier3: "25+ kartonů",
   wholesaleCustomQuote: "Individuální nabídka",
 
   wholesaleDeliveryTitle: 'Doručení a vyzvednutí',
@@ -806,7 +807,7 @@ navOrderFresh: "Objednat",
   orderSummaryNote2: "DPH bude vypočtena na konečné faktuře, pokud je účtována.",
   orderSummaryNote3: "Náklady na dopravu jsou účtovány zvlášť.",
   orderSummaryNote4: "72 Pastéis de Nata v kartonu • Trvanlivost 6 měsíců při zmrazení",
-  pricePerUnit: "/ ks",
+  pricePerUnit: "/ nata",
   submitOrderButton: "Odeslat objednávku",
 
   // Company Details

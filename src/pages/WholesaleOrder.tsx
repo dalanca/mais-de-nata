@@ -13,7 +13,7 @@ function WholesaleOrder() {
   const selectedCompanyId =
     searchParams.get("company")
 
-  const [boxes, setBoxes] = useState(5)
+  const [boxes, setBoxes] = useState(1)
 
   const [wholesaleCustomerId, setWholesaleCustomerId] =
     useState("")
@@ -47,7 +47,16 @@ function WholesaleOrder() {
   const [submitError, setSubmitError] =
     useState("")
 
-  const pricePerBox = boxes >= 10 ? 75 : 79
+  const pricePerNata =
+    boxes >= 25
+      ? 28
+      : boxes >= 10
+        ? 30
+        : boxes >= 5
+          ? 32
+          : 34
+
+  const pricePerBox = pricePerNata * 72
   const orderTotal = boxes * pricePerBox
   const totalNatas = boxes * 72
 
@@ -167,8 +176,8 @@ function WholesaleOrder() {
 
         setEmail(
           customer.email ??
-            user.email ??
-            "",
+          user.email ??
+          "",
         )
 
         setPhone(
@@ -301,18 +310,18 @@ function WholesaleOrder() {
             Authorization:
               `Bearer ${session.access_token}`,
           },
-body: JSON.stringify({
-  wholesaleCustomerId,
+          body: JSON.stringify({
+            wholesaleCustomerId,
 
-  boxes,
-  contactName,
-  email,
-  phone,
-  deliveryAddress,
-  notes,
+            boxes,
+            contactName,
+            email,
+            phone,
+            deliveryAddress,
+            notes,
 
-  documentLanguage: language,
-}),
+            documentLanguage: language,
+          }),
         },
       )
 
@@ -321,7 +330,7 @@ body: JSON.stringify({
       if (!response.ok || !result.success) {
         throw new Error(
           result.error ??
-            "Unable to submit your wholesale order.",
+          "Unable to submit your wholesale order.",
         )
       }
 
@@ -446,11 +455,20 @@ body: JSON.stringify({
                     <div className="wholesaleCard">
                       <h4 className="wholesaleCardTitle">
                         <span className="wholesaleCardIcon">
-                          €
+                          Kč
                         </span>
 
                         {t.wholesalePricingTitle}
                       </h4>
+                      <p>
+                        <strong>
+                          {t.wholesalePricingTier0}
+                        </strong>
+
+                        <span>
+                          34 Kč {t.pricePerUnit}
+                        </span>
+                      </p>
 
                       <p>
                         <strong>
@@ -458,7 +476,7 @@ body: JSON.stringify({
                         </strong>
 
                         <span>
-                          €79 {t.pricePerUnit}
+                          32 Kč {t.pricePerUnit}
                         </span>
                       </p>
 
@@ -468,7 +486,7 @@ body: JSON.stringify({
                         </strong>
 
                         <span>
-                          €75 {t.pricePerUnit}
+                          30 Kč {t.pricePerUnit}
                         </span>
                       </p>
 
@@ -478,7 +496,7 @@ body: JSON.stringify({
                         </strong>
 
                         <span>
-                          {t.wholesaleCustomQuote}
+                          28 Kč {t.pricePerUnit}
                         </span>
                       </p>
                     </div>
@@ -508,31 +526,19 @@ body: JSON.stringify({
                         {t.orderSummaryTitle}
                       </h4>
 
-                      <select
+                      <input
                         id="wholesaleBoxes"
                         name="wholesaleBoxes"
+                        type="number"
+                        min="1"
+                        step="1"
                         value={boxes}
                         onChange={(event) =>
                           setBoxes(
-                            Number(
-                              event.target.value,
-                            ),
+                            Number(event.target.value),
                           )
                         }
-                      >
-                        {Array.from(
-                          { length: 20 },
-                          (_, index) =>
-                            index + 5,
-                        ).map((quantity) => (
-                          <option
-                            key={quantity}
-                            value={quantity}
-                          >
-                            {quantity} {t.boxUnit}
-                          </option>
-                        ))}
-                      </select>
+                      />
                     </div>
 
                     <div className="wholesaleSummaryRows">
@@ -562,7 +568,7 @@ body: JSON.stringify({
                         </span>
 
                         <strong>
-                          €{pricePerBox}
+                          {pricePerBox.toLocaleString("cs-CZ")} Kč
                         </strong>
                       </p>
                     </div>
@@ -573,7 +579,7 @@ body: JSON.stringify({
                       </span>
 
                       <strong>
-                        €{orderTotal}
+                        {orderTotal.toLocaleString("cs-CZ")} Kč
                       </strong>
                     </div>
 

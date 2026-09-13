@@ -147,31 +147,31 @@ export async function createBrandedPdf(): Promise<BrandedPdfContext> {
     'Mais de Nata',
   )
 
-document.registerFontkit(fontkit)
+  document.registerFontkit(fontkit)
 
-const [
-  regularFontBytes,
-  boldFontBytes,
-] = await Promise.all([
-  readFile(regularFontPath),
-  readFile(boldFontPath),
-])
-
-const regularFont =
-  await document.embedFont(
+  const [
     regularFontBytes,
-    {
-      subset: true,
-    },
-  )
-
-const boldFont =
-  await document.embedFont(
     boldFontBytes,
-    {
-      subset: true,
-    },
-  )
+  ] = await Promise.all([
+    readFile(regularFontPath),
+    readFile(boldFontPath),
+  ])
+
+  const regularFont =
+    await document.embedFont(
+      regularFontBytes,
+      {
+        subset: true,
+      },
+    )
+
+  const boldFont =
+    await document.embedFont(
+      boldFontBytes,
+      {
+        subset: true,
+      },
+    )
 
   const logo = await loadLogo(document)
 
@@ -331,7 +331,7 @@ export function drawTextLine(
 
   const colour =
     colours[
-      options?.colour ?? 'darkText'
+    options?.colour ?? 'darkText'
     ]
 
   context.page.drawText(text, {
@@ -554,11 +554,22 @@ export function formatPdfCurrency(
   amountInMinorUnits: number,
   currency: string,
 ) {
-  return new Intl.NumberFormat('en-IE', {
-    style: 'currency',
-    currency: currency.toUpperCase(),
-    minimumFractionDigits: 2,
-  }).format(amountInMinorUnits / 100)
+  const normalizedCurrency =
+    currency.toUpperCase()
+
+  return new Intl.NumberFormat(
+    normalizedCurrency === 'CZK'
+      ? 'cs-CZ'
+      : 'en-IE',
+    {
+      style: 'currency',
+      currency: normalizedCurrency,
+      minimumFractionDigits:
+        normalizedCurrency === 'CZK'
+          ? 0
+          : 2,
+    },
+  ).format(amountInMinorUnits / 100)
 }
 
 export function formatPdfDate(
