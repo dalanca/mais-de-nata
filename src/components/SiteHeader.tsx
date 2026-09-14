@@ -60,10 +60,6 @@ export default function SiteHeader() {
                 {t.navWholesale}
               </Link>
 
-              <Link to="/product-information">
-                {t.navWholesaleProductInfo}
-              </Link>
-
               {isSignedIn ? (
                 <>
                   <Link to="/wholesale-account">
@@ -92,17 +88,23 @@ export default function SiteHeader() {
             </>
           ) : (
             <>
-              <Link to="/our-pasteis">
-                {t.navOurPasteis}
-              </Link>
+              <>
+                <Link to="/our-pasteis">
+                  {t.navOurPasteis}
+                </Link>
 
-              <Link to="/order-fresh">
-                {t.navOrderFresh}
-              </Link>
+                <Link to="/order-fresh">
+                  {t.navOrderFresh}
+                </Link>
 
-              <Link to="/contact">
-                {t.navContact}
-              </Link>
+                <Link to="/wholesale">
+                  {t.navWholesale}
+                </Link>
+
+                <Link to="/contact">
+                  {t.navContact}
+                </Link>
+              </>
             </>
           )}
 

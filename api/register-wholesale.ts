@@ -8,6 +8,7 @@ type WholesaleRegistrationRequest = {
   contactName: string
   email: string
   phone: string
+  password?: string
   language?: 'en' | 'cs'
 
   deliverySameAsCompany: boolean
@@ -65,6 +66,9 @@ export default async function handler(
 
     const phone =
       body.phone?.trim() ?? ''
+
+    const password =
+      body.password ?? ''
 
     const language =
       body.language === 'cs' ? 'cs' : 'en'
@@ -171,8 +175,16 @@ export default async function handler(
       ? authorizationHeader.slice(7)
       : null
 
+    if (!accessToken && password.length < 8) {
+      return response.status(400).json({
+        success: false,
+        message:
+          'Password must be at least 8 characters.',
+      })
+    }
+
     let userId: string | null = null
-    let invitedNewUser = false
+    let createdNewUser = false
 
     if (accessToken) {
       const {
@@ -207,34 +219,29 @@ export default async function handler(
 
       userId = authenticatedUser.id
     } else {
-      // A person who does not yet have an account receives an invitation.
       const {
-        data: inviteData,
-        error: inviteError,
+        data: createUserData,
+        error: createUserError,
       } =
-        await supabaseAdmin.auth.admin.inviteUserByEmail(
+        await supabaseAdmin.auth.admin.createUser({
           email,
-          {
-            redirectTo: `${process.env.SITE_URL ||
-              'http://localhost:5173'
-              }/wholesale-account-setup`,
-
-            data: {
-              contact_name: contactName,
-              company_id: company.ico,
-              company_name: company.companyName,
-            },
+          password,
+          email_confirm: true,
+          user_metadata: {
+            contact_name: contactName,
+            company_id: company.ico,
+            company_name: company.companyName,
           },
-        )
+        })
 
-      if (inviteError) {
+      if (createUserError) {
         console.error(
-          'Wholesale user invitation failed:',
-          inviteError,
+          'Wholesale user creation failed:',
+          createUserError,
         )
 
         const existingUser =
-          inviteError.message
+          createUserError.message
             .toLowerCase()
             .includes('already')
 
@@ -242,12 +249,12 @@ export default async function handler(
           success: false,
           message: existingUser
             ? 'An account already exists for this email. Please sign in before registering another company.'
-            : inviteError.message,
+            : createUserError.message,
         })
       }
 
-      userId = inviteData.user?.id ?? null
-      invitedNewUser = true
+      userId = createUserData.user?.id ?? null
+      createdNewUser = true
     }
 
     if (!userId) {
@@ -320,9 +327,9 @@ export default async function handler(
         profileError,
       )
 
-      // Only remove the Auth user when this request created 
-      // // a brand-new invitation.
-      if (invitedNewUser) {
+      // Only remove the Auth user when this request
+      // created a brand-new account.
+      if (createdNewUser) {
         await supabaseAdmin.auth.admin.deleteUser(userId)
       }
 

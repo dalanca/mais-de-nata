@@ -29,12 +29,6 @@ export default function Wholesale() {
                         </p>
 
                         <div className="wholesaleLandingActions">
-                            <Link
-                                to="/product-information"
-                                className="wholesaleLandingPrimary"
-                            >
-                                {t.wholesaleLandingProductInfo}
-                            </Link>
 
                             <Link
                                 to="/register"

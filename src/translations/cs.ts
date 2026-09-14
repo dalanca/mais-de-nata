@@ -10,7 +10,7 @@ const cs = {
   // navOrderFresh: "Objednat čerstvé",
 
   // PHASE 1 - OPENING SOON
-  navOrderFresh: "Objednat",
+  navOrderFresh: "Objednávka zákazníka",
   navWholesale: "Velkoobchod",
   navSignIn: "Přihlásit se",
   navMyAccount: "Můj účet",
@@ -461,6 +461,13 @@ const cs = {
   wholesaleRegisterEmail: "E-mail *",
   wholesaleRegisterPhone: "Telefon *",
 
+  wholesaleRegisterPassword: "Vytvořit heslo *",
+  wholesaleRegisterConfirmPassword: "Potvrdit heslo *",
+  wholesaleRegisterPasswordHelp:
+    "Použijte alespoň 8 znaků.",
+  wholesaleRegisterPasswordMismatch:
+    "Hesla se neshodují.",
+
   wholesaleRegisterDeliverySection: "Dodací adresa",
   wholesaleRegisterDeliverySame:
     "Dodací adresa je stejná jako adresa společnosti",
@@ -480,7 +487,7 @@ const cs = {
   wholesaleRegisterSubmitting: "Odesílání...",
 
   wholesaleRegisterSubmissionSuccess:
-    "Registrace společnosti byla úspěšná. Váš velkoobchodní přístup je nyní aktivní.",
+    "Registrace byla úspěšná. Váš velkoobchodní účet je připraven. Nyní se můžete přihlásit pomocí svého e-mailu a hesla.",
 
   wholesaleRegisterSubmissionError:
     "Registraci se nepodařilo dokončit. Zkuste to prosím znovu.",

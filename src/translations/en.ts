@@ -7,10 +7,10 @@ const en = {
   navContact: "Contact",
   navOurPasteis: "Our Pastéis",
   // PHASE 2 - ENABLE WHEN CONSUMER ORDERING OPENS
-// navOrderFresh: "Order Fresh",
+  // navOrderFresh: "Order Fresh",
 
-// PHASE 1 - OPENING SOON
-navOrderFresh: "Order",
+  // PHASE 1 - OPENING SOON
+  navOrderFresh: "Customer Order",
   navWholesale: "Wholesale",
   navSignIn: "Sign In",
   navMyAccount: "My Account",
@@ -64,6 +64,13 @@ navOrderFresh: "Order",
   wholesaleRegisterEmail: "Email Address *",
   wholesaleRegisterPhone: "Telephone *",
 
+  wholesaleRegisterPassword: "Create Password *",
+  wholesaleRegisterConfirmPassword: "Confirm Password *",
+  wholesaleRegisterPasswordHelp:
+    "Use at least 8 characters.",
+  wholesaleRegisterPasswordMismatch:
+    "Passwords do not match.",
+
   wholesaleRegisterDeliverySection: "Delivery Address",
   wholesaleRegisterDeliverySame:
     "Delivery address is the same as company address",
@@ -78,7 +85,7 @@ navOrderFresh: "Order",
     "Immediate Wholesale Access",
 
   wholesaleRegisterSubmissionSuccess:
-    "Company registration successful. You can now access wholesale pricing and place orders.",
+    "Registration successful. Your wholesale account is ready. You can now sign in using your email address and password.",
 
   wholesaleRegisterApprovalText:
     "Companies successfully verified through ARES receive immediate access to wholesale pricing and ordering.",
@@ -86,7 +93,7 @@ navOrderFresh: "Order",
   wholesaleRegisterSubmitting: "Submitting...",
 
   wholesaleRegisterSuccess:
-    'Company registration successful. Your wholesale access is now active.',
+    'Registration successful. Your wholesale account is ready to use.',
 
   wholesaleRegisterSubmissionError:
     "We could not complete your registration. Please try again.",

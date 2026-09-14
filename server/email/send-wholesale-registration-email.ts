@@ -19,41 +19,45 @@ export async function sendWholesaleRegistrationEmail({
 }: Props) {
   const subject =
     language === 'cs'
-      ? 'Vítejte v Mais de Nata'
-      : 'Welcome to Mais de Nata'
+      ? 'Váš velkoobchodní účet Mais de Nata je připraven'
+      : 'Your Mais de Nata Wholesale Account is Ready'
 
   const html =
     language === 'cs'
       ? `
-        <h2>Vítejte v Mais de Nata!</h2>
+      <h2>Váš velkoobchodní účet je připraven</h2>
 
-        <p>Dobrý den ${contactName},</p>
+      <p>Dobrý den ${contactName},</p>
 
-        <p>Děkujeme za registraci společnosti <strong>${companyName}</strong>.</p>
+      <p>Registrace společnosti <strong>${companyName}</strong> byla úspěšně dokončena.</p>
 
-        <p>Váš velkoobchodní účet byl úspěšně vytvořen.</p>
+      <p>Váš velkoobchodní účet Mais de Nata byl vytvořen a aktivován.</p>
 
-        <p>Nyní se můžete přihlásit a zadávat objednávky.</p>
+      <p>Nyní se můžete přihlásit pomocí své kontaktní e-mailové adresy a hesla, které jste vytvořili při registraci.</p>
 
-        <br>
+      <p>Po přihlášení budete mít přístup k velkoobchodním cenám a objednávkám.</p>
 
-        <p>Mais de Nata</p>
-      `
+      <br>
+
+      <p>Mais de Nata</p>
+    `
       : `
-        <h2>Welcome to Mais de Nata!</h2>
+      <h2>Your wholesale account is ready</h2>
 
-        <p>Dear ${contactName},</p>
+      <p>Dear ${contactName},</p>
 
-        <p>Thank you for registering <strong>${companyName}</strong>.</p>
+      <p>Your registration for <strong>${companyName}</strong> has been successfully completed.</p>
 
-        <p>Your wholesale account has been successfully created.</p>
+      <p>Your Mais de Nata wholesale account has been created and activated.</p>
 
-        <p>You can now sign in and place wholesale orders.</p>
+      <p>You can now sign in using your contact email address and the password you created during registration.</p>
 
-        <br>
+      <p>Once signed in, you will have access to wholesale pricing and ordering.</p>
 
-        <p>Mais de Nata</p>
-      `
+      <br>
+
+      <p>Mais de Nata</p>
+    `
 
   return resend.emails.send({
     from: EMAIL_FROM,
