@@ -8,6 +8,9 @@ import { supabase } from '../lib/supabaseClient'
 function Register() {
   const { t, language } = useLanguage()
   const [isSignedIn, setIsSignedIn] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState(false)
 
   const [deliverySameAsCompany, setDeliverySameAsCompany] =
     useState(true)
@@ -345,23 +348,77 @@ function Register() {
 
                     {!isSignedIn && (
                       <>
-                        <input
-                          name="password"
-                          type="password"
-                          placeholder={t.wholesaleRegisterPassword}
-                          minLength={8}
-                          autoComplete="new-password"
-                          required
-                        />
+                        <div className="wholesalePasswordField">
+                          <input
+                            name="password"
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder={t.wholesaleRegisterPassword}
+                            minLength={8}
+                            autoComplete="new-password"
+                            required
+                          />
 
-                        <input
-                          name="confirmPassword"
-                          type="password"
-                          placeholder={t.wholesaleRegisterConfirmPassword}
-                          minLength={8}
-                          autoComplete="new-password"
-                          required
-                        />
+                          <button
+                            type="button"
+                            className="wholesalePasswordToggle"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={
+                              showPassword
+                                ? t.wholesaleRegisterHidePassword
+                                : t.wholesaleRegisterShowPassword
+                            }
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                          </button>
+                        </div>
+
+                        <div className="wholesalePasswordField">
+                          <input
+                            name="confirmPassword"
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            placeholder={t.wholesaleRegisterConfirmPassword}
+                            minLength={8}
+                            autoComplete="new-password"
+                            required
+                          />
+
+                          <button
+                            type="button"
+                            className="wholesalePasswordToggle"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                            aria-label={
+                              showConfirmPassword
+                                ? t.wholesaleRegisterHidePassword
+                                : t.wholesaleRegisterShowPassword
+                            }
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z" />
+                              <circle cx="12" cy="12" r="3" />
+                            </svg>
+                          </button>
+                        </div>
 
                         <p className="wholesaleRegistrationHint">
                           {t.wholesaleRegisterPasswordHelp}

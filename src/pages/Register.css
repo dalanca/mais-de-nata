@@ -165,11 +165,9 @@
   padding: 18px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    #1f1f1f 0%,
-    #242424 100%
-  );
+  background: linear-gradient(90deg,
+      #1f1f1f 0%,
+      #242424 100%);
   color: white;
   font-size: 18px;
   font-weight: 700;
@@ -312,6 +310,7 @@
     font-size: 16px;
   }
 }
+
 /* =====================================
    WHOLESALE REGISTRATION
 ===================================== */
@@ -381,6 +380,35 @@
   font-size: 16px;
 }
 
+.wholesalePasswordField {
+  position: relative;
+}
+
+.wholesalePasswordField input {
+  padding-right: 50px;
+}
+
+.wholesalePasswordToggle {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  width: 42px;
+  height: 50px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+}
+
+.wholesalePasswordToggle svg {
+  width: 20px;
+  height: 20px;
+}
+
 .contactFormTwoColumns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -447,7 +475,7 @@
   padding: 10px 0;
 }
 
-.wholesaleMiniStep > span {
+.wholesaleMiniStep>span {
   width: 30px;
   height: 30px;
   flex: 0 0 30px;
@@ -500,11 +528,12 @@
   .wholesaleRegistrationHeader h2 {
     font-size: 36px;
   }
+
   .wholesaleRegistrationColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -534,6 +563,7 @@
     font-size: 23px;
   }
 }
+
 /* =====================================
    ARES COMPANY VERIFICATION
 ===================================== */
@@ -604,6 +634,7 @@
     width: 100%;
   }
 }
+
 .wholesaleRegistrationSubmit:disabled {
   opacity: 0.5;
   cursor: not-allowed;

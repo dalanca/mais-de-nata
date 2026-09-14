@@ -70,7 +70,8 @@ const en = {
     "Use at least 8 characters.",
   wholesaleRegisterPasswordMismatch:
     "Passwords do not match.",
-
+  wholesaleRegisterShowPassword: "Show password",
+  wholesaleRegisterHidePassword: "Hide password",
   wholesaleRegisterDeliverySection: "Delivery Address",
   wholesaleRegisterDeliverySame:
     "Delivery address is the same as company address",

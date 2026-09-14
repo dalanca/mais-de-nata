@@ -468,6 +468,9 @@ const cs = {
   wholesaleRegisterPasswordMismatch:
     "Hesla se neshodují.",
 
+  wholesaleRegisterShowPassword: "Zobrazit heslo",
+  wholesaleRegisterHidePassword: "Skrýt heslo",
+
   wholesaleRegisterDeliverySection: "Dodací adresa",
   wholesaleRegisterDeliverySame:
     "Dodací adresa je stejná jako adresa společnosti",
