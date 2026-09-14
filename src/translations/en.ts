@@ -75,7 +75,9 @@ const en = {
   wholesaleRegisterDeliverySection: "Delivery Address",
   wholesaleRegisterDeliverySame:
     "Delivery address is the same as company address",
-
+  wholesaleAccountEditCompany: "Edit Company Details",
+  wholesaleAccountSaveChanges: "Save Changes",
+  wholesaleAccountCancelEdit: "Cancel Edit",
   wholesaleRegisterBusinessSection: "About Your Business",
   wholesaleRegisterBusinessPlaceholder:
     "Tell us briefly about your business — for example café, bakery, hotel, retailer, restaurant or other operation.",

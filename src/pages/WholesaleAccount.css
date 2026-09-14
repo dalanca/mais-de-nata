@@ -101,6 +101,51 @@
   grid-column: 1 / -1;
 }
 
+.wholesaleAccountDetail input[type="text"],
+.wholesaleAccountDetail input[type="tel"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8d0cb;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #4e312d;
+  background: #ffffff;
+}
+
+.wholesaleAccountAddressFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.wholesaleAccountAddressFields input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8d0cb;
+  border-radius: 12px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #4e312d;
+  background: #ffffff;
+}
+
+.wholesaleAccountAddressFields label {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4e312d;
+  font-weight: 700;
+}
+
+.wholesaleAccountAddressFields label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
 .wholesaleAccountOrders {
   display: grid;
   gap: 18px;
@@ -249,6 +294,7 @@
     width: 100%;
   }
 }
+
 @media (max-width: 700px) {
   .wholesaleAccountPage {
     padding: 40px 16px;

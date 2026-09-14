@@ -474,7 +474,9 @@ const cs = {
   wholesaleRegisterDeliverySection: "Dodací adresa",
   wholesaleRegisterDeliverySame:
     "Dodací adresa je stejná jako adresa společnosti",
-
+  wholesaleAccountEditCompany: "Upravit údaje společnosti",
+  wholesaleAccountSaveChanges: "Uložit změny",
+  wholesaleAccountCancelEdit: "Zrušit úpravy",
   wholesaleRegisterBusinessSection: "O vaší společnosti",
   wholesaleRegisterBusinessPlaceholder:
     "Stručně nám popište svůj podnik — například kavárna, pekárna, hotel, maloobchod, restaurace nebo jiný provoz.",
