@@ -431,13 +431,13 @@ const cs = {
 
   wholesaleRegisterHowItWorks: "Jak to funguje",
   wholesaleRegisterStep1:
-    "Odešlete údaje o společnosti a kontaktní údaje.",
+    "Zadejte údaje o společnosti a kontaktní údaje a vytvořte si heslo.",
   wholesaleRegisterStep2:
-    "Vaši registraci zkontrolujeme a ověříme.",
+    "Ověřte svou společnost okamžitě prostřednictvím ARES.",
   wholesaleRegisterStep3:
-    "Po schválení aktivujeme váš velkoobchodní přístup.",
+    "Odešlete registraci a aktivujte svůj velkoobchodní účet.",
   wholesaleRegisterStep4:
-    "Získáte přístup k produktům, cenám a velkoobchodním objednávkám.",
+    "Přihlaste se a získejte přístup k velkoobchodním cenám a objednávkám.",
 
   wholesaleRegisterFormTitle: "Velkoobchodní registrace",
   wholesaleRegisterFormIntro:

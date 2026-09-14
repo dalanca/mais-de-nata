@@ -34,13 +34,13 @@ const en = {
 
   wholesaleRegisterHowItWorks: "How It Works",
   wholesaleRegisterStep1:
-    "Submit your company and contact details.",
+    "Enter your company and contact details and create your password.",
   wholesaleRegisterStep2:
-    "We review and verify your business registration.",
+    "Verify your company instantly through ARES.",
   wholesaleRegisterStep3:
-    "Once approved, your wholesale access is activated.",
+    "Submit your registration to activate your wholesale account.",
   wholesaleRegisterStep4:
-    "Access wholesale products, pricing and ordering.",
+    "Sign in to access wholesale pricing and ordering.",
 
   wholesaleRegisterFormTitle: "Wholesale Registration",
   wholesaleRegisterFormIntro:
