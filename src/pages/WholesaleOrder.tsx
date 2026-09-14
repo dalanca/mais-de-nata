@@ -585,14 +585,6 @@ function WholesaleOrder() {
 
                     <div className="wholesaleNotes">
                       <p>
-                        {t.orderSummaryNote1}
-                      </p>
-
-                      <p>
-                        {t.orderSummaryNote2}
-                      </p>
-
-                      <p>
                         {t.orderSummaryNote3}
                       </p>
 
