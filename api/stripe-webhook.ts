@@ -14,6 +14,10 @@ import {
   sendConsumerOrderConfirmationOnce,
 } from '../server/email/send-consumer-order-confirmation-once.js'
 
+import {
+  sendNewConsumerOrderNotificationOnce,
+} from '../server/notifications/send-new-consumer-order-notification-once.js'
+
 if (!stripeSecretKey) {
   throw new Error('STRIPE_SECRET_KEY is not configured')
 }
@@ -306,6 +310,60 @@ export default {
               console.error(
                 'Consumer confirmation email failed:',
                 emailError,
+              )
+            }
+            try {
+              await sendNewConsumerOrderNotificationOnce({
+                orderId:
+                  result.order.id,
+
+                orderNumber:
+                  result.order.orderNumber,
+
+                customerName:
+                  channelOrder.customer.name,
+
+                totalAmount:
+                  channelOrder.totalAmount,
+
+                currency:
+                  channelOrder.currency,
+
+                items:
+                  channelOrder.items.map((item) => ({
+                    productName:
+                      item.productName,
+
+                    quantity:
+                      item.quantity,
+                  })),
+
+                deliveryAddress,
+
+                deliveryDate:
+                  channelOrder.delivery.date,
+
+                deliveryTime:
+                  channelOrder.delivery.time,
+
+                trackingUrl:
+                  woltState.trackingUrl ??
+                  undefined,
+              })
+
+              console.log(
+                'Telegram order notification processed:',
+                {
+                  orderId:
+                    result.order.id,
+                  orderNumber:
+                    result.order.orderNumber,
+                },
+              )
+            } catch (telegramError) {
+              console.error(
+                'Telegram order notification failed:',
+                telegramError,
               )
             }
           }
