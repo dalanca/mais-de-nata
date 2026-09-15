@@ -247,6 +247,32 @@ export default async function handler(
       fulfilmentStatus === 'fulfilled' &&
       existingOrder.fulfilment_status ===
       'confirmed'
+    /*
+* Enforce forward-only wholesale order transitions.
+* Statuses must never be moved backwards.
+*/
+    if (
+      fulfilmentStatus &&
+      !becameConfirmed &&
+      !becameDelivered
+    ) {
+      return res.status(400).json({
+        success: false,
+        error:
+          'Invalid fulfilment status transition.',
+      })
+    }
+
+    if (
+      paymentStatus &&
+      !becamePaid
+    ) {
+      return res.status(400).json({
+        success: false,
+        error:
+          'Invalid payment status transition.',
+      })
+    }
     if (
       paymentStatus === 'paid' &&
       existingOrder.fulfilment_status !== 'confirmed'
