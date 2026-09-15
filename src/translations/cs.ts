@@ -779,7 +779,7 @@ const cs = {
   wholesaleHeroText:
     "Autentické portugalské Pastéis de Nata, ručně vyráběné v Portugalsku a dodávané zmrazené po celé České republice.",
   wholesaleBadgeUnits: "72 ks / karton",
-  wholesaleBadgeMinimum: "Minimum 5 kartonů",
+  wholesaleBadgeMinimum: "Množstevní slevy",
   wholesaleBadgeFrozen: "Mražená dodávka",
 
   wholesaleProcessTitle: "Proces objednávky",

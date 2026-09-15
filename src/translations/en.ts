@@ -625,7 +625,7 @@ const en = {
   wholesaleHeroText:
     "Authentic Portuguese Pastéis de Nata, produced in Portugal and delivered frozen throughout the Czech Republic.",
   wholesaleBadgeUnits: "72 units / box",
-  wholesaleBadgeMinimum: "Minimum 5 boxes",
+  wholesaleBadgeMinimum: "Volume Discounts",
   wholesaleBadgeFrozen: "Frozen delivery",
 
   wholesaleProcessTitle: "Ordering Process",
