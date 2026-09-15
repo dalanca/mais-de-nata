@@ -218,33 +218,34 @@ export default {
             salesChannel ===
             OrderSalesChannel.ConsumerWebsite
           ) {
-            try {
-              const woltState =
-                await getOrderWoltDeliveryState(
-                  result.order.id,
-                )
 
-              const deliveryAddress = [
-                [
-                  channelOrder.delivery.street,
-                  channelOrder.delivery.houseNumber,
-                ]
-                  .filter(Boolean)
-                  .join(' '),
+            const woltState =
+              await getOrderWoltDeliveryState(
+                result.order.id,
+              )
 
-                channelOrder.delivery.apartment
-                  ? `Apartment ${channelOrder.delivery.apartment}`
-                  : '',
-
-                [
-                  channelOrder.delivery.postcode,
-                  channelOrder.delivery.city,
-                ]
-                  .filter(Boolean)
-                  .join(' '),
+            const deliveryAddress = [
+              [
+                channelOrder.delivery.street,
+                channelOrder.delivery.houseNumber,
               ]
                 .filter(Boolean)
-                .join(', ')
+                .join(' '),
+
+              channelOrder.delivery.apartment
+                ? `Apartment ${channelOrder.delivery.apartment}`
+                : '',
+
+              [
+                channelOrder.delivery.postcode,
+                channelOrder.delivery.city,
+              ]
+                .filter(Boolean)
+                .join(' '),
+            ]
+              .filter(Boolean)
+              .join(', ')
+            try {
 
               await sendConsumerOrderConfirmationOnce({
                 orderId:
