@@ -5,6 +5,9 @@ import {
     isImmediateDeliveryAvailable,
 } from '../server/delivery/delivery-slots.js'
 import {
+    isDeliveryPeriodBlocked,
+} from '../server/delivery/delivery-blackouts.js'
+import {
     supabaseAdmin,
 } from '../server/database/supabase.js'
 
@@ -63,6 +66,21 @@ export default async function handler(
 
         const lastSlotStartHour =
             settings.last_slot_end_hour - 1
+        const now = new Date()
+
+        const immediateDeliveryEndsAt =
+            new Date(
+                now.getTime() +
+                settings.immediate_delivery_minutes *
+                60_000,
+            )
+
+        const immediateBlackout =
+            await isDeliveryPeriodBlocked(
+                now.toISOString(),
+                immediateDeliveryEndsAt.toISOString(),
+            )
+
         const slots =
             await Promise.all(
                 Array.from(
@@ -115,9 +133,11 @@ export default async function handler(
             date,
 
             immediateAvailable:
+                !immediateBlackout.blocked &&
                 isImmediateDeliveryAvailable(
                     settings.last_slot_end_hour,
                     settings.immediate_delivery_minutes,
+                    now,
                 ),
 
             slots,
