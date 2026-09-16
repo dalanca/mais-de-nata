@@ -82,8 +82,13 @@ export async function createWoltDelivery(
       `/v1/venues/${venueId}/deliveries`,
       {
         pickup: {
-          comment:
-            'Mais de Nata order',
+          comment: [
+            'Chateau Troja Residence.',
+            'Vyzvednutí v rezidenčním objektu, nejde o obchod.',
+            'U vstupní brány zazvoňte na číslo 46',
+            `nebo zavolejte na ${process.env.WOLT_PICKUP_PHONE ?? ''}.`,
+            'Objednávku přineseme k bráně.',
+          ].join(' '),
         },
 
         dropoff: {
