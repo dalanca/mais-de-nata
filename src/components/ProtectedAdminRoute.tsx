@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import type { ReactNode } from 'react'
-import { Navigate } from 'react-router'
+import {
+  Navigate,
+  useLocation,
+} from 'react-router'
 
 import { supabase } from '../lib/supabaseClient'
 
@@ -11,6 +14,7 @@ type ProtectedAdminRouteProps = {
 function ProtectedAdminRoute({
   children,
 }: ProtectedAdminRouteProps) {
+  const location = useLocation()
   const [isLoading, setIsLoading] = useState(true)
   const [hasAccess, setHasAccess] = useState(false)
 
@@ -86,14 +90,18 @@ function ProtectedAdminRoute({
     )
   }
 
-if (!hasAccess) {
-  return (
-    <Navigate
-      to="/admin/sign-in"
-      replace
-    />
-  )
-}
+  if (!hasAccess) {
+    const redirect = encodeURIComponent(
+      `${location.pathname}${location.search}`,
+    )
+
+    return (
+      <Navigate
+        to={`/admin/sign-in?redirect=${redirect}`}
+        replace
+      />
+    )
+  }
 
   return <>{children}</>
 }
