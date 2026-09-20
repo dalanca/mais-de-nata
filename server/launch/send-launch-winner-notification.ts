@@ -74,7 +74,7 @@ export async function sendLaunchWinnerNotification({
   const expiresAt =
     new Date(
       Date.now() +
-        14 * 24 * 60 * 60 * 1000,
+        30 * 24 * 60 * 60 * 1000,
     ).toISOString()
 
   const siteUrl =
