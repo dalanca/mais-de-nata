@@ -256,7 +256,36 @@ const cs = {
 
   comingSoonVisualLabel:
     "Čerstvě upečené v Praze",
+  /* ==========================
+     LAUNCH LIVE
+  ========================== */
 
+  launchLiveEyebrow:
+    "MAIS DE NATA JE TEĎ V PRAZE",
+
+  launchLiveTitle:
+    "Lisabon dorazil do Prahy.",
+
+  launchLiveIntro:
+    "Autentické Pastéis de Nata. Ručně vyráběné v Portugalsku a čerstvě upečené v Praze.",
+
+  launchLiveOfferEyebrow:
+    "ČERSTVĚ UPEČENÉ V PRAZE",
+
+  launchLiveOfferTitle:
+    "Připravené, když máte chuť.",
+
+  launchLiveOfferText:
+    "Objednejte si čerstvě upečené Pastéis de Nata online a nechte si je doručit přímo k vám v Praze.",
+
+  launchLiveOrderButton:
+    "OBJEDNAT",
+
+  launchLiveLearnButton:
+    "OBJEVTE NAŠE PASTÉIS",
+
+  launchLiveVisualLabel:
+    "Chuť Lisabonu v Praze",
   /* ==========================
      CART (B2C)
   ========================== */

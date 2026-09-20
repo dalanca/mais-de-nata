@@ -183,7 +183,52 @@
   font-size: 0.82rem;
   line-height: 1.55;
 }
+.comingSoonActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 32px;
+}
 
+.comingSoonPrimaryButton,
+.comingSoonSecondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.comingSoonPrimaryButton {
+  border: 1px solid #4e312d;
+  background: #4e312d;
+  color: #ffffff;
+}
+
+.comingSoonPrimaryButton:hover {
+  background: #68443e;
+  border-color: #68443e;
+}
+
+.comingSoonSecondaryButton {
+  border: 1px solid rgba(78, 49, 45, 0.35);
+  background: transparent;
+  color: #4e312d;
+}
+
+.comingSoonSecondaryButton:hover {
+  border-color: #4e312d;
+  background: #f3e9df;
+}
 .comingSoonVisual {
   position: relative;
   min-height: 760px;

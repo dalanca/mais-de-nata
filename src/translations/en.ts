@@ -411,6 +411,37 @@ const en = {
     "Freshly baked in Prague",
 
   /* ==========================
+   LAUNCH LIVE
+========================== */
+
+  launchLiveEyebrow:
+    "MAIS DE NATA IS NOW IN PRAGUE",
+
+  launchLiveTitle:
+    "Lisbon has arrived in Prague.",
+
+  launchLiveIntro:
+    "Authentic Pastéis de Nata. Handmade in Portugal and freshly baked in Prague.",
+
+  launchLiveOfferEyebrow:
+    "FRESHLY BAKED IN PRAGUE",
+
+  launchLiveOfferTitle:
+    "Ready when you are.",
+
+  launchLiveOfferText:
+    "Order your freshly baked Pastéis de Nata online and have them delivered directly to you in Prague.",
+
+  launchLiveOrderButton:
+    "ORDER NOW",
+
+  launchLiveLearnButton:
+    "DISCOVER OUR PASTÉIS",
+
+  launchLiveVisualLabel:
+    "The taste of Lisbon in Prague",
+
+  /* ==========================
      CART (B2C)
   ========================== */
 
