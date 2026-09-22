@@ -962,6 +962,16 @@ export default async function handler(
           .eq('id', updatedOrder.id)
       }
     }
+    console.log(
+      'STATUS DEBUG: confirmation block completed',
+      {
+        orderNumber: updatedOrder.order_number,
+        becameConfirmed,
+        becamePaid,
+        becameDelivered,
+        becameCancelled,
+      },
+    )
     if (
       becamePaid &&
       updatedOrder.customer_email
@@ -1855,6 +1865,10 @@ export default async function handler(
             .eq('id', updatedOrder.id)
         }
       }
+      console.log(
+        'STATUS DEBUG: returning 200',
+        updatedOrder.order_number,
+      )
       return res.status(200).json({
         success: true,
         order: updatedOrder,
