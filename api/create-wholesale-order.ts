@@ -463,6 +463,25 @@ export default async function handler(
         'Wholesale order email failed:',
         emailError,
       )
+
+      await supabaseAdmin
+        .from('orders')
+        .update({
+          order_received_email_error:
+            String(emailError.message),
+        })
+        .eq('id', order.id)
+    } else {
+      await supabaseAdmin
+        .from('orders')
+        .update({
+          order_received_email_sent_at:
+            new Date().toISOString(),
+
+          order_received_email_error:
+            null,
+        })
+        .eq('id', order.id)
     }
     /*
      * Notify Mais de Nata that a new wholesale
