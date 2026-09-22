@@ -201,6 +201,87 @@ function AdminOrders() {
       setUpdatingOrderId(null)
     }
   }
+  async function handleCancelOrder(
+    orderId: string,
+    orderNumber: string,
+  ) {
+    if (updatingOrderId) {
+      return
+    }
+
+    const confirmed = window.confirm(
+      `Cancel order ${orderNumber}?\n\nAre you sure you want to cancel this order? This action cannot be undone.`,
+    )
+
+    if (!confirmed) {
+      return
+    }
+
+    setUpdatingOrderId(orderId)
+    setActionError('')
+
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
+
+      if (sessionError || !session) {
+        throw new Error(
+          'Your admin session has expired.',
+        )
+      }
+
+      const response = await fetch(
+        '/api/admin/update-wholesale-order-status',
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization:
+              `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            orderId,
+            fulfilmentStatus: 'cancelled',
+          }),
+        },
+      )
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.error ??
+          'Unable to cancel order.',
+        )
+      }
+
+      setOrders((currentOrders) =>
+        currentOrders.map((order) =>
+          order.id === orderId
+            ? {
+              ...order,
+              fulfilment_status: 'cancelled',
+            }
+            : order,
+        ),
+      )
+    } catch (error) {
+      console.error(
+        'Admin order cancellation failed:',
+        error,
+      )
+
+      setActionError(
+        error instanceof Error
+          ? error.message
+          : 'Unable to cancel order.',
+      )
+    } finally {
+      setUpdatingOrderId(null)
+    }
+  }
   async function handleMarkDelivered(orderId: string) {
     if (updatingOrderId) {
       return
@@ -548,11 +629,39 @@ function AdminOrders() {
                           </div>
 
                           {(
-                            order.payment_status === 'pending' ||
-                            order.fulfilment_status !== 'fulfilled'
+                            order.fulfilment_status === 'pending' ||
+                            (
+                              order.fulfilment_status === 'confirmed' &&
+                              (
+                                order.payment_status === 'pending' ||
+                                order.payment_status === 'paid'
+                              )
+                            )
                           ) && (
-
                               <div className="adminOrderActions">
+
+                                {order.payment_status === 'pending' &&
+                                  (
+                                    order.fulfilment_status === 'pending' ||
+                                    order.fulfilment_status === 'confirmed'
+                                  ) && (
+                                    <button
+                                      type="button"
+                                      className="adminOrderCancelButton adminOrderActionButton"
+                                      disabled={updatingOrderId === order.id}
+                                      onClick={() =>
+                                        handleCancelOrder(
+                                          order.id,
+                                          order.order_number,
+                                        )
+                                      }
+                                    >
+                                      {updatingOrderId === order.id
+                                        ? 'Updating...'
+                                        : 'Cancel Order'}
+                                    </button>
+                                  )}
+
                                 {order.payment_status === 'pending' &&
                                   order.fulfilment_status === 'confirmed' && (
                                     <button
@@ -583,6 +692,7 @@ function AdminOrders() {
                                       : 'Confirm Order'}
                                   </button>
                                 )}
+
                                 {order.fulfilment_status === 'confirmed' &&
                                   order.payment_status === 'paid' && (
                                     <button
@@ -598,6 +708,7 @@ function AdminOrders() {
                                         : 'Mark as Delivered'}
                                     </button>
                                   )}
+
                               </div>
                             )}
                         </div>

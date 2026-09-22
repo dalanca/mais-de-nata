@@ -16,10 +16,16 @@ import {
 import { generateWholesaleProformaPdf } from '../../server/pdf/proforma.js'
 import { generateWholesaleInvoicePdf } from '../../server/pdf/invoice.js'
 
+import {
+  getEmailTranslation,
+  interpolateEmailText,
+} from '../../server/email/translations.js'
+
 const allowedFulfilmentStatuses = [
   'pending',
   'confirmed',
   'fulfilled',
+  'cancelled',
 ]
 
 const allowedPaymentStatuses = [
@@ -237,7 +243,13 @@ export default async function handler(
       fulfilmentStatus === 'confirmed' &&
       existingOrder.fulfilment_status ===
       'pending'
-
+    const becameCancelled =
+      fulfilmentStatus === 'cancelled' &&
+      existingOrder.payment_status === 'pending' &&
+      (
+        existingOrder.fulfilment_status === 'pending' ||
+        existingOrder.fulfilment_status === 'confirmed'
+      )
     const becamePaid =
       paymentStatus === 'paid' &&
       existingOrder.payment_status ===
@@ -254,6 +266,7 @@ export default async function handler(
     if (
       fulfilmentStatus &&
       !becameConfirmed &&
+      !becameCancelled &&
       !becameDelivered
     ) {
       return res.status(400).json({
@@ -411,6 +424,13 @@ export default async function handler(
 
             proforma_issued_at:
               proformaIssuedAt,
+          }
+          : {}),
+
+        ...(becameCancelled
+          ? {
+            cancelled_at:
+              new Date().toISOString(),
           }
           : {}),
 
@@ -921,6 +941,25 @@ export default async function handler(
           'Wholesale order confirmation email failed:',
           emailError,
         )
+
+        await supabaseAdmin
+          .from('orders')
+          .update({
+            customer_confirmation_email_error:
+              String(emailError.message),
+          })
+          .eq('id', updatedOrder.id)
+      } else {
+        await supabaseAdmin
+          .from('orders')
+          .update({
+            customer_confirmation_email_sent_at:
+              new Date().toISOString(),
+
+            customer_confirmation_email_error:
+              null,
+          })
+          .eq('id', updatedOrder.id)
       }
     }
     if (
@@ -1377,6 +1416,25 @@ export default async function handler(
           'Wholesale payment received email failed:',
           paymentEmailError,
         )
+
+        await supabaseAdmin
+          .from('orders')
+          .update({
+            payment_confirmation_email_error:
+              String(paymentEmailError.message),
+          })
+          .eq('id', updatedOrder.id)
+      } else {
+        await supabaseAdmin
+          .from('orders')
+          .update({
+            payment_confirmation_email_sent_at:
+              new Date().toISOString(),
+
+            payment_confirmation_email_error:
+              null,
+          })
+          .eq('id', updatedOrder.id)
       }
     }
 
