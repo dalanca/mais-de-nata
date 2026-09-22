@@ -1706,73 +1706,75 @@ export default async function handler(
           })
           .eq('id', updatedOrder.id)
       }
-      if (
-        becameCancelled &&
-        updatedOrder.customer_email
-      ) {
-        const language =
-          updatedOrder.document_language === 'cs'
-            ? 'cs'
-            : 'en'
+    }
 
-        const translations =
-          getEmailTranslation(language)
-            .wholesaleCancellation
+    if (
+      becameCancelled &&
+      updatedOrder.customer_email
+    ) {
+      const language =
+        updatedOrder.document_language === 'cs'
+          ? 'cs'
+          : 'en'
 
-        const customerName = escapeHtml(
-          updatedOrder.customer_name,
+      const translations =
+        getEmailTranslation(language)
+          .wholesaleCancellation
+
+      const customerName = escapeHtml(
+        updatedOrder.customer_name,
+      )
+
+      const companyName = escapeHtml(
+        updatedOrder.company_name,
+      )
+
+      const orderNumber = escapeHtml(
+        updatedOrder.order_number,
+      )
+
+      const values = {
+        customerName,
+        companyName,
+        orderNumber,
+      }
+
+      const subject =
+        interpolateEmailText(
+          translations.subject,
+          values,
         )
 
-        const companyName = escapeHtml(
-          updatedOrder.company_name,
+      const title =
+        interpolateEmailText(
+          translations.title,
+          values,
         )
 
-        const orderNumber = escapeHtml(
-          updatedOrder.order_number,
+      const previewText =
+        interpolateEmailText(
+          translations.preview,
+          values,
         )
 
-        const values = {
-          customerName,
-          companyName,
-          orderNumber,
-        }
+      const greeting =
+        interpolateEmailText(
+          translations.greeting,
+          values,
+        )
 
-        const subject =
-          interpolateEmailText(
-            translations.subject,
-            values,
-          )
+      const message =
+        interpolateEmailText(
+          translations.message,
+          values,
+        )
 
-        const title =
-          interpolateEmailText(
-            translations.title,
-            values,
-          )
-
-        const previewText =
-          interpolateEmailText(
-            translations.preview,
-            values,
-          )
-
-        const greeting =
-          interpolateEmailText(
-            translations.greeting,
-            values,
-          )
-
-        const message =
-          interpolateEmailText(
-            translations.message,
-            values,
-          )
-
-        const html =
-          createBrandedEmailLayout({
-            title,
-            previewText,
-            language,
-            content: `
+      const html =
+        createBrandedEmailLayout({
+          title,
+          previewText,
+          language,
+          content: `
             <p style="margin: 0 0 18px;">
               ${greeting}
             </p>
@@ -1825,64 +1827,64 @@ export default async function handler(
               <strong>Mais de Nata</strong>
             </p>
           `,
-          })
-
-        const {
-          error: cancellationEmailError,
-        } = await resend.emails.send({
-          from: EMAIL_FROM,
-          to: updatedOrder.customer_email,
-          replyTo: EMAIL_REPLY_TO,
-          subject,
-          html,
         })
 
-        if (cancellationEmailError) {
-          console.error(
-            'Wholesale cancellation email failed:',
-            cancellationEmailError,
-          )
+      const {
+        error: cancellationEmailError,
+      } = await resend.emails.send({
+        from: EMAIL_FROM,
+        to: updatedOrder.customer_email,
+        replyTo: EMAIL_REPLY_TO,
+        subject,
+        html,
+      })
 
-          await supabaseAdmin
-            .from('orders')
-            .update({
-              cancellation_email_error:
-                String(
-                  cancellationEmailError.message,
-                ),
-            })
-            .eq('id', updatedOrder.id)
-        } else {
-          await supabaseAdmin
-            .from('orders')
-            .update({
-              cancellation_email_sent_at:
-                new Date().toISOString(),
+      if (cancellationEmailError) {
+        console.error(
+          'Wholesale cancellation email failed:',
+          cancellationEmailError,
+        )
 
-              cancellation_email_error:
-                null,
-            })
-            .eq('id', updatedOrder.id)
-        }
+        await supabaseAdmin
+          .from('orders')
+          .update({
+            cancellation_email_error:
+              String(
+                cancellationEmailError.message,
+              ),
+          })
+          .eq('id', updatedOrder.id)
+      } else {
+        await supabaseAdmin
+          .from('orders')
+          .update({
+            cancellation_email_sent_at:
+              new Date().toISOString(),
+
+            cancellation_email_error:
+              null,
+          })
+          .eq('id', updatedOrder.id)
       }
-      console.log(
-        'STATUS DEBUG: returning 200',
-        updatedOrder.order_number,
-      )
-      return res.status(200).json({
-        success: true,
-        order: updatedOrder,
-      })
-    } catch (error) {
-      console.error(
-        'Unable to update wholesale order status:',
-        error,
-      )
-
-      return res.status(500).json({
-        success: false,
-        error:
-          'Unable to update wholesale order status',
-      })
     }
+    console.log(
+      'STATUS DEBUG: returning 200',
+      updatedOrder.order_number,
+    )
+    return res.status(200).json({
+      success: true,
+      order: updatedOrder,
+    })
+  } catch (error) {
+    console.error(
+      'Unable to update wholesale order status:',
+      error,
+    )
+
+    return res.status(500).json({
+      success: false,
+      error:
+        'Unable to update wholesale order status',
+    })
   }
+}
