@@ -71,70 +71,59 @@ function AdminOrders() {
 
   const [actionError, setActionError] = useState('')
 
-  useEffect(() => {
-    let isMounted = true
+  async function loadOrders() {
+    try {
+      const {
+        data: { session },
+        error: sessionError,
+      } = await supabase.auth.getSession()
 
-    async function loadOrders() {
-      try {
-        const {
-          data: { session },
-          error: sessionError,
-        } = await supabase.auth.getSession()
-
-        if (sessionError || !session) {
-          throw new Error(
-            'Your admin session has expired.',
-          )
-        }
-
-        const response = await fetch(
-          '/api/admin/wholesale-orders',
-          {
-            method: 'GET',
-            headers: {
-              Authorization:
-                `Bearer ${session.access_token}`,
-            },
-          },
+      if (sessionError || !session) {
+        throw new Error(
+          'Your admin session has expired.',
         )
-
-        const result = await response.json()
-
-        if (!response.ok || !result.success) {
-          throw new Error(
-            result.error ??
-            'Unable to load wholesale orders.',
-          )
-        }
-
-        if (isMounted) {
-          setOrders(result.orders ?? [])
-        }
-      } catch (error) {
-        console.error(
-          'Admin wholesale orders load failed:',
-          error,
-        )
-
-        if (isMounted) {
-          setLoadError(
-            error instanceof Error
-              ? error.message
-              : 'Unable to load wholesale orders.',
-          )
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoading(false)
-        }
       }
-    }
 
+      const response = await fetch(
+        '/api/admin/wholesale-orders',
+        {
+          method: 'GET',
+          headers: {
+            Authorization:
+              `Bearer ${session.access_token}`,
+          },
+        },
+      )
+
+      const result = await response.json()
+
+      if (!response.ok || !result.success) {
+        throw new Error(
+          result.error ??
+          'Unable to load wholesale orders.',
+        )
+      }
+
+      setOrders(result.orders ?? [])
+      setLoadError('')
+    } catch (error) {
+      console.error(
+        'Admin wholesale orders load failed:',
+        error,
+      )
+
+      setLoadError(
+        error instanceof Error
+          ? error.message
+          : 'Unable to load wholesale orders.',
+      )
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
     loadOrders()
-
-    return () => {
-      isMounted = false
-    }
   }, [])
   async function handleConfirmOrder(orderId: string) {
     setUpdatingOrderId(orderId)
@@ -176,16 +165,7 @@ function AdminOrders() {
         )
       }
 
-      setOrders((currentOrders) =>
-        currentOrders.map((order) =>
-          order.id === orderId
-            ? {
-              ...order,
-              fulfilment_status: 'confirmed',
-            }
-            : order,
-        ),
-      )
+      await loadOrders()
     } catch (error) {
       console.error(
         'Admin order confirmation failed:',
