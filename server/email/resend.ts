@@ -13,3 +13,7 @@ export const EMAIL_FROM =
 
 export const EMAIL_REPLY_TO =
   'orders@maisdenata.com'
+
+export const ADMIN_NOTIFICATION_EMAIL =
+  process.env.ADMIN_NOTIFICATION_EMAIL ||
+  'admin@maisdenata.com'

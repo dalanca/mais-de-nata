@@ -6,6 +6,7 @@ import {
   resend,
   EMAIL_FROM,
   EMAIL_REPLY_TO,
+  ADMIN_NOTIFICATION_EMAIL,
 } from '../server/email/resend.js'
 
 import {
@@ -463,7 +464,128 @@ export default async function handler(
         emailError,
       )
     }
+    /*
+     * Notify Mais de Nata that a new wholesale
+     * order is waiting for review.
+     *
+     * A notification failure must not prevent
+     * the customer's order from being created.
+     */
+    const adminEmailHtml =
+      createBrandedEmailLayout({
+        title: 'New wholesale order received',
 
+        previewText:
+          `${customer.company_name} placed wholesale order ${order.order_number}.`,
+
+        content: `
+          <p style="margin: 0 0 18px;">
+            A new wholesale order has been submitted
+            and is waiting for review.
+          </p>
+
+          <table
+            role="presentation"
+            width="100%"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              width: 100%;
+              margin: 0 0 24px;
+              background-color: #fffaf2;
+              border: 1px solid #eadfce;
+              border-radius: 12px;
+            "
+          >
+            <tr>
+              <td
+                style="
+                  padding: 18px 20px;
+                  color: #2b1d16;
+                  font-size: 14px;
+                  line-height: 1.7;
+                "
+              >
+                <strong>Company:</strong>
+                ${customer.company_name}<br />
+
+                <strong>Order number:</strong>
+                ${order.order_number}<br />
+
+                <strong>Contact:</strong>
+                ${contactName.trim()}<br />
+
+                <strong>Email:</strong>
+                ${email.trim().toLowerCase()}<br />
+
+                <strong>Cartons:</strong>
+                ${boxes}<br />
+
+                <strong>Total:</strong>
+                ${formattedTotal}
+              </td>
+            </tr>
+          </table>
+
+          <p style="margin: 0;">
+            Please review this order in the Mais de Nata
+            wholesale administration.
+          </p>
+        `,
+
+        language: 'en',
+      })
+
+    const {
+      error: adminEmailError,
+    } = await resend.emails.send({
+      from: EMAIL_FROM,
+      to: ADMIN_NOTIFICATION_EMAIL,
+      replyTo: email.trim().toLowerCase(),
+      subject:
+        `New wholesale order — ${customer.company_name} — ${order.order_number}`,
+      html: adminEmailHtml,
+
+      attachments: [
+        {
+          filename:
+            'mais-de-nata-logo.png',
+
+          content:
+            logoContent.toString('base64'),
+
+          contentId:
+            'mais-de-nata-logo',
+        },
+      ],
+    })
+
+    if (adminEmailError) {
+      console.error(
+        'Wholesale admin notification failed:',
+        adminEmailError,
+      )
+
+      await supabaseAdmin
+        .from('orders')
+        .update({
+          admin_notification_email_error:
+            String(adminEmailError.message),
+        })
+        .eq('id', order.id)
+    } else {
+      await supabaseAdmin
+        .from('orders')
+        .update({
+          admin_notification_email_sent_at:
+            new Date().toISOString(),
+
+          admin_notification_email_error:
+            null,
+        })
+        .eq('id', order.id)
+    }
     return res.status(200).json({
       success: true,
       orderNumber:
