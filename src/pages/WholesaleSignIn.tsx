@@ -57,11 +57,27 @@ if (profileError) {
 }
 
 if (!wholesaleCustomer) {
-  await supabase.auth.signOut()
+  const {
+    data: linkedCompany,
+    error: linkedCompanyError,
+  } = await supabase
+    .from('wholesale_customers')
+    .select('id')
+    .eq('auth_user_id', user.id)
+    .limit(1)
+    .maybeSingle()
 
-  throw new Error(
-    'No active wholesale company is linked to this account.',
-  )
+  if (linkedCompanyError) {
+    throw linkedCompanyError
+  }
+
+  if (!linkedCompany) {
+    window.location.href = '/register'
+    return
+  }
+
+  await supabase.auth.signOut()
+  throw new Error(t.wholesaleSignInInactive)
 }
       window.location.href = '/wholesale-account'
     } catch (err) {
