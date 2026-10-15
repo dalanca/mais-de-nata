@@ -5,6 +5,7 @@ import './OrderFresh.css'
 import heroNata from '../assets/images/hero-nata.jpg'
 import { useLanguage } from '../LanguageContext'
 import SiteHeader from '../components/SiteHeader'
+import WebsiteDeliveryNotice from '../components/WebsiteDeliveryNotice'
 
 type BoxSize = 4 | 6 | 12 | 18
 const boxPrices: Record<BoxSize, number> = {
@@ -156,7 +157,7 @@ function handleAddToCart() {
           </div>
         </div>
       </section>
-
+      <WebsiteDeliveryNotice />
       <section className="orderFreshContent">
         <div className="orderFreshConfigurator">
           <div className="orderFreshPanel">
