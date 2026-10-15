@@ -5,6 +5,7 @@ import { useLanguage } from '../LanguageContext'
 import nataProductIcon from '../assets/images/nata-product-icon.jpg'
 import SiteHeader from '../components/SiteHeader'
 import parsePhoneNumber from 'libphonenumber-js'
+import WebsiteDeliveryNotice from '../components/WebsiteDeliveryNotice'
 
 type CheckoutStep = 1 | 2 | 3
 
@@ -722,6 +723,7 @@ export default function Checkout() {
       <main className="checkoutPage">
         <section className="checkoutContainer">
           <h1>{t.checkoutTitle}</h1>
+          <WebsiteDeliveryNotice />
 
           <div className="checkoutProgress">
             <div
