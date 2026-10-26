@@ -4,6 +4,7 @@ import "./Home.css";
 import tramBg from "./assets/images/lisbon-tram.png";
 import nataTransparent from "./assets/images/nata-transparent.png";
 import logo from "./assets/images/mais-de-nata-logo.png";
+import WebsiteDeliveryNotice from './components/WebsiteDeliveryNotice'
 
 import { useLanguage } from "./LanguageContext";
 
@@ -74,7 +75,7 @@ function App() {
           <p>{t.heroText}</p>
         </div>
       </section>
-
+      <WebsiteDeliveryNotice />
       <section id="why-nata" className="nataStorySection">
         <div className="nataStoryIntro">
           <p className="sectionLabel">{t.whyTitle}</p>

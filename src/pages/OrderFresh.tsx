@@ -5,6 +5,7 @@ import './OrderFresh.css'
 import heroNata from '../assets/images/hero-nata.jpg'
 import { useLanguage } from '../LanguageContext'
 import SiteHeader from '../components/SiteHeader'
+import WebsiteDeliveryNotice from '../components/WebsiteDeliveryNotice'
 
 type BoxSize = 4 | 6 | 12 | 18
 const boxPrices: Record<BoxSize, number> = {
@@ -156,7 +157,18 @@ function handleAddToCart() {
           </div>
         </div>
       </section>
+      <WebsiteDeliveryNotice />
+            {/* 
+        B2C DIRECT ORDERING DISABLED — OCTOBER 2026
 
+        Customers now order exclusively through Wolt
+        because of Wolt Drive delivery costs.
+
+        Original ordering interface retained for possible
+        future reactivation.
+      */}
+
+      {false && (
       <section className="orderFreshContent">
         <div className="orderFreshConfigurator">
           <div className="orderFreshPanel">
@@ -318,6 +330,7 @@ function handleAddToCart() {
           </aside>
         </div>
       </section>
+      )}
     </main>
   </>
 )
