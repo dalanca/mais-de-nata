@@ -34,11 +34,28 @@ const trustedBoxPrices: Record<BoxSize, number> = {
 }
 
 const allowedBoxSizes: BoxSize[] = [4, 6, 12, 18]
+// B2C website ordering disabled October 2026.
+// B2C website ordering disabled October 2026.
+// Set to true only if direct website ordering is restored.
+const ENABLE_DIRECT_B2C_ORDERING: boolean =
+  process.env.ENABLE_DIRECT_B2C_ORDERING === 'true'
 
 export default async function handler(
   request: any,
   response: any
 ) {
+  // Block direct B2C checkout while preserving the
+  // original implementation for future reactivation.
+  if (!ENABLE_DIRECT_B2C_ORDERING) {
+    return response.status(403).json({
+      success: false,
+      code: 'DIRECT_B2C_ORDERING_DISABLED',
+      message: 'Please order through Wolt.',
+      woltUrl:
+        'https://wolt.com/cs/cze/prague/restaurant/mais-de-nata-1',
+    })
+  }
+
   if (request.method !== 'POST') {
     return response.status(405).json({
       success: false,

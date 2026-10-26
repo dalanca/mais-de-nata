@@ -158,6 +158,17 @@ function handleAddToCart() {
         </div>
       </section>
       <WebsiteDeliveryNotice />
+            {/* 
+        B2C DIRECT ORDERING DISABLED — OCTOBER 2026
+
+        Customers now order exclusively through Wolt
+        because of Wolt Drive delivery costs.
+
+        Original ordering interface retained for possible
+        future reactivation.
+      */}
+
+      {false && (
       <section className="orderFreshContent">
         <div className="orderFreshConfigurator">
           <div className="orderFreshPanel">
@@ -319,6 +330,7 @@ function handleAddToCart() {
           </aside>
         </div>
       </section>
+      )}
     </main>
   </>
 )

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   BrowserRouter,
+  Navigate,
   Route,
   Routes,
 } from 'react-router'
@@ -12,8 +13,7 @@ import Register from './pages/Register'
 import ProductInformation from './pages/ProductInformation'
 import OurPasteis from './pages/OurPasteis'
 import OrderFresh from './pages/OrderFresh'
-import Cart from './pages/Cart'
-import Checkout from './pages/Checkout'
+
 import WholesaleAccount from './pages/WholesaleAccount'
 import { LanguageProvider } from './LanguageContext'
 import './App.css'
@@ -122,14 +122,22 @@ ReactDOM.createRoot(
   element={<OrderFresh />}
 />
 
+{/* 
+  B2C DIRECT ORDERING DISABLED — OCTOBER 2026
+
+  Customers now order exclusively through Wolt.
+  Original Cart and Checkout components are retained
+  for possible future reactivation.
+*/}
+
 <Route
   path="/cart"
-  element={<Cart />}
+  element={<Navigate to="/order-fresh" replace />}
 />
 
 <Route
   path="/checkout"
-  element={<Checkout />}
+  element={<Navigate to="/order-fresh" replace />}
 />
 
 
